@@ -417,11 +417,18 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
     }
   };
   window.loginUser=async function(){
-    const un=$('loginUser').value.trim().toLowerCase(),pw=$('loginPass').value;
-    let email=un;
-    if(!un.includes('@')){const {data,error}=await sb.from('profiles').select('email,username,active').ilike('username',un).maybeSingle(); if(!error && data?.active!==false && data?.email) email=data.email;}
-    if(!email.includes('@')) return showAuthError('No active account was found for that username.');
-    const {error}=await sb.auth.signInWithPassword({email,password:pw});
+    const raw=$('loginUser').value.trim(), un=raw.toLowerCase(), pw=$('loginPass').value;
+    if(!un||!pw)return showAuthError('Please enter your username/email and password.');
+    let email=raw;
+    if(!un.includes('@')){
+      // Username lookup must use a SECURITY DEFINER RPC because profiles is protected by RLS.
+      // This returns only the email for an active, exact username; it does not expose profile rows.
+      const {data,error}=await sb.rpc('get_login_email_by_username',{p_username:raw});
+      if(!error && data) email=data;
+      else if(error) return showAuthError('Username lookup is not available yet. Please run the V14 Sales SQL update in Supabase.');
+    }
+    if(!String(email).includes('@')) return showAuthError('No active account was found for that username.');
+    const {error}=await sb.auth.signInWithPassword({email:String(email),password:pw});
     if(error)return showAuthError(error.message);
     await loadServer(); loadUserQuotes(); loadPackageCosts(); $('authScreen').style.display='none'; $('appRoot').style.display='block'; applyUserUI(); init();
   };
