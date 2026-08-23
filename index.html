@@ -5,7 +5,7 @@
 <meta name="theme-color" content="#061a3a"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Karvan e Asal">
 <link rel="manifest" href="manifest.json"><title>Karvan e Asal — Umrah Manager</title>
 <style>
-:root{--navy:#061a3a;--navy2:#0a2d62;--gold:#c9962d;--gold2:#e6b84f;--bg:#f4f6fa;--card:#fff;--line:#dfe4ec;--muted:#667085;--green:#16845a;--red:#d92d20;--soft:#edf4ff;--shadow:0 8px 26px rgba(6,26,58,.08)}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#f7faff 0%,#ffffff 45%,#f8fafc 100%);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#101828}button,input,select{font:inherit}button{cursor:pointer}.app{min-height:100vh}.topbar{height:64px;background:rgba(6,26,58,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#fff;display:flex;align-items:center;padding:0 14px;gap:10px;position:fixed;top:0;left:0;right:0;z-index:100;box-shadow:0 4px 18px rgba(0,0,0,.14);border-bottom:1px solid rgba(230,184,79,.22)}.topbar img{height:46px;width:46px;object-fit:contain}.topbar .title{font-weight:900;letter-spacing:.4px}.topbar .sub{font-size:9px;opacity:.72;margin-top:2px}.user-chip{margin-left:auto;display:flex;align-items:center;gap:8px;min-width:0}.user-role{font-size:9px;opacity:.75}.logout{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;border-radius:8px;padding:7px 10px;font-weight:800;font-size:10px}.layout{display:flex;max-width:1400px;margin:auto;padding-top:64px}.sidebar{width:220px;background:rgba(6,26,58,.94);color:#fff;min-height:calc(100vh - 64px);padding:15px 10px;position:sticky;top:64px;align-self:flex-start}.navicon{width:22px;min-width:22px;text-align:center;font-size:17px;line-height:1}.navitem{display:flex;gap:10px;align-items:center;padding:11px 12px;border-radius:10px;margin:3px 0;color:#b8c7dd;border:0;background:none;width:100%;text-align:left;font-size:12px;font-weight:800}.navitem.active,.navitem:hover{background:#c9962d;color:#fff}.content{flex:1;padding:18px;min-width:0}.page{display:none;position:relative;overflow:hidden}.page.active{display:block}.page::before{content:"";position:absolute;inset:72px 0 0;background-image:url("assets/logo.png");background-repeat:no-repeat;background-position:center 45%;background-size:min(58vw,520px);opacity:.035;pointer-events:none;z-index:0}.page>*{position:relative;z-index:1}.pageBrand{display:flex;align-items:center;gap:11px;padding:10px 13px;margin:0 0 12px;border:1px solid #e7d5a7;border-radius:14px;background:linear-gradient(90deg,#ffffff 0%,#fffaf0 55%,#f7fbff 100%);box-shadow:0 6px 20px rgba(6,26,58,.06)}.pageBrand img{width:48px;height:48px;object-fit:contain;display:block}.pageBrand .brandMain{font-size:14px;font-weight:950;letter-spacing:.8px;color:var(--navy)}.pageBrand .brandSub{font-size:9px;font-weight:800;color:#8b6a24;letter-spacing:.7px;margin-top:2px}.pageBrand .brandLine{margin-left:auto;height:32px;width:4px;border-radius:9px;background:linear-gradient(180deg,var(--gold2),var(--navy))}.pagehead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.pagehead h1{margin:0;color:var(--navy);font-size:23px}.pagehead p{margin:4px 0 0;color:var(--muted);font-size:11px}.card{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow);padding:15px;margin-bottom:13px}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.field label{display:block;font-size:10px;font-weight:900;color:#475467;margin:0 0 5px}.field input,.field select{width:100%;border:1px solid #cfd6e1;border-radius:9px;padding:10px 11px;background:#fff;min-height:40px;outline:none}.field input:focus,.field select:focus{border-color:var(--gold);box-shadow:0 0 0 3px #c9962d18}.btn{border:1px solid transparent;border-radius:9px;padding:10px 13px;font-size:11px;font-weight:900}.primary{background:var(--navy);color:#fff}.gold{background:linear-gradient(135deg,#b57e19,#d7a63b);color:#fff}.outline{background:#fff;border-color:#cdd5df;color:var(--navy)}.danger{background:#fff;border-color:#f0b4b0;color:var(--red)}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.metric{background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px}.metric .k{font-size:10px;color:var(--muted)}.metric .v{font-size:20px;font-weight:900;color:var(--navy);margin-top:5px}.steps{display:flex;gap:6px;overflow:auto;margin-bottom:12px;position:relative;z-index:20;pointer-events:auto}.steps .step{position:relative;z-index:21;pointer-events:auto}.step{flex:0 0 auto;white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:99px;padding:8px 11px;font-size:10px;font-weight:900;color:#667085}.step.active{background:var(--navy);color:#fff;border-color:var(--navy)}.section-title{font-size:14px;font-weight:900;color:var(--navy);margin:0 0 9px}.muted{font-size:10px;color:var(--muted)}.paxgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.pax{border:1px solid var(--line);border-radius:12px;padding:11px}.pax b{display:block;color:var(--navy);font-size:12px}.counter{display:flex;gap:6px;align-items:center;margin-top:9px}.counter button{width:35px;height:35px;border:0;border-radius:8px;background:#eef2f7;color:var(--navy);font-weight:900}.counter input{flex:1;text-align:center;border:1px solid var(--line);border-radius:8px;height:35px}.stay,.flight,.service{border:1px solid var(--line);border-radius:12px;padding:11px;margin-top:9px}.stayhead{display:flex;justify-content:space-between;align-items:center}.badge{font-size:9px;font-weight:900;background:#eef5ff;color:#1457a6;border-radius:99px;padding:5px 8px}.rate{font-size:10px;color:var(--muted);margin-top:7px}.tablewrap{overflow:auto}.table{width:100%;border-collapse:collapse;font-size:10px}.table th,.table td{padding:9px 7px;border-bottom:1px solid var(--line);white-space:nowrap;text-align:left}.table th{background:#f7f8fa;color:#475467;font-weight:900}.table td strong{color:var(--navy)}.tabs{display:flex;gap:6px;overflow:auto;margin-bottom:10px}.tabs button{white-space:nowrap}.tabs .on{background:var(--navy);color:#fff}.totalbox{background:linear-gradient(135deg,#f8fbff,#fff9ea);border:1px solid #e8d39b;border-radius:13px;padding:12px}.row{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:11px}.row:last-child{border-bottom:0}.row b{color:var(--navy)}.grand{font-size:16px;font-weight:900}.invoice{background:#fff;border:1px solid #d8c27d;padding:18px;position:relative;overflow:hidden}.invoice::after{content:"";position:absolute;inset:0;background:url("assets/logo.png") center/420px no-repeat;opacity:.025;pointer-events:none}.invoice>*{position:relative;z-index:1}.invoiceLogo{width:72px;height:72px;object-fit:contain;display:block;margin-bottom:6px}.invoiceBrand{display:flex;align-items:flex-start;gap:12px}.invoicehead{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px;border-bottom:2px solid var(--navy);padding-bottom:12px}.invoice h2{margin:0;color:var(--navy);font-size:19px}.invoice h3{color:var(--navy);font-size:12px;margin:14px 0 6px}.mobileNav{display:none;background:rgba(255,255,255,.78)!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}.notice{background:#fff9e6;border:1px solid #efd184;border-radius:10px;padding:10px;font-size:10px;color:#6b4d00}.modal{position:fixed;inset:0;background:#0007;display:none;align-items:center;justify-content:center;z-index:100;padding:15px}.modal.open{display:flex}.modalbox{background:#fff;border-radius:15px;width:min(520px,100%);padding:16px;box-shadow:0 20px 60px #0004}.modalhead{display:flex;justify-content:space-between;align-items:center}.modalhead h3{margin:0;color:var(--navy)}
+:root{--navy:#061a3a;--navy2:#0a2d62;--gold:#c9962d;--gold2:#e6b84f;--bg:#f4f6fa;--card:#fff;--line:#dfe4ec;--muted:#667085;--green:#16845a;--red:#d92d20;--soft:#edf4ff;--shadow:0 8px 26px rgba(6,26,58,.08)}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#f7faff 0%,#ffffff 45%,#f8fafc 100%);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#101828}button,input,select{font:inherit}button{cursor:pointer}.app{min-height:100vh}.topbar{height:64px;background:rgba(6,26,58,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#fff;display:flex;align-items:center;padding:0 14px;gap:10px;position:fixed;top:0;left:0;right:0;z-index:100;box-shadow:0 4px 18px rgba(0,0,0,.14);border-bottom:1px solid rgba(230,184,79,.22)}.topbar img{height:46px;width:46px;object-fit:contain}.topbar .title{font-weight:900;letter-spacing:.4px}.topbar .sub{font-size:9px;opacity:.72;margin-top:2px}.user-chip{margin-left:auto;display:flex;align-items:center;gap:8px;min-width:0}.user-role{font-size:9px;opacity:.75}.logout{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;border-radius:8px;padding:7px 10px;font-weight:800;font-size:10px}.layout{display:flex;max-width:1400px;margin:auto;padding-top:64px}.sidebar{width:220px;background:rgba(6,26,58,.94);color:#fff;min-height:calc(100vh - 64px);padding:15px 10px;position:sticky;top:64px;align-self:flex-start}.navicon{width:22px;min-width:22px;text-align:center;font-size:17px;line-height:1}.navitem{display:flex;gap:10px;align-items:center;padding:11px 12px;border-radius:10px;margin:3px 0;color:#b8c7dd;border:0;background:none;width:100%;text-align:left;font-size:12px;font-weight:800}.navitem.active,.navitem:hover{background:#c9962d;color:#fff}.content{flex:1;padding:18px;min-width:0}.page{display:none;position:relative;overflow:hidden}.page.active{display:block}.page::before{content:"";position:absolute;inset:72px 0 0;background-image:url("assets/logo.png");background-repeat:no-repeat;background-position:center 45%;background-size:min(58vw,520px);opacity:.035;pointer-events:none;z-index:0}.page>*{position:relative;z-index:1}.pageBrand{display:flex;align-items:center;gap:11px;padding:10px 13px;margin:0 0 12px;border:1px solid #e7d5a7;border-radius:14px;background:linear-gradient(90deg,#ffffff 0%,#fffaf0 55%,#f7fbff 100%);box-shadow:0 6px 20px rgba(6,26,58,.06)}.pageBrand img{width:48px;height:48px;object-fit:contain;display:block}.pageBrand .brandMain{font-size:14px;font-weight:950;letter-spacing:.8px;color:var(--navy)}.pageBrand .brandSub{font-size:9px;font-weight:800;color:#8b6a24;letter-spacing:.7px;margin-top:2px}.pageBrand .brandLine{margin-left:auto;height:32px;width:4px;border-radius:9px;background:linear-gradient(180deg,var(--gold2),var(--navy))}.pagehead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.pagehead h1{margin:0;color:var(--navy);font-size:23px}.pagehead p{margin:4px 0 0;color:var(--muted);font-size:11px}.card{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow);padding:15px;margin-bottom:13px}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.field label{display:block;font-size:10px;font-weight:900;color:#475467;margin:0 0 5px}.field input,.field select{width:100%;border:1px solid #cfd6e1;border-radius:9px;padding:10px 11px;background:#fff;min-height:40px;outline:none}.field input:focus,.field select:focus{border-color:var(--gold);box-shadow:0 0 0 3px #c9962d18}.btn{border:1px solid transparent;border-radius:9px;padding:10px 13px;font-size:11px;font-weight:900}.primary{background:var(--navy);color:#fff}.gold{background:linear-gradient(135deg,#b57e19,#d7a63b);color:#fff}.outline{background:#fff;border-color:#cdd5df;color:var(--navy)}.danger{background:#fff;border-color:#f0b4b0;color:var(--red)}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.metric{background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px}.metric .k{font-size:10px;color:var(--muted)}.metric .v{font-size:20px;font-weight:900;color:var(--navy);margin-top:5px}.steps{display:flex;gap:6px;overflow:auto;margin-bottom:12px;position:relative;z-index:20;pointer-events:auto}.steps .step{position:relative;z-index:21;pointer-events:auto}.step{flex:0 0 auto;white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:99px;padding:8px 11px;font-size:10px;font-weight:900;color:#667085}.step.active{background:var(--navy);color:#fff;border-color:var(--navy)}.section-title{font-size:14px;font-weight:900;color:var(--navy);margin:0 0 9px}.muted{font-size:10px;color:var(--muted)}.paxgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.pax{border:1px solid var(--line);border-radius:12px;padding:11px}.pax b{display:block;color:var(--navy);font-size:12px}.counter{display:flex;gap:6px;align-items:center;margin-top:9px}.counter button{width:35px;height:35px;border:0;border-radius:8px;background:#eef2f7;color:var(--navy);font-weight:900}.counter input{flex:1;text-align:center;border:1px solid var(--line);border-radius:8px;height:35px}.stay,.flight,.service{border:1px solid var(--line);border-radius:12px;padding:11px;margin-top:9px}.stayhead{display:flex;justify-content:space-between;align-items:center}.badge{font-size:9px;font-weight:900;background:#eef5ff;color:#1457a6;border-radius:99px;padding:5px 8px}.rate{font-size:10px;color:var(--muted);margin-top:7px}.tablewrap{overflow:auto}.table{width:100%;border-collapse:collapse;font-size:10px}.table th,.table td{padding:9px 7px;border-bottom:1px solid var(--line);white-space:nowrap;text-align:left}.table th{background:#f7f8fa;color:#475467;font-weight:900}.table td strong{color:var(--navy)}.tabs{display:flex;gap:6px;overflow:auto;margin-bottom:10px}.tabs button{white-space:nowrap}.tabs .on{background:var(--navy);color:#fff}.totalbox{background:linear-gradient(135deg,#f8fbff,#fff9ea);border:1px solid #e8d39b;border-radius:13px;padding:12px}.row{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:11px}.row:last-child{border-bottom:0}.row b{color:var(--navy)}.grand{font-size:16px;font-weight:900}.invoice{background:#fff;border:1px solid #d8c27d;padding:18px;position:relative;overflow:hidden}.invoice::after{content:"";position:absolute;inset:0;background:url("assets/logo.png") center/420px no-repeat;opacity:.025;pointer-events:none}.invoice>*{position:relative;z-index:1}.invoiceLogo{width:72px;height:72px;object-fit:contain;display:block;margin-bottom:6px}.invoiceBrand{display:flex;align-items:flex-start;gap:12px}.invoicehead{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px;border-bottom:2px solid var(--navy);padding-bottom:12px}.invoice h2{margin:0;color:var(--navy);font-size:19px}.invoice h3{color:var(--navy);font-size:12px;margin:14px 0 6px}.mobileNav{display:none;background:rgba(255,255,255,.78)!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}.notice{background:#fff9e6;border:1px solid #efd184;border-radius:10px;padding:10px;font-size:10px;color:#6b4d00}.modal{position:fixed;inset:0;background:#0007;display:none;align-items:center;justify-content:center;z-index:100;padding:12px;overflow:hidden;-webkit-overflow-scrolling:touch}.modal.open{display:flex}.modalbox{background:#fff;border-radius:15px;width:min(620px,100%);max-height:calc(100dvh - 24px);overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:16px;box-shadow:0 20px 60px #0004;box-sizing:border-box}.modalbox .grid,.modalbox .grid2{min-width:0}.modalbox input,.modalbox select,.modalbox button{max-width:100%;box-sizing:border-box}@media(max-width:600px){.modal{align-items:flex-start;padding:8px}.modalbox{width:100%;max-height:calc(100dvh - 16px);border-radius:12px;padding:13px}.modalbox .grid,.modalbox .grid2{grid-template-columns:1fr;gap:9px}.modalbox [style*="grid-column:span 2"]{grid-column:auto!important}.modalbox .modalhead{position:sticky;top:-13px;background:#fff;z-index:5;padding:4px 0 9px;border-bottom:1px solid var(--line);margin-bottom:8px}.modalbox .modalhead button{flex:0 0 auto}}.modalhead{display:flex;justify-content:space-between;align-items:center}.modalhead h3{margin:0;color:var(--navy)}
 .choicegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.choicecard{border:1px solid #e1d3a8;border-radius:16px;background:linear-gradient(145deg,#fff,#f7fbff);padding:20px;box-shadow:var(--shadow);cursor:pointer;transition:.18s}.choicecard:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(6,26,58,.12);border-color:var(--gold)}.choiceicon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--navy),#0c4c94);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:10px}.choicecard h3{margin:0;color:var(--navy);font-size:15px}.choicecard p{font-size:10px;color:var(--muted);line-height:1.5}.pcresult{border:1px solid #e3d09a;border-radius:14px;background:linear-gradient(135deg,#f8fbff,#fff9e9);padding:13px}.pcrow{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid #e7e7e7;font-size:11px}.pcrow:last-child{border-bottom:0}.pcgrand{font-size:17px;font-weight:950;color:var(--navy)}.mini-note{font-size:9px;color:var(--muted)}
 @media(max-width:700px){.choicegrid{grid-template-columns:1fr}.choicecard{padding:15px}.pcrow{font-size:10px}}
 @media(max-width:650px){.auth-card{padding:20px}.auth-grid{grid-template-columns:1fr}.auth-grid .field[style*="grid-column"]{grid-column:span 1!important}}
@@ -16,6 +16,7 @@
 .voucher{background:#fff;border:1px solid #9aa4b2;padding:10px;color:#111;font-family:Arial,sans-serif;font-size:10px}.voucher{position:relative;overflow:hidden}.voucher::after{content:"";position:absolute;inset:0;background:url("assets/logo.png") center/390px no-repeat;opacity:.028;pointer-events:none;z-index:0}.voucher>*{position:relative;z-index:1}.voucherHead{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:8px;align-items:center;border-bottom:1px solid #8c96a5;padding-bottom:7px}.voucherLogo{width:62px;height:62px;object-fit:contain;display:block}.voucherBrand{display:flex;align-items:center;gap:8px}.voucherBrandText{font-size:12px;font-weight:900;color:var(--navy)}.voucherTitle{color:var(--navy);font-size:15px;font-weight:900}.voucherSub{font-size:9px;color:#333}.voucherSampleTitle{text-align:center;font-size:14px;font-weight:900}.voucherMeta{font-size:9px;line-height:1.5}.voucherMeta b{font-weight:800}.vtable{width:100%;border-collapse:collapse;margin-top:7px;font-size:8.5px}.vtable th,.vtable td{border:1px solid #9aa4b2;padding:4px 3px;vertical-align:middle}.vtable th{background:#f0f2f5;font-weight:900}.vsectionTitle{background:#061a3a;color:#fff;font-weight:900;text-align:center;padding:4px;margin-top:8px}.vblue{background:#1f386d!important;color:#fff}.vblue td,.vblue th{background:#1f386d;color:#fff}.vsmall{font-size:8px;color:#333}.voucherNote{border:1px solid #9aa4b2;padding:6px;margin-top:7px;min-height:55px}.voucherNoPrint{margin-bottom:10px;position:relative;z-index:20}.voucherNoPrint button{position:relative;z-index:21;pointer-events:auto}.voucher .row{display:flex;justify-content:space-between;gap:10px;padding:3px 0}.voucher .grand{font-size:11px;font-weight:900}.voucherGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:8px}.voucherSection{border:1px solid #9aa4b2;border-radius:0;padding:7px;margin-top:7px}.voucherSection h3{margin:0 0 5px;color:var(--navy);font-size:10px}.savebar{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}@media(max-width:650px){.voucher{padding:6px;font-size:8px}.voucherHead{grid-template-columns:1fr 1.2fr 1fr}.voucherLogo{width:45px;height:45px}.vtable{font-size:7px}.vtable th,.vtable td{padding:3px 2px}.voucherGrid{grid-template-columns:1fr}}
 
 .auth-screen{position:fixed;inset:0;z-index:1000;background:linear-gradient(135deg,#061a3a 0%,#0b3973 55%,#c9962d 160%);display:flex;align-items:center;justify-content:center;padding:18px}.auth-card{width:min(430px,100%);background:#fff;border-radius:22px;box-shadow:0 25px 80px #0006;padding:26px;border:1px solid #e7d5a7}.auth-logo{width:110px;height:110px;object-fit:contain;display:block;margin:0 auto 10px}.auth-title{text-align:center;color:var(--navy);font-size:23px;font-weight:950}.auth-sub{text-align:center;color:#667085;font-size:11px;margin:5px 0 18px}.auth-error{display:none;background:#fff0ef;border:1px solid #f3b3ae;color:#a51b14;border-radius:9px;padding:9px;font-size:10px;margin-bottom:10px}.linkbtn{border:0;background:none;color:#0b3973;font-size:10px;font-weight:900;padding:2px 4px;text-decoration:underline}.auth-section-title{margin:0 0 12px;color:var(--navy);font-size:16px}.auth-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.auth-grid .field input,.auth-grid .field select{min-height:38px;padding:8px 9px}.user-chip{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:10px;font-weight:800}.user-chip .logout{background:#ffffff18;border:1px solid #ffffff35;color:#fff;border-radius:8px;padding:7px 9px}.adminOnly{display:none}.user-role{font-size:9px;opacity:.7}.admin-table td,.admin-table th{font-size:10px}.admin-badge{display:inline-block;padding:4px 7px;border-radius:99px;background:#eef5ff;color:#1457a6;font-weight:900}.admin-badge.off{background:#fff0ef;color:#b42318}
+.modal-open{overflow:hidden!important;touch-action:none}@media(max-width:600px){.modalbox{scrollbar-width:thin}}
 </style></head>
 <body>
 <div class="auth-screen" id="authScreen">
@@ -56,9 +57,8 @@
       <div class="field"><label>Email Address *</label><input id="resetEmail" type="email" placeholder="Registered email"></div>
       <div class="field" style="margin-top:10px"><label>Security Question</label><select id="resetQuestion"></select></div>
       <div class="field" style="margin-top:10px"><label>Security Answer *</label><input id="resetAnswer" placeholder="Enter your answer"></div>
-      <div class="field" style="margin-top:10px"><label>New Password *</label><input id="resetPass" type="password" placeholder="Minimum 8 characters"></div>
-      <div class="field" style="margin-top:10px"><label>Confirm New Password *</label><input id="resetPass2" type="password" placeholder="Confirm password"></div>
-      <button class="btn gold" style="width:100%;margin-top:12px" onclick="resetPasswordBySecurity()">Reset Password</button>
+      <div class="notice" style="margin-top:10px">After your security answer is verified, a secure Supabase password-reset link will be sent to your registered email. You will choose the new password from that secure link.</div>
+      <button class="btn gold" style="width:100%;margin-top:12px" onclick="resetPasswordBySecurity()">Verify & Send Reset Link</button>
       <button class="btn outline" style="width:100%;margin-top:8px" onclick="showAuthPanel('login')">← Back to Login</button>
     </div>
     <div class="muted" style="text-align:center;margin-top:12px">Secure access • Your quotations are stored separately for each account.</div>
@@ -192,6 +192,39 @@ else if(step===5)w.innerHTML=adminBar+`<h3 class="section-title">Flight Details<
 else if(step===6)w.innerHTML=adminBar+`<h3 class="section-title">Transportation & Voucher Details</h3><div class="grid"><div class="field"><label>Transport Company</label><input value="${esc(q.transportCompany)}" oninput="q.transportCompany=this.value"></div><div class="field"><label>Transport Type</label><select onchange="q.transportType=this.value"><option ${q.transportType==='Company Transport'?'selected':''}>Company Transport</option><option ${q.transportType==='Self Transport'?'selected':''}>Self Transport</option><option ${q.transportType==='Private Transport'?'selected':''}>Private Transport</option></select></div><div class="field" style="grid-column:span 2"><label>Description</label><input value="${esc(q.transportDescription)}" oninput="q.transportDescription=this.value"></div></div>${q.transport.map((x,i)=>serviceRow(x,i,'transport')).join('')}<button class="btn outline" onclick="q.transport.push({name:transport[0]?.name||'',qty:1});renderWizard()">+ Add Transport</button>${nav()}`;
 else if(step===7)w.innerHTML=adminBar+`<h3 class="section-title">Extras / Services</h3>${extras.map(x=>`<label style="display:block;padding:9px;border:1px solid var(--line);border-radius:9px;margin:7px 0;font-size:11px"><input type="checkbox" style="width:auto;min-height:0" ${q.extras.includes(x.name)?'checked':''} onchange="toggleExtra('${esc(x.name)}',this.checked)"> ${esc(x.name)} <span class="muted">(${sar(x.price)} ${esc(x.unit)})</span></label>`).join('')}${nav()}`;}
 function pax(label,key){return `<div class="pax"><b>${label}</b><div class="counter"><button onclick="q.${key}=Math.max(0,q.${key}-1);renderWizard()">−</button><input readonly value="${q[key]}"><button onclick="q.${key}++;renderWizard()">+</button></div></div>`}
+function airportOpts(value, countryFilter){
+  const list = countryFilter ? airports.filter(a=>a[3]===countryFilter) : airports;
+  return '<option value="">Select airport</option>' + list.map(a=>`<option value="${esc(a[1])}" ${value===a[1]?'selected':''}>${esc(a[0])} (${a[1]}) — ${esc(a[2])}</option>`).join('');
+}
+function flightHTML(f,i){
+  f=f||{};
+  const type=f.type||'Outbound';
+  const from=f.from||'';
+  const to=f.to||'';
+  const via=f.via||'Direct';
+  return `<div class="flight" style="margin-top:10px">
+    <div class="stayhead"><b>Flight Leg ${i+1}</b><button type="button" class="btn danger" onclick="removeFlight(${i})">Remove</button></div>
+    <div class="grid" style="margin-top:9px">
+      <div class="field"><label>Flight Type</label><select onchange="q.flights[${i}].type=this.value;renderWizard()">
+        ${['Outbound','Return','Transit','Transit Return'].map(x=>`<option value="${x}" ${type===x?'selected':''}>${x}</option>`).join('')}
+      </select></div>
+      <div class="field"><label>Airline</label><select onchange="q.flights[${i}].airline=this.value">${airlineOpts(f.airline)}</select></div>
+      <div class="field"><label>Flight #</label><input value="${esc(f.flight||'')}" placeholder="e.g. PK-739" oninput="q.flights[${i}].flight=this.value"></div>
+      <div class="field"><label>Routing</label><select onchange="q.flights[${i}].via=this.value"><option ${via==='Direct'?'selected':''}>Direct</option><option ${via==='Dubai'?'selected':''}>Dubai</option><option ${via==='Doha'?'selected':''}>Doha</option><option ${via==='Istanbul'?'selected':''}>Istanbul</option><option ${via==='Abu Dhabi'?'selected':''}>Abu Dhabi</option><option ${via==='Muscat'?'selected':''}>Muscat</option><option ${via==='Other'?'selected':''}>Other</option></select></div>
+      <div class="field"><label>From Airport</label><select onchange="q.flights[${i}].from=this.value">${airportOpts(from)}</select></div>
+      <div class="field"><label>To Airport</label><select onchange="q.flights[${i}].to=this.value">${airportOpts(to)}</select></div>
+      <div class="field"><label>Travel Date</label><input type="date" value="${esc(f.date||'')}" onchange="q.flights[${i}].date=this.value"></div>
+      <div class="field"><label>Departure Time</label><input type="time" value="${esc(f.timeOut||'')}" onchange="q.flights[${i}].timeOut=this.value"></div>
+      <div class="field"><label>Arrival Time</label><input type="time" value="${esc(f.timeIn||'')}" onchange="q.flights[${i}].timeIn=this.value"></div>
+    </div>
+  </div>`;
+}
+function removeFlight(i){
+  if(!q||!Array.isArray(q.flights))return;
+  if(q.flights.length<=1){alert('At least one flight leg must remain.');return;}
+  if(!confirm('Remove this flight leg?'))return;
+  q.flights.splice(i,1);renderWizard();
+}
 function stayHTML(s,i){let hs=hotels.filter(h=>h[0]===s.city),h=hotelObj(s);return `<div class="stay"><div class="stayhead"><b>${i+1}. ${s.city}</b><span class="badge">${stayNights(s)} nights</span></div><div class="grid" style="margin-top:8px"><div class="field"><label>Check-in</label><input type="date" value="${s.in||''}" onchange="q.stays[${i}].in=this.value;renderWizard()"></div><div class="field"><label>Check-out</label><input type="date" value="${s.out||''}" onchange="q.stays[${i}].out=this.value;renderWizard()"></div><div class="field" style="grid-column:span 2"><label>Hotel</label><select onchange="q.stays[${i}].hotel=this.value;renderWizard()"><option value="">Select hotel</option>${hs.map(x=>`<option ${s.hotel===x[1]?'selected':''}>${esc(x[1])}</option>`).join('')}</select></div><div class="field"><label>Room Type</label><select onchange="q.stays[${i}].room=this.value;renderWizard()">${roomTypes.map(r=>`<option ${s.room===r?'selected':''}>${r}</option>`).join('')}</select></div><div class="field"><label>Rooms (0 = sharing)</label><input type="number" min="0" value="${s.rooms||0}" onchange="q.stays[${i}].rooms=+this.value||0;renderWizard()"></div><div class="field"><label>Meal</label><select onchange="q.stays[${i}].meal=this.value"><option ${s.meal==='RO'||!s.meal?'selected':''}>RO</option><option ${s.meal==='BB'?'selected':''}>BB</option><option ${s.meal==='HB'?'selected':''}>HB</option><option ${s.meal==='FB'?'selected':''}>FB</option></select></div><div class="field"><label>Confirmation #</label><input value="${esc(s.conf||'')}" oninput="q.stays[${i}].conf=this.value"></div></div><div class="rate">Distance: <b>${esc(h?.[3]||'—')}</b> • Location: ${esc(h?.[2]||'—')} • Cost: <b>${sar(hotelCost(s))}</b></div></div>`}
 function selectedVisaRule(v,duration){return (v?.durations||[]).find(d=>Number(d.days)===Number(duration))||null}
 function visaForGroup(){let n=q.adults+q.childBed+q.childNoBed,v=visaTypes.find(x=>x.name===q.visa)||visaTypes[0];if(!v)return 0;let d=selectedVisaRule(v,q.visaDuration);if(d&&Number(d.pkr)>0)return Number(d.pkr)/fx;let r=(v.adultRules||[]).find(x=>x.active!==false&&n>=Number(x.min)&&n<=Number(x.max));return r?Number(r.price||0):0}
@@ -269,16 +302,16 @@ function addAirline(){let n=prompt('Airline name');if(!n)return;let code=prompt(
 function editAirline(i){airlines[i][0]=prompt('Airline name',airlines[i][0])||airlines[i][0];airlines[i][2]=prompt('IATA airline code',airlines[i][2])||airlines[i][2];localStorage.setItem('keaAirlinesV10',JSON.stringify(airlines));renderAirlines()}
 function saveData(){localStorage.setItem('keaVisaV10',JSON.stringify(visaTypes));localStorage.setItem('keaHotelsV10',JSON.stringify(hotels));localStorage.setItem('keaTransportV10',JSON.stringify(transport));localStorage.setItem('keaExtrasV10',JSON.stringify(extras));localStorage.setItem('keaAirlinesV10',JSON.stringify(airlines))}
 function renderHotels(btn){if(btn){document.querySelectorAll('#hotels .tabs button').forEach(x=>x.classList.remove('on'));btn.classList.add('on')}$('hotelTable').innerHTML=hotels.filter(h=>h[0]===hotelCity).map(h=>`<tr><td><strong>${esc(h[1])}</strong></td><td>${esc(h[2])}</td><td>${esc(h[3])}</td>${roomTypes.map((r,i)=>`<td>${h[4+i]??'N/A'}</td>`).join('')}<td><button class="btn outline" onclick="openHotelModal(${hotels.indexOf(h)})">Edit</button></td></tr>`).join('')}
-function openHotelModal(index=null){let h=index===null?null:hotels[index];$('modalbox').innerHTML=`<div class="modalhead"><h3>${h?'Edit Hotel':'Add New Hotel'}</h3><button class="btn outline" onclick="closeModal()">×</button></div><div class="grid" style="margin-top:12px"><div class="field"><label>City</label><select id="hmCity"><option ${h?.[0]==='Makkah'?'selected':''}>Makkah</option><option ${h?.[0]==='Madinah'?'selected':''}>Madinah</option></select></div><div class="field"><label>Hotel Name</label><input id="hmName" value="${esc(h?.[1]||'')}"></div><div class="field"><label>Location</label><input id="hmLoc" value="${esc(h?.[2]||'')}"></div><div class="field"><label>Distance</label><input id="hmDist" value="${esc(h?.[3]||'')}"></div>${roomTypes.map((r,i)=>`<div class="field"><label>${r} Rate (SAR)</label><input id="hm${i}" type="number" value="${h?.[4+i]??''}"></div>`).join('')}</div><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:13px"><button class="btn outline" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveHotel(${index===null?'null':index})">Save Hotel</button></div>`;$('modal').classList.add('open')}
+function openHotelModal(index=null){let h=index===null?null:hotels[index];$('modalbox').innerHTML=`<div class="modalhead"><h3>${h?'Edit Hotel':'Add New Hotel'}</h3><button class="btn outline" onclick="closeModal()">×</button></div><div class="grid" style="margin-top:12px"><div class="field"><label>City</label><select id="hmCity"><option ${h?.[0]==='Makkah'?'selected':''}>Makkah</option><option ${h?.[0]==='Madinah'?'selected':''}>Madinah</option></select></div><div class="field"><label>Hotel Name</label><input id="hmName" value="${esc(h?.[1]||'')}"></div><div class="field"><label>Location</label><input id="hmLoc" value="${esc(h?.[2]||'')}"></div><div class="field"><label>Distance</label><input id="hmDist" value="${esc(h?.[3]||'')}"></div>${roomTypes.map((r,i)=>`<div class="field"><label>${r} Rate (SAR)</label><input id="hm${i}" type="number" value="${h?.[4+i]??''}"></div>`).join('')}</div><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:13px"><button class="btn outline" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveHotel(${index===null?'null':index})">Save Hotel</button></div>`;$('modal').classList.add('open');document.body.classList.add('modal-open')}
 function saveHotel(index){let h=[$('hmCity').value,$('hmName').value,$('hmLoc').value,$('hmDist').value,...roomTypes.map((r,i)=>{let v=$('hm'+i).value;return v===''?null:+v})];if(!h[1])return alert('Hotel name is required.');if(index===null)hotels.push(h);else hotels[index]=h;saveData();closeModal();renderHotels()}
 function renderVisa(){$('visaTable').innerHTML=visaTypes.map((v,i)=>`<tr><td><strong>${esc(v.name)}</strong></td><td colspan="5">${(v.durations||[]).map(d=>`<span class="badge" style="margin:2px;display:inline-block">${d.days} Days: PKR ${Number(d.pkr).toLocaleString()} / SAR ${(Number(d.pkr)/fx).toFixed(2)}</span>`).join('')}</td><td>${v.child}</td><td>${v.infant}</td><td>${v.active?'Active':'Inactive'}</td><td><button class="btn outline" onclick="openVisaModal(${i})">Edit</button> <button class="btn danger" onclick="deleteVisaType(${i})">Delete</button></td></tr>`).join('')}
 function deleteVisaType(index){let v=visaTypes[index];if(!v)return;if(!confirm('Delete visa type “'+v.name+'”?'))return;if(!confirm('Confirm again: permanently remove this visa type and its duration/group pricing?'))return;visaTypes.splice(index,1);saveData();renderVisa();}
 function addVisaDurationRow(){let wrap=$('vmDurations'),d=document.createElement('div');d.className='grid2';d.style.marginTop='6px';d.innerHTML=`<div class="field"><label>Duration (Days)</label><input class="vmdays" type="number" min="1" value="30"></div><div class="field"><label>Price (PKR)</label><input class="vmpkr" type="number" min="0" value="0"></div><button type="button" class="btn danger" style="grid-column:span 2" onclick="if(confirm('Remove this duration/category?'))this.parentElement.remove()">Remove</button>`;wrap.appendChild(d)}
 function addVisaGroupRow(){let wrap=$('vmGroups'),d=document.createElement('div');d.className='grid';d.style.marginTop='6px';d.innerHTML=`<div class="field"><label>Display Name</label><input class="vmglabel" value="New Group"></div><div class="field"><label>From Pax</label><input class="vmgmin" type="number" min="1" value="1"></div><div class="field"><label>To Pax</label><input class="vmgmax" type="number" min="1" value="1"></div><div class="field"><label>Price (SAR / Person)</label><input class="vmgprice" type="number" min="0" value="0"></div><button type="button" class="btn danger" style="grid-column:span 2" onclick="if(confirm('Remove this passenger group?'))this.parentElement.remove()">Remove</button>`;wrap.appendChild(d)}
-function openVisaModal(index=null){let v=index===null?{name:'',adult:[0,0,0,0,0],adultRules:[],child:0,infant:0,durations:[{days:30,pkr:0}],active:true}:visaTypes[index];let rows=(v.durations||[]).map(d=>`<div class="grid2" style="margin-top:6px"><div class="field"><label>Duration (Days)</label><input class="vmdays" type="number" min="1" value="${d.days}"></div><div class="field"><label>Price (PKR)</label><input class="vmpkr" type="number" min="0" value="${d.pkr}"></div><button type="button" class="btn danger" style="grid-column:span 2" onclick="if(confirm('Remove this duration/category?'))this.parentElement.remove()">Remove</button></div>`).join('');let rules=(v.adultRules&&v.adultRules.length?v.adultRules:[{label:'05–49',min:5,max:49,price:v.adult?.[0]||0,active:true},{label:'04',min:4,max:4,price:v.adult?.[1]||0,active:true},{label:'03',min:3,max:3,price:v.adult?.[2]||0,active:true},{label:'02',min:2,max:2,price:v.adult?.[3]||0,active:true},{label:'01',min:1,max:1,price:v.adult?.[4]||0,active:true}]);let groupRows=rules.map(r=>`<div class="grid" style="margin-top:6px"><div class="field"><label>Display Name</label><input class="vmglabel" value="${esc(r.label)}"></div><div class="field"><label>From Pax</label><input class="vmgmin" type="number" min="1" value="${r.min}"></div><div class="field"><label>To Pax</label><input class="vmgmax" type="number" min="1" value="${r.max}"></div><div class="field"><label>Price (SAR / Person)</label><input class="vmgprice" type="number" min="0" value="${r.price}"></div><button type="button" class="btn danger" style="grid-column:span 2" onclick="if(confirm('Remove this passenger group?'))this.parentElement.remove()">Remove</button></div>`).join('');$('modalbox').innerHTML=`<div class="modalhead"><h3>${index===null?'Add New Visa Type':'Edit Visa Type & Prices'}</h3><button class="btn outline" onclick="closeModal()">×</button></div><div class="grid2" style="margin-top:12px"><div class="field"><label>Visa Type Name</label><input id="vmName" value="${esc(v.name)}"></div><div class="field"><label>Status</label><select id="vmActive"><option value="1" ${v.active?'selected':''}>Active</option><option value="0" ${!v.active?'selected':''}>Inactive</option></select></div></div><h4 style="color:var(--navy);margin:14px 0 7px">Visa Duration / Category Prices</h4><div id="vmDurations">${rows}</div><button type="button" class="btn outline" style="margin-top:8px" onclick="addVisaDurationRow()">+ Add Duration / Category</button><div class="notice" style="margin-top:10px">You can rename, edit, add or remove every duration/category. Prices are entered in PKR and automatically shown in SAR at 1 SAR = ${fx} PKR.</div><h4 style="color:var(--navy);margin:14px 0 7px">Adult Passenger Group Rules</h4><div id="vmGroups">${groupRows}</div><button type="button" class="btn outline" style="margin-top:8px" onclick="addVisaGroupRow()">+ Add Passenger Group</button><div class="notice" style="margin-top:10px">You can rename or remove groups such as 05–49 Pax, 04 Pax, 03 Pax, 02 Pax and 01 Pax, or create your own ranges.</div><div class="grid2" style="margin-top:10px"><div class="field"><label>Child Visa (SAR)</label><input id="vchild" type="number" value="${v.child}"></div><div class="field"><label>Infant Visa (SAR)</label><input id="vinfant" type="number" value="${v.infant}"></div></div><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:13px"><button class="btn outline" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveVisa(${index===null?'null':index})">Save Changes</button></div>`;$('modal').classList.add('open')}
+function openVisaModal(index=null){let v=index===null?{name:'',adult:[0,0,0,0,0],adultRules:[],child:0,infant:0,durations:[{days:30,pkr:0}],active:true}:visaTypes[index];let rows=(v.durations||[]).map(d=>`<div class="grid2" style="margin-top:6px"><div class="field"><label>Duration (Days)</label><input class="vmdays" type="number" min="1" value="${d.days}"></div><div class="field"><label>Price (PKR)</label><input class="vmpkr" type="number" min="0" value="${d.pkr}"></div><button type="button" class="btn danger" style="grid-column:span 2" onclick="if(confirm('Remove this duration/category?'))this.parentElement.remove()">Remove</button></div>`).join('');let rules=(v.adultRules&&v.adultRules.length?v.adultRules:[{label:'05–49',min:5,max:49,price:v.adult?.[0]||0,active:true},{label:'04',min:4,max:4,price:v.adult?.[1]||0,active:true},{label:'03',min:3,max:3,price:v.adult?.[2]||0,active:true},{label:'02',min:2,max:2,price:v.adult?.[3]||0,active:true},{label:'01',min:1,max:1,price:v.adult?.[4]||0,active:true}]);let groupRows=rules.map(r=>`<div class="grid" style="margin-top:6px"><div class="field"><label>Display Name</label><input class="vmglabel" value="${esc(r.label)}"></div><div class="field"><label>From Pax</label><input class="vmgmin" type="number" min="1" value="${r.min}"></div><div class="field"><label>To Pax</label><input class="vmgmax" type="number" min="1" value="${r.max}"></div><div class="field"><label>Price (SAR / Person)</label><input class="vmgprice" type="number" min="0" value="${r.price}"></div><button type="button" class="btn danger" style="grid-column:span 2" onclick="if(confirm('Remove this passenger group?'))this.parentElement.remove()">Remove</button></div>`).join('');$('modalbox').innerHTML=`<div class="modalhead"><h3>${index===null?'Add New Visa Type':'Edit Visa Type & Prices'}</h3><button class="btn outline" onclick="closeModal()">×</button></div><div class="grid2" style="margin-top:12px"><div class="field"><label>Visa Type Name</label><input id="vmName" value="${esc(v.name)}"></div><div class="field"><label>Status</label><select id="vmActive"><option value="1" ${v.active?'selected':''}>Active</option><option value="0" ${!v.active?'selected':''}>Inactive</option></select></div></div><h4 style="color:var(--navy);margin:14px 0 7px">Visa Duration / Category Prices</h4><div id="vmDurations">${rows}</div><button type="button" class="btn outline" style="margin-top:8px" onclick="addVisaDurationRow()">+ Add Duration / Category</button><div class="notice" style="margin-top:10px">You can rename, edit, add or remove every duration/category. Prices are entered in PKR and automatically shown in SAR at 1 SAR = ${fx} PKR.</div><h4 style="color:var(--navy);margin:14px 0 7px">Adult Passenger Group Rules</h4><div id="vmGroups">${groupRows}</div><button type="button" class="btn outline" style="margin-top:8px" onclick="addVisaGroupRow()">+ Add Passenger Group</button><div class="notice" style="margin-top:10px">You can rename or remove groups such as 05–49 Pax, 04 Pax, 03 Pax, 02 Pax and 01 Pax, or create your own ranges.</div><div class="grid2" style="margin-top:10px"><div class="field"><label>Child Visa (SAR)</label><input id="vchild" type="number" value="${v.child}"></div><div class="field"><label>Infant Visa (SAR)</label><input id="vinfant" type="number" value="${v.infant}"></div></div><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:13px"><button class="btn outline" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveVisa(${index===null?'null':index})">Save Changes</button></div>`;$('modal').classList.add('open');document.body.classList.add('modal-open')}
 function saveVisa(index){let durations=[...document.querySelectorAll('#vmDurations .grid2')].map(r=>({days:Number(r.querySelector('.vmdays')?.value)||0,pkr:Number(r.querySelector('.vmpkr')?.value)||0})).filter(d=>d.days>0);let adultRules=[...document.querySelectorAll('#vmGroups .grid')].map(r=>({label:(r.querySelector('.vmglabel')?.value||'').trim(),min:Number(r.querySelector('.vmgmin')?.value)||0,max:Number(r.querySelector('.vmgmax')?.value)||0,price:Number(r.querySelector('.vmgprice')?.value)||0,active:true})).filter(r=>r.label&&r.min>0&&r.max>=r.min);let adult=[0,0,0,0,0];adultRules.forEach(r=>{if(r.min>=5)adult[0]=r.price;else if(r.min===4&&r.max===4)adult[1]=r.price;else if(r.min===3&&r.max===3)adult[2]=r.price;else if(r.min===2&&r.max===2)adult[3]=r.price;else if(r.min===1&&r.max===1)adult[4]=r.price;});let v={name:$('vmName').value.trim(),adult,adultRules,child:+$('vchild').value||0,infant:+$('vinfant').value||0,durations,active:$('vmActive').value==='1'};if(!v.name)return alert('Visa type is required.');if(!durations.length)return alert('Add at least one duration/category.');if(!adultRules.length)return alert('Add at least one passenger group rule.');if(index===null)visaTypes.push(v);else visaTypes[index]=v;saveData();closeModal();renderVisa()}
-function closeModal(){$('modal').classList.remove('open')}
-function renderFlightManager(){$('flightManager').innerHTML=`<div class="notice">Select an airline from the dropdown in the quotation. The list includes major Pakistan, Saudi, UAE, Türkiye and connecting carriers and can be expanded from Settings. Airport fields use IATA and country codes.</div><div style="margin-top:10px"><button class="btn primary" onclick="showPage('calculator');step=5;renderWizard()">Open Flight Entry</button></div>`}
+function closeModal(){$('modal').classList.remove('open');document.body.classList.remove('modal-open')}
+function renderFlightManager(){if(!$(`flightManager`))return;$(`flightManager`).innerHTML=`<div class="notice">Manage flight details used by New Booking. Airlines can be selected from the built-in list, and airports use internationally recognized IATA codes.</div><div style="margin-top:10px"><button type="button" class="btn primary" onclick="showPage('calculator');step=5;renderWizard()">Open Flight Entry</button></div>`}
 function serviceRow(x,i,kind){let arr=kind==='transport'?transport:extras;return `<div class="service"><div class="grid"><div class="field" style="grid-column:span 2"><label>Service</label><select onchange="q.${kind}[${i}].name=this.value;renderWizard()">${arr.filter(a=>a.active).map(a=>`<option ${x.name===a.name?'selected':''}>${esc(a.name)}</option>`).join('')}</select></div><div class="field"><label>Quantity</label><input type="number" value="${x.qty||1}" onchange="q.${kind}[${i}].qty=+this.value||0"></div></div></div>`}
 function renderSimple(kind){let arr=kind==='transport'?transport:extras;$(kind==='transport'?'transportManager':'extrasManager').innerHTML=`<div class="tablewrap"><table class="table"><tr><th>Name</th><th>Price</th><th>Unit</th><th>Status</th><th>Action</th></tr>${arr.map((x,i)=>`<tr><td><strong>${esc(x.name)}</strong></td><td>${x.price}</td><td>${esc(x.unit)}</td><td>${x.active?'Active':'Inactive'}</td><td><button class="btn outline" onclick="editSimple('${kind}',${i})">Edit</button></td></tr>`).join('')}</table></div>`}
 function addSimple(kind){let n=prompt('Name');if(!n)return;let p=+prompt('Price (SAR)','0')||0,u=prompt('Unit','per person')||'per person',a=kind==='transport'?transport:extras;a.push({name:n,price:p,unit:u,active:true});saveData();renderSimple(kind)}
@@ -472,6 +505,549 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
   window.logoutUser=async function(){await sb.auth.signOut();sessionStorage.removeItem(SESSION_KEY);location.reload();};
   window.resetPasswordBySecurity=async function(){onlineError('For online accounts, use the secure password-reset email flow.');};
   setTimeout(()=>window.initAuthOnline(),0);
+})();
+</script>
+
+
+<style>
+/* V14 Sales consolidated mobile/topbar hardening */
+.topbar{background:rgba(6,26,58,.72)!important;backdrop-filter:blur(18px)!important;-webkit-backdrop-filter:blur(18px)!important}
+.topbar .title{color:#fff}.topbar .sub{color:#e6b84f}
+.user-chip{max-width:42vw;overflow:hidden}.user-chip>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:650px){
+ .topbar{height:58px!important;padding:0 7px!important}
+ .topbar img{width:38px!important;height:38px!important;flex:0 0 38px}
+ .topbar .title{font-size:10px!important}.topbar .sub{font-size:6.5px!important}
+ .user-chip{max-width:48vw!important}.user-chip .user-role{display:none}
+ .logout{padding:6px 7px!important;font-size:8px!important}
+ .content{padding-top:10px}
+ .pagehead{min-width:0}.pagehead>div{min-width:0}.pagehead h1{white-space:normal}
+}
+.modal{overflow:hidden!important;touch-action:none}
+.modalbox{touch-action:pan-y!important;overscroll-behavior:contain!important}
+</style>
+<script>
+/* ================= V14 SALES CONSOLIDATED ONLINE HARDENING ================= */
+(function(){
+  'use strict';
+  const KEYMAP={
+    fx:'fx', hotels:'hotels', visaTypes:'visaTypes', airlines:'airlines',
+    transport:'transport', extras:'extras'
+  };
+  const LOCAL_KEYS={
+    fx:'keaFxV14',hotels:'keaHotelsV10',visaTypes:'keaVisaV10',
+    airlines:'keaAirlinesV10',transport:'keaTransportV10',extras:'keaExtrasV10'
+  };
+  let hydrating=false, installed=false;
+
+  function online(){return !!window.KARVAN_ONLINE?.enabled&&!!window.KARVAN_ONLINE.sb}
+  function sb(){return window.KARVAN_ONLINE.sb}
+  function admin(){return typeof isSuperAdmin==='function'&&isSuperAdmin()}
+  function msg(s){try{onlineError(s)}catch(e){alert(s)}}
+  function json(v){try{return JSON.parse(v)}catch(e){return null}}
+
+  async function upsertConfig(key,value){
+    if(!online()||!admin()||hydrating)return;
+    const {data:{user}}=await sb().auth.getUser(); if(!user)return;
+    const {error}=await sb().from('app_config').upsert({key,value,updated_by:user.id,updated_at:new Date().toISOString()});
+    if(error)console.error('[V14 config]',key,error);
+  }
+
+  async function loadConfig(){
+    if(!online())return;
+    const {data:{user}}=await sb().auth.getUser(); if(!user)return;
+    const r=await sb().from('app_config').select('key,value').in('key',Object.values(KEYMAP));
+    if(r.error){console.error('[V14 config load]',r.error);return}
+    const rows=Object.fromEntries((r.data||[]).map(x=>[x.key,x.value]));
+    hydrating=true;
+    try{
+      for(const [localName,remoteKey] of Object.entries(KEYMAP)){
+        const remote=rows[remoteKey];
+        if(remote===undefined||remote===null)continue;
+        let empty=(Array.isArray(remote)&&remote.length===0);
+        if(remoteKey==='fx')empty=!Number(remote);
+        const local=window[localName];
+        if(empty&&admin()&&local && (!Array.isArray(local)||local.length)){
+          await upsertConfig(remoteKey,local);
+        }else if(!empty){
+          if(localName==='fx') window.fx=Number(remote)||75;
+          else window[localName]=Array.isArray(remote)?remote:local;
+        }
+      }
+      if(typeof renderVisa==='function')renderVisa();
+      if(typeof renderHotels==='function')renderHotels();
+      if(typeof renderAirlines==='function')renderAirlines();
+      if(typeof renderRecycleBin==='function')renderRecycleBin();
+      const fi=document.getElementById('fxInput');if(fi)fi.value=window.fx||75;
+    }finally{hydrating=false}
+  }
+
+  async function syncAllConfig(){
+    if(!online()||!admin()||hydrating)return;
+    await Promise.all([
+      upsertConfig('fx',Number(window.fx)||75),
+      upsertConfig('hotels',window.hotels||[]),
+      upsertConfig('visaTypes',window.visaTypes||[]),
+      upsertConfig('airlines',window.airlines||[]),
+      upsertConfig('transport',window.transport||[]),
+      upsertConfig('extras',window.extras||[])
+    ]);
+  }
+
+  /* Config changes are centrally stored. localStorage remains only a UI cache. */
+  const baseSaveData=window.saveData;
+  window.saveData=function(){
+    if(online()&&!admin())return;
+    if(typeof baseSaveData==='function')baseSaveData();
+    syncAllConfig().catch(e=>console.error('[V14 config sync]',e));
+  };
+
+  const baseSet=localStorage.setItem.bind(localStorage);
+  localStorage.setItem=function(k,v){
+    baseSet(k,v);
+    if(!hydrating&&online()&&admin()){
+      const map={
+        keaFxV14:'fx',keaHotelsV10:'hotels',keaVisaV10:'visaTypes',
+        keaAirlinesV10:'airlines',keaTransportV10:'transport',keaExtrasV10:'extras'
+      };
+      if(map[k])upsertConfig(map[k],map[k]==='fx'?Number(v):json(v)).catch(console.error);
+    }
+  };
+
+  /* Exchange rate: single source of truth, default 75. */
+  window.saveFx=async function(){
+    if(!admin())return msg('Only Super Admin can change the exchange rate.');
+    const value=Number(document.getElementById('fxInput')?.value);
+    if(!value||value<=0)return msg('Enter a valid SAR to PKR exchange rate.');
+    window.fx=value;
+    baseSet('keaFxV14',String(value));
+    await upsertConfig('fx',value);
+    if(typeof renderVisa==='function')renderVisa();
+    if(typeof renderWizard==='function')renderWizard();
+    if(typeof renderPackageCost==='function')renderPackageCost();
+    alert('Exchange rate saved online: 1 SAR = '+value+' PKR.');
+  };
+
+  /* Visa: duration and passenger-group pricing are deliberately separate.
+     Only Visa uses duration price per person and never uses hotel/group pricing. */
+  window.v14VisaIsOnly=function(v){return String(v?.name||'').trim().toLowerCase()==='only visa'}
+  window.v14FindGroup=function(v,n){
+    const rules=(v?.adultRules||[]).filter(r=>r.active!==false&&Number(r.min)>0&&Number(r.max)>=Number(r.min));
+    return rules.find(r=>n>=Number(r.min)&&n<=Number(r.max))||null;
+  };
+  window.visaForGroup=function(){
+    const v=visaTypes.find(x=>x.name===q.visa)||visaTypes[0]; if(!v)return 0;
+    if(v14VisaIsOnly(v)){const d=selectedVisaRule(v,q.visaDuration);return d&&Number(d.pkr)>0?Number(d.pkr)/fx:0}
+    const n=Number(q.adults||0)+Number(q.childBed||0)+Number(q.childNoBed||0);
+    const r=v14FindGroup(v,n);return r?Number(r.price||0):0;
+  };
+  window.pcVisaPerAdult=function(){
+    const v=visaTypes.find(x=>x.name===pc.visa)||visaTypes[0]; if(!v)return 0;
+    if(v14VisaIsOnly(v)){const d=selectedVisaRule(v,pc.visaDuration);return d&&Number(d.pkr)>0?Number(d.pkr)/fx:0}
+    const n=Number(pc.adults||0)+Number(pc.childBed||0)+Number(pc.childNoBed||0);
+    const r=v14FindGroup(v,n);return r?Number(r.price||0):0;
+  };
+
+  /* Replace totals so Only Visa duration price is per person for adult/child/infant.
+     Umrah Visa keeps generic passenger-group adult pricing and child/infant pricing. */
+  window.totals=function(){
+    const v=visaTypes.find(x=>x.name===q.visa)||visaTypes[0], only=v14VisaIsOnly(v);
+    const groupVisa=visaForGroup(), hotel=q.stays.reduce((a,s)=>a+hotelCost(s),0);
+    const eligible=q.adults+q.childBed,adultHotel=eligible?hotel*q.adults/eligible:0,childHotel=eligible?hotel*q.childBed/eligible:0;
+    const onlySar=only?groupVisa:0;
+    const av=only?q.adults*onlySar:q.adults*groupVisa;
+    const cv=only?(q.childBed+q.childNoBed)*onlySar:(q.childBed+q.childNoBed)*(v?.child||0);
+    const iv=only?q.infants*onlySar:q.infants*(v?.infant||0);
+    const at=q.adults*q.tickets.adult/fx,ct=(q.childBed*q.tickets.childBed+q.childNoBed*q.tickets.childNoBed)/fx,it=q.infants*q.tickets.infant/fx;
+    const trans=q.transport.reduce((a,x)=>a+(transport.find(t=>t.name===x.name)?.price||0)*(x.qty||1),0);
+    const ex=q.extras.reduce((a,n)=>{const e=extras.find(x=>x.name===n);return a+(e?.price||0)*(e?.unit?.includes('person')?(q.adults+q.childBed+q.childNoBed+q.infants):1)},0);
+    return{av,cv,iv,adultHotel,childHotel,at,ct,it,trans,ex,adult:av+adultHotel+at,child:cv+childHotel+ct,infant:iv+it,hotel,grand:av+cv+iv+hotel+at+ct+it+trans+ex}
+  };
+  window.pcTotals=function(){
+    const v=visaTypes.find(x=>x.name===pc.visa)||visaTypes[0],only=v14VisaIsOnly(v),per=pcVisaPerAdult();
+    const av=pc.adults*per,cv=only?pc.childBed*per:(pc.childBed+pc.childNoBed)*(v?.child||0),iv=only?pc.infants*per:pc.infants*(v?.infant||0);
+    const mc=pcHotelCost('Makkah',pc.makkahHotel,pc.makkahRoom,pc.makkahRooms,pc.makkahNights),dc=pcHotelCost('Madinah',pc.madinahHotel,pc.madinahRoom,pc.madinahRooms,pc.madinahNights);
+    const hotel=mc+dc,eligible=pc.adults+pc.childBed,adultHotel=eligible?hotel*pc.adults/eligible:0,childBedHotel=eligible?hotel*pc.childBed/eligible:0;
+    const at=pc.adults*pc.tickets.adult/fx,ctb=pc.childBed*pc.tickets.childBed/fx,ctn=pc.childNoBed*pc.tickets.childNoBed/fx,it=pc.infants*pc.tickets.infant/fx;
+    return{av,cv,iv,mc,dc,hotel,adultHotel,childBedHotel,at,ctb,ctn,it,adult:av+adultHotel+at,childBed:(only?pc.childBed*per:pc.childBed*(v?.child||0))+childBedHotel+ctb,childNoBed:(only?pc.childNoBed*per:pc.childNoBed*(v?.child||0))+ctn,infant:iv+it,grand:av+cv+iv+hotel+at+ctb+ctn+it}
+  };
+
+  const baseSaveVisa=window.saveVisa;
+  window.saveVisa=function(index){
+    const durations=[...document.querySelectorAll('#vmDurations .grid2')].map(r=>({days:Number(r.querySelector('.vmdays')?.value)||0,pkr:Number(r.querySelector('.vmpkr')?.value)||0})).filter(d=>d.days>0);
+    const adultRules=[...document.querySelectorAll('#vmGroups .grid')].map(r=>({label:(r.querySelector('.vmglabel')?.value||'').trim(),min:Number(r.querySelector('.vmgmin')?.value)||0,max:Number(r.querySelector('.vmgmax')?.value)||0,price:Number(r.querySelector('.vmgprice')?.value)||0,active:true})).filter(r=>r.label&&r.min>0&&r.max>=r.min);
+    if(!document.getElementById('vmName')?.value.trim())return alert('Visa type is required.');
+    const sorted=[...adultRules].sort((a,b)=>a.min-b.min);
+    for(let i=1;i<sorted.length;i++){if(sorted[i].min<=sorted[i-1].max)return alert('Passenger group ranges overlap. '+sorted[i-1].label+' and '+sorted[i].label+' cannot overlap.')}
+    if(!durations.length)return alert('Add at least one duration/category.');
+    if(!adultRules.length)return alert('Add at least one passenger group rule.');
+    const name=document.getElementById('vmName').value.trim();
+    const v={name,adult:[0,0,0,0,0],adultRules,durations,child:Number(document.getElementById('vchild')?.value)||0,infant:Number(document.getElementById('vinfant')?.value)||0,active:document.getElementById('vmActive')?.value==='1'};
+    adultRules.forEach(r=>{if(r.min>=5&&r.max>=r.min)v.adult[0]=r.price;else if(r.min===4&&r.max===4)v.adult[1]=r.price;else if(r.min===3&&r.max===3)v.adult[2]=r.price;else if(r.min===2&&r.max===2)v.adult[3]=r.price;else if(r.min===1&&r.max===1)v.adult[4]=r.price});
+    if(index===null)visaTypes.push(v);else visaTypes[index]=v;
+    saveData();closeModal();renderVisa();
+  };
+
+  /* Hotel/airline/transport/extra CRUD. Only Super Admin may mutate shared configuration. */
+  window.deleteHotel=async function(i){
+    if(!admin())return msg('Only Super Admin can delete hotels.');
+    if(!hotels[i])return;
+    if(!confirm('Delete this hotel?')||!confirm('Confirm again: permanently remove this hotel?'))return;
+    hotels.splice(i,1);saveData();renderHotels();
+  };
+  const baseRenderHotels=window.renderHotels;
+  window.renderHotels=function(btn){
+    if(typeof baseRenderHotels==='function')baseRenderHotels(btn);
+    const rows=document.querySelectorAll('#hotelTable tr');
+    rows.forEach((tr,i)=>{const cityHotels=hotels.filter(h=>h[0]===hotelCity);const h=cityHotels[i];if(!h)return;const last=tr.lastElementChild;if(last)last.innerHTML+='<button class="btn danger" style="margin-left:4px" onclick="deleteHotel('+hotels.indexOf(h)+')">Delete</button>'});
+  };
+  const baseRenderAirlines=window.renderAirlines;
+  window.deleteAirline=async function(i){
+    if(!admin())return msg('Only Super Admin can delete airlines.');
+    if(!airlines[i])return;
+    if(!confirm('Delete this airline?')||!confirm('Confirm again: permanently remove this airline?'))return;
+    airlines.splice(i,1);saveData();renderAirlines();
+  };
+  window.renderAirlines=function(){
+    if(!document.getElementById('airlineManager'))return;
+    $('airlineManager').innerHTML='<div class="tablewrap"><table class="table"><tr><th>Airline</th><th>Code</th><th>Action</th></tr>'+
+      airlines.map((a,i)=>'<tr><td><strong>'+esc(a[0])+'</strong></td><td>'+esc(a[2])+'</td><td><button class="btn outline" onclick="editAirline('+i+')">Edit</button><button class="btn danger" onclick="deleteAirline('+i+')">Delete</button></td></tr>').join('')+'</table></div>';
+  };
+  const baseRenderSimple=window.renderSimple;
+  window.deleteSimple=function(kind,i){
+    if(!admin())return msg('Only Super Admin can delete '+kind+'.');
+    const arr=kind==='transport'?transport:extras;if(!arr[i])return;
+    if(!confirm('Delete this '+kind+' item?')||!confirm('Confirm again: permanently remove it?'))return;
+    arr.splice(i,1);saveData();renderSimple(kind);
+  };
+  window.renderSimple=function(kind){
+    if(typeof baseRenderSimple==='function')baseRenderSimple(kind);
+    const id=kind==='transport'?'transportManager':'extrasManager',el=$(id);if(!el)return;
+    const arr=kind==='transport'?transport:extras;
+    el.querySelectorAll('.service').forEach((row,i)=>{
+      if(row.querySelector('.v14-delete-config'))return;
+      const b=document.createElement('button');b.className='btn danger v14-delete-config';b.textContent='Delete';b.onclick=()=>deleteSimple(kind,i);row.appendChild(b);
+    });
+  };
+
+  /* Online profiles/admin. Password changes use Supabase reset email; account disable is online. */
+  window.renderAdmin=async function(){
+    if(!admin())return;
+    const {data:profiles,error}=await sb().from('profiles').select('*').order('created_at',{ascending:true});
+    if(error)return console.error(error);
+    users=(profiles||[]).map(p=>({id:p.id,username:p.username||p.email?.split('@')[0],email:p.email||'',firstName:p.first_name||'',lastName:p.last_name||'',name:[p.first_name,p.last_name].filter(Boolean).join(' ')||p.username||'',contact:p.contact||'',agency:p.agency||'',address:p.address||'',role:p.role||'user',active:p.active!==false,securityQuestion:p.security_question||''}));
+    const rows=users.map((u,i)=>'<tr><td><strong>'+esc(u.username)+'</strong></td><td>'+esc(u.email)+'</td><td>'+esc(u.name)+'</td><td>'+esc(u.role)+'</td><td>'+(u.active?'Active':'Disabled')+'</td><td><button class="btn outline" onclick="editUser('+i+')">Edit</button> <button class="btn outline" onclick="resetUserPassword('+i+')">Reset Password</button> '+(u.username.toLowerCase()!=='umar'?'<button class="btn danger" onclick="deleteUser('+i+')">Disable</button>':'')+'</td></tr>').join('');
+    $('adminUserTable').innerHTML='<div class="tablewrap"><table class="table"><tr><th>Username</th><th>Email</th><th>Name</th><th>Role</th><th>Status</th><th>Actions</th></tr>'+rows+'</table></div><div class="notice" style="margin-top:10px">User accounts and status are stored in Supabase. Password resets are handled by Supabase Auth.</div>';
+  };
+  window.editUser=async function(i){
+    if(!admin())return;
+    const u=users[i];if(!u)return;
+    const first=prompt('First name',u.firstName),last=prompt('Last name',u.lastName),contact=prompt('Contact',u.contact),agency=prompt('Agency',u.agency),address=prompt('Address',u.address);
+    if(first===null)return;
+    const {error}=await sb().from('profiles').update({first_name:first,last_name:last,contact:contact||'',agency:agency||'',address:address||'',updated_at:new Date().toISOString()}).eq('id',u.id);
+    if(error)return alert(error.message);
+    await renderAdmin();
+  };
+  window.resetUserPassword=async function(i){
+    if(!admin())return;
+    const u=users[i];if(!u?.email)return;
+    const {error}=await sb().auth.resetPasswordForEmail(u.email,{redirectTo:location.origin+location.pathname});
+    if(error)return alert(error.message);
+    alert('A secure password reset link has been sent to '+u.email+'.');
+  };
+  window.deleteUser=async function(i){
+    if(!admin())return;
+    const u=users[i];if(!u||u.username.toLowerCase()==='umar')return;
+    if(!confirm('Disable '+u.username+'?')||!confirm('Confirm again: disable this account online?'))return;
+    const {error}=await sb().from('profiles').update({active:false,updated_at:new Date().toISOString()}).eq('id',u.id);
+    if(error)return alert(error.message);
+    await renderAdmin();
+  };
+
+  /* Registration + security-question reset. The security answer is verified server-side,
+     then Supabase sends the actual password-reset link. */
+  window.registerUser=async function(){
+    try{
+      const first=$('regFirst').value.trim(),last=$('regLast').value.trim(),email=$('regEmail').value.trim().toLowerCase(),
+      contact=$('regContact').value.trim(),agency=$('regAgency').value.trim(),address=$('regAddress').value.trim(),
+      pass=$('regPass').value,pass2=$('regPass2').value,question=$('regQuestion').value,answer=$('regAnswer').value.trim();
+      if(!first||!last||!email||!contact||!agency||!address||!pass||!pass2||!question||!answer)return msg('Please complete all required registration fields.');
+      if(pass.length<8)return msg('Password must be at least 8 characters.');
+      if(pass!==pass2)return msg('Passwords do not match.');
+      const username=usernameFromEmail(email);
+      const {data,error}=await sb().auth.signUp({email,password:pass,options:{data:{username,firstName:first,lastName:last,contact,agency,address,securityQuestion:question,securityAnswer:answer}}});
+      if(error)throw error;
+      msg('Account created. Check your email for confirmation if enabled, then sign in.');
+      showAuthPanel('login');
+    }catch(e){msg(e?.message||'Registration failed.')}
+  };
+  window.resetPasswordBySecurity=async function(){
+    const button=document.querySelector('#forgotPanel button[onclick="resetPasswordBySecurity()"]');
+    try{
+      const email=$('resetEmail').value.trim().toLowerCase(),question=$('resetQuestion').value,answer=$('resetAnswer').value.trim();
+      if(!email||!question||!answer)return msg('Enter your registered email, security question and answer.');
+      if(button){button.disabled=true;button.textContent='Verifying…';}
+      const vr=await sb().rpc('verify_password_reset',{p_email:email,p_question:question,p_answer:answer});
+      if(vr.error)throw vr.error;
+      if(vr.data!==true)return msg('The security question or answer is incorrect.');
+      const redirectTo=new URL(location.pathname,location.origin).href;
+      const {error}=await sb().auth.resetPasswordForEmail(email,{redirectTo});
+      if(error)throw error;
+      $('resetAnswer').value='';
+      msg('Verified. Check '+email+' for your secure password-reset link.');
+    }catch(e){msg(e?.message||'Unable to start password reset.')}
+    finally{if(button){button.disabled=false;button.textContent='Verify & Send Reset Link';}}
+  };
+
+  /* Online recycle bin. Two confirmations remain mandatory. */
+  async function onlineRecycle(type,item){
+    if(!online()||!admin())return null;
+    const {data:{user}}=await sb().auth.getUser();if(!user)return null;
+    const ownerId=item._ownerId||item.owner_id||user.id;
+    const ownerName=item._owner||item._ownerName||currentUser?.username||'';
+    const originalId=item._onlineId||null;
+    const payload=JSON.parse(JSON.stringify(item));delete payload._onlineId;delete payload._ownerId;
+    const ins=await sb().from('recycle_bin').insert({owner_id:ownerId,owner_username:ownerName,record_type:type==='voucher'?'voucher':'quote',original_id:originalId,payload,deleted_by:user.id}).select('id').single();
+    if(ins.error)throw ins.error;
+    if(originalId){
+      const table=type==='voucher'?'vouchers':'package_costs';
+      const del=await sb().from(table).delete().eq('id',originalId);
+      if(del.error)throw del.error;
+    }
+    return ins.data.id;
+  }
+  window.deleteSavedRecord=async function(type,i){
+    if(!admin())return;
+    const arr=type==='voucher'?quotes:packageCosts,item=arr[i];if(!item)return;
+    if(!confirm('First confirmation: Delete this '+(type==='voucher'?'voucher':'Package Cost Q')+'?'))return;
+    if(!confirm('Second confirmation: Move it to the online Recycle Bin?'))return;
+    try{
+      await onlineRecycle(type,item);arr.splice(i,1);
+      renderSavedFiles(type);dashboard();await renderRecycleBin();
+    }catch(e){alert('Delete failed: '+e.message)}
+  };
+  window.renderRecycleBin=async function(){
+    if(!admin())return;
+    const {data,error}=await sb().from('recycle_bin').select('*').order('deleted_at',{ascending:false});
+    if(error){$('recycleBin').innerHTML='<div class="notice">'+esc(error.message)+'</div>';return}
+    if(!data?.length){$('recycleBin').innerHTML='<div class="muted">Online Recycle Bin is empty.</div>';return}
+    $('recycleBin').innerHTML=data.map(r=>'<div class="service"><b>'+esc(r.payload?.reference||r.id)+'</b><div class="muted">Owner: '+esc(r.owner_username||'')+' • '+esc(r.record_type)+' • Deleted '+fmtDate(r.deleted_at)+'</div><div style="margin-top:6px"><button class="btn outline" onclick="recoverOnlineRecord(\''+r.id+'\')">Recover</button><button class="btn danger" onclick="permanentDeleteOnline(\''+r.id+'\')">Delete Permanently</button></div></div>').join('');
+  };
+  window.recoverOnlineRecord=async function(id){
+    if(!admin())return;if(!confirm('Recover this record?'))return;
+    const {data:r,error}=await sb().from('recycle_bin').select('*').eq('id',id).single();if(error)return alert(error.message);
+    const table=r.record_type==='voucher'?'vouchers':'package_costs';
+    const payload=r.payload||{};
+    const ins=await sb().from(table).insert({owner_id:r.owner_id,owner_username:r.owner_username,payload,total:Number(payload.total||0),reference:payload.reference||null,booking_date:payload.bookingDate||null}).select('id').single();
+    if(ins.error)return alert(ins.error.message);
+    await sb().from('recycle_bin').delete().eq('id',id);
+    await loadServerData();await renderRecycleBin();
+  };
+  window.permanentDeleteOnline=async function(id){
+    if(!admin())return;if(!confirm('First confirmation: permanently delete?'))return;if(!confirm('Second confirmation: this cannot be recovered. Continue?'))return;
+    const {error}=await sb().from('recycle_bin').delete().eq('id',id);if(error)return alert(error.message);
+    await renderRecycleBin();
+  };
+
+  /* Reliable Sales comes from Supabase sales table. Cache is refreshed from server for reporting. */
+  async function loadOnlineSales(){
+    if(!online())return;
+    const {data:{user}}=await sb().auth.getUser();if(!user)return;
+    const r=await sb().from('sales').select('*').order('booking_date',{ascending:false});
+    if(r.error){console.error('[V14 sales]',r.error);return}
+    const rows=r.data||[];
+    window._onlineSalesRows=rows;
+    window.salesRecords=function(){
+      return rows.map(x=>Object.assign({},x.payload||{},{
+        _owner:x.owner_username,_ownerName:x.owner_username, _onlineId:x.voucher_id,
+        total:Number(x.total||0),bookingDate:x.booking_date,customer:x.description,
+        adults:x.adults,childBed:x.child_bed,childNoBed:x.child_no_bed,infants:x.infants,umrahDays:x.umrah_days
+      }));
+    };
+    if(typeof renderSales==='function')renderSales();
+  }
+
+  /* Keep user-specific Voucher/Quote records online, but use Supabase as source of truth. */
+  async function loadOnlineConfigAndData(){
+    if(!online())return;
+    await loadConfig();
+    await loadOnlineSales();
+    if(admin()&&typeof renderAdmin==='function')await renderAdmin();
+    if(admin()&&typeof renderRecycleBin==='function')await renderRecycleBin();
+    if(window.v14PurgeLocalCache)window.v14PurgeLocalCache();
+  }
+
+  /* Hook the existing online load without replacing its secure session flow. */
+  function install(){
+    if(installed||!online())return;
+    installed=true;
+    setTimeout(()=>loadOnlineConfigAndData().catch(console.error),50);
+    try{
+      const oldInit=window.initAuthOnline;
+      window.initAuthOnline=async function(){await oldInit();if(online())await loadOnlineConfigAndData()};
+    }catch(e){}
+  }
+  const timer=setInterval(()=>{if(online()){clearInterval(timer);install()}},100);
+  setTimeout(()=>clearInterval(timer),15000);
+
+})();
+</script>
+
+<script>
+(function(){
+  function onReady(){
+    const online=window.KARVAN_ONLINE?.enabled, sb=window.KARVAN_ONLINE?.sb;
+    if(!online||!sb)return;
+    const emailEl=document.getElementById('resetEmail'), qEl=document.getElementById('resetQuestion');
+    if(emailEl&&qEl&&!emailEl.dataset.v14Bound){
+      emailEl.dataset.v14Bound='1';
+      emailEl.addEventListener('blur',async function(){
+        const email=this.value.trim().toLowerCase();
+        if(!email){qEl.innerHTML='<option value="">Enter your email first</option>';return;}
+        qEl.innerHTML='<option value="">Loading security question…</option>';
+        try{
+          const r=await sb.rpc('get_password_reset_question',{p_email:email});
+          if(r.error)throw r.error;
+          if(!r.data){qEl.innerHTML='<option value="">No active account found for this email</option>';return;}
+          const text=String(r.data);
+          qEl.innerHTML='<option value="'+text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')+'">'+text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</option>';
+        }catch(e){
+          console.error('Security question lookup failed',e);
+          qEl.innerHTML='<option value="">Unable to load security question</option>';
+        }
+      });
+    }
+    sb.auth.onAuthStateChange(async (event)=>{
+      if(event!=='PASSWORD_RECOVERY')return;
+      let panel=document.getElementById('v14RecoveryPanel');
+      if(!panel){
+        panel=document.createElement('div');panel.id='v14RecoveryPanel';panel.className='modal open';
+        panel.innerHTML='<div class="modalbox"><div class="modalhead"><h3>Set New Password</h3></div><div class="field" style="margin-top:12px"><label>New Password</label><input id="v14NewPw" type="password" minlength="8"></div><div class="field" style="margin-top:10px"><label>Confirm Password</label><input id="v14NewPw2" type="password" minlength="8"></div><button id="v14SetPw" class="btn gold" style="width:100%;margin-top:12px">Update Password</button></div>';
+        document.body.appendChild(panel);
+        document.getElementById('v14SetPw').onclick=async()=>{
+          const a=document.getElementById('v14NewPw').value,b=document.getElementById('v14NewPw2').value;
+          if(a.length<8||a!==b)return alert('Password must be at least 8 characters and both entries must match.');
+          const r=await sb.auth.updateUser({password:a});
+          if(r.error)return alert(r.error.message);
+          panel.remove();alert('Password updated successfully. Please sign in again.');await sb.auth.signOut();location.reload();
+        };
+      }
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',onReady);else setTimeout(onReady,300);
+})();
+</script>
+
+<script>
+(function(){
+  const admin=()=>typeof isSuperAdmin==='function'&&isSuperAdmin();
+  const deny=()=>alert('Only Super Admin can edit shared configuration.');
+  window.addAirline=function(){if(!admin())return deny();let n=prompt('Airline name');if(!n)return;let code=prompt('IATA airline code','');airlines.push([n,n,code||'']);saveData();renderAirlines()};
+  window.editAirline=function(i){if(!admin())return deny();if(!airlines[i])return;airlines[i][0]=prompt('Airline name',airlines[i][0])||airlines[i][0];airlines[i][2]=prompt('IATA airline code',airlines[i][2])||airlines[i][2];saveData();renderAirlines()};
+  window.addSimple=function(kind){if(!admin())return deny();let n=prompt('Name');if(!n)return;let p=Number(prompt('Price (SAR)','0'))||0,u=prompt('Unit','per person')||'per person',a=kind==='transport'?transport:extras;a.push({name:n,price:p,unit:u,active:true});saveData();renderSimple(kind)};
+  window.editSimple=function(kind,i){if(!admin())return deny();let a=kind==='transport'?transport:extras,x=a[i];if(!x)return;x.name=prompt('Name',x.name)||x.name;x.price=Number(prompt('Price (SAR)',x.price))||0;x.unit=prompt('Unit',x.unit)||x.unit;x.active=confirm('Keep active?');saveData();renderSimple(kind)};
+  window.saveHotel=function(index){if(!admin())return deny();let h=[$('hmCity').value,$('hmName').value,$('hmLoc').value,$('hmDist').value,...roomTypes.map((r,i)=>{let v=$('hm'+i).value;return v===''?null:+v})];if(!h[1])return alert('Hotel name is required.');if(index===null)hotels.push(h);else hotels[index]=h;saveData();closeModal();renderHotels()};
+  window.openHotelModal=function(index=null){if(!admin())return deny();let h=index===null?null:hotels[index];if(!h&&index!==null)return; $('modalbox').innerHTML='<div class="modalhead"><h3>'+(h?'Edit Hotel':'Add New Hotel')+'</h3><button class="btn outline" onclick="closeModal()">×</button></div><div class="grid" style="margin-top:12px"><div class="field"><label>City</label><select id="hmCity"><option '+(h?.[0]==='Makkah'?'selected':'')+'>Makkah</option><option '+(h?.[0]==='Madinah'?'selected':'')+'>Madinah</option></select></div><div class="field"><label>Hotel Name</label><input id="hmName" value="'+esc(h?.[1]||'')+'"></div><div class="field"><label>Location</label><input id="hmLoc" value="'+esc(h?.[2]||'')+'"></div><div class="field"><label>Distance</label><input id="hmDist" value="'+esc(h?.[3]||'')+'"></div>'+roomTypes.map((r,i)=>'<div class="field"><label>'+r+' Rate (SAR)</label><input id="hm'+i+'" type="number" value="'+(h?.[4+i]??'')+'"></div>').join('')+'</div><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:13px"><button class="btn outline" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveHotel('+(index===null?'null':index)+')">Save Hotel</button></div>';$('modal').classList.add('open');document.body.classList.add('modal-open')};
+})();
+</script>
+
+<script>
+(function(){
+ const admin=()=>typeof isSuperAdmin==='function'&&isSuperAdmin();
+ const deny=()=>alert('Only Super Admin can edit shared configuration.');
+ const oldOpenVisa=window.openVisaModal;
+ window.openVisaModal=function(i){if(!admin())return deny();return oldOpenVisa(i)};
+ const oldDeleteVisa=window.deleteVisaType;
+ window.deleteVisaType=function(i){if(!admin())return deny();return oldDeleteVisa(i)};
+ const oldAddDur=window.addVisaDurationRow,oldAddGroup=window.addVisaGroupRow;
+ window.addVisaDurationRow=function(){if(!admin())return deny();return oldAddDur()};
+ window.addVisaGroupRow=function(){if(!admin())return deny();return oldAddGroup()};
+ const oldSaveVisa=window.saveVisa;
+ window.saveVisa=function(i){if(!admin())return deny();return oldSaveVisa(i)};
+})();
+</script>
+
+<script>
+(function(){
+ const admin=()=>typeof isSuperAdmin==='function'&&isSuperAdmin();
+ window.openUserModal=function(){if(!admin())return;alert('For secure online accounts, new users register from the Login → Register New User screen. Super Admin can then manage, edit, disable and reset accounts here.');};
+ const oldNormalize=window.normalizeBooking;
+ window.normalizeBooking=function(){
+   if(typeof oldNormalize==='function')oldNormalize();
+   if(typeof q!=='undefined'&&q&&String(q.visa||'').toLowerCase()==='only visa')q.stays=[];
+ };
+ const oldRenderWizard=window.renderWizard;
+ window.renderWizard=function(){
+   if(typeof q!=='undefined'&&q&&step===3&&String(q.visa||'').toLowerCase()==='only visa'){
+     const w=$('wizard');if(!w)return;
+     w.innerHTML='<div class="notice"><b>Hotel accommodation is not available with Only Visa.</b><br>Only Visa is priced solely by its selected duration and applies per person. Hotel pricing is available with Umrah Visa only.</div>';
+     return;
+   }
+   return oldRenderWizard();
+ };
+ window.visaStep=function(){
+   let v=visaTypes.find(x=>x.name===q.visa)||visaTypes[0];if(!v)return '<div class="notice">No active visa type is configured.</div>';
+   const only=String(v.name).toLowerCase()==='only visa';
+   const dur=v.durations||[];
+   if(only&&!dur.some(d=>Number(d.days)===Number(q.visaDuration)))q.visaDuration=dur[0]?.days||15;
+   const d=selectedVisaRule(v,q.visaDuration),price=only&&d?Number(d.pkr)/fx:visaForGroup();
+   const typeOptions=visaTypes.filter(x=>x.active).map(x=>'<option '+(q.visa===x.name?'selected':'')+'>'+esc(x.name)+'</option>').join('');
+   const durationHtml=only?'<div class="field"><label>Visa Duration</label><select onchange="q.visa=this.value===\'__same\'?q.visa:q.visa;q.visaDuration=+this.value;renderWizard()">'+dur.map(x=>'<option value="'+x.days+'" '+(Number(q.visaDuration)===Number(x.days)?'selected':'')+'>'+x.days+' Days — PKR '+Number(x.pkr).toLocaleString()+' / SAR '+(Number(x.pkr)/fx).toFixed(2)+'</option>').join('')+'</select></div>':'';
+   const groups=(v.adultRules||[]).filter(r=>r.active!==false).sort((a,b)=>a.min-b.min).map(r=>'<tr><td>'+esc(r.label)+'</td><td>'+r.min+'–'+r.max+'</td><td>'+Number(r.price||0).toFixed(2)+'</td><td>'+Math.round(Number(r.price||0)*fx).toLocaleString()+'</td></tr>').join('');
+   return '<h3 class="section-title">Visa Selection</h3><div class="grid2"><div class="field"><label>Visa Type</label><select onchange="q.visa=this.value;q.visaDuration=(visaTypes.find(x=>x.name===this.value)?.durations?.[0]?.days||15);if(this.value!==\'Umrah Visa\')q.stays=[];renderWizard()">'+typeOptions+'</select></div>'+durationHtml+'</div>'+
+     '<div class="notice" style="margin-top:8px"><b>Selected:</b> '+esc(v.name)+(only?' • <b>'+q.visaDuration+' days</b> • <b>'+sar(price)+' per person</b>':' • <b>Passenger-group pricing</b>')+' • 1 SAR = '+fx+' PKR</div>'+
+     (only?'':'<div class="tablewrap" style="margin-top:10px"><table class="table"><tr><th>Passenger Group</th><th>Range</th><th>SAR / Person</th><th>PKR / Person</th></tr>'+groups+'</table></div><div class="grid2" style="margin-top:10px"><div class="field"><label>Child Visa (SAR)</label><input type="number" value="'+v.child+'" onchange="v.child=+this.value||0;saveData();renderWizard()"></div><div class="field"><label>Infant Visa (SAR)</label><input type="number" value="'+v.infant+'" onchange="v.infant=+this.value||0;saveData();renderWizard()"></div></div>');
+ };
+})();
+</script>
+
+<script>
+(function(){
+ const onlyVisa=v=>String(v?.name||'').toLowerCase()==='only visa';
+ const oldTotals=window.totals;
+ window.totals=function(){
+   const t=oldTotals();
+   const v=visaTypes.find(x=>x.name===q.visa)||visaTypes[0];
+   if(!v||onlyVisa(v)){
+     t.hotel=0;t.adultHotel=0;t.childHotel=0;
+     t.adult=(t.av);t.child=t.cv;t.grand=t.av+t.cv+t.iv+t.at+t.ct+t.it+t.trans+t.ex;
+   }
+   return t;
+ };
+ const oldPcTotals=window.pcTotals;
+ window.pcTotals=function(){
+   const t=oldPcTotals(),v=visaTypes.find(x=>x.name===pc.visa)||visaTypes[0];
+   if(!v||onlyVisa(v)){
+     t.mc=0;t.dc=0;t.hotel=0;t.adultHotel=0;t.childBedHotel=0;
+     t.adult=t.av+t.at;t.childBed=(onlyVisa(v)?pc.childBed*pcVisaPerAdult():t.childBed)+t.ctb;
+     t.childNoBed=(onlyVisa(v)?pc.childNoBed*pcVisaPerAdult():t.childNoBed)+t.ctn;t.infant=t.iv+t.it;
+     t.grand=t.av+t.cv+t.iv+t.at+t.ctb+t.ctn+t.it;
+   }
+   return t;
+ };
+})();
+</script>
+
+<script>
+(function(){
+  const protectedKeys=new Set([
+    'keaUsersV10','keaFxV14','keaHotelsV10','keaHotelsV7','keaVisaV10','keaVisaV7',
+    'keaAirlinesV10','keaAirlinesV7','keaTransportV10','keaTransportV7','keaExtrasV10','keaExtrasV7'
+  ]);
+  const purge=()=>{
+    try{
+      [...protectedKeys].forEach(k=>localStorage.removeItem(k));
+      Object.keys(localStorage).filter(k=>k.startsWith('keaQuotesV10_')||k.startsWith('keaQuotesV11_')||k.startsWith('keaPackageCostsV11_')).forEach(k=>localStorage.removeItem(k));
+    }catch(e){}
+  };
+  const oldSet=localStorage.setItem.bind(localStorage);
+  localStorage.setItem=function(k,v){
+    oldSet(k,v);
+    if(protectedKeys.has(k)||k.startsWith('keaQuotesV10_')||k.startsWith('keaQuotesV11_')||k.startsWith('keaPackageCostsV11_')){
+      setTimeout(()=>{try{localStorage.removeItem(k)}catch(e){}},2200);
+    }
+  };
+  window.v14PurgeLocalCache=purge;
 })();
 </script>
 
