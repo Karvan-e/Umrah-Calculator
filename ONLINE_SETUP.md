@@ -1,21 +1,38 @@
-# Karvan e Asal — V13 Sales Online Multi-User
+# V14 Sales Auth / Forgot Password Update
 
-This package starts from **V13 Sales** and keeps its Sales, Voucher, Quotes, Package Cost Q, admin and booking functionality. The online layer adds Supabase authentication and server-side storage/RLS for vouchers and Package Cost Q.
+## Supabase SQL required
 
-## Setup
-1. Create a Supabase project.
-2. Open **SQL Editor** and run `v13_online_schema.sql`.
-3. Open `supabase-config.js` and set:
-   - `url`: your Supabase project URL
-   - `publishableKey`: your Supabase publishable/anon key
-4. Publish the folder on an HTTPS host (GitHub Pages is fine).
-5. Register the first account, then in Supabase SQL Editor run:
-   `update public.profiles set role='superadmin' where lower(username)='umar';`
-   If the generated username differs, use the account's actual username.
-6. For production, enable email confirmation and configure your Supabase Auth email settings.
+Run this once in Supabase SQL Editor if it has not already been created:
 
-## Security
-The database uses Row Level Security. Normal users can read/write only their own vouchers and Package Cost Q. Super Admin can read/write all records. Never put a Supabase service-role key in this website.
+```sql
+create or replace function public.get_password_reset_question(p_email text)
+returns text
+language sql
+security definer
+set search_path = public, extensions
+as $$
+  select security_question
+  from public.profiles
+  where lower(email)=lower(trim(p_email))
+    and active=true
+  limit 1;
+$$;
 
-## Note
-This online adapter keeps the V13 Sales UI and calculation code while synchronizing its voucher/quote storage to Supabase. Hotel/visa/airline/settings master data remains client-side in this build and can be migrated to shared online tables in the next stage.
+revoke all on function public.get_password_reset_question(text) from public;
+grant execute on function public.get_password_reset_question(text) to anon, authenticated;
+```
+
+The existing V14 functions `verify_password_reset` and `get_login_email_by_username` must also exist.
+
+## Forgot password flow
+
+1. User opens Forgot Password.
+2. Enters registered email.
+3. The app loads the stored security question from Supabase.
+4. User enters the answer.
+5. Supabase RPC verifies the answer server-side.
+6. Supabase sends the secure password-reset email.
+7. The reset link returns to the app.
+8. The app shows Set New Password and calls `auth.updateUser({password})`.
+
+Security answers are stored as hashes in `profiles.security_answer_hash`; the raw answer is never stored.
