@@ -1,27 +1,11 @@
-KARVAN E ASAL — UMRAH MANAGER V12
+Karvan e Asal Umrah Manager — V13 Fix
 
-New in V11:
-- First-page Login with email or username.
-- Register New User flow.
-- Registration fields: first name, last name, email, contact number, agency name, address, password and security question/answer.
-- Five common security questions are provided for password recovery.
-- Forgot Password flow using registered email + selected security question + answer.
-- Super Admin account: username Umar / password admin126@.
-- Super Admin role is protected from deletion and can manage users.
-- Admin/Super Admin can add, edit, enable/disable and reset user passwords.
-- Each user's quotations remain in that user's own local account namespace.
-- Login accepts either username or registered email.
+Fixes:
+1. Restored the missing New Booking sections 2–6 (Passengers, Journey, Hotels, Visa, Flights) so they render and accept input.
+2. Super Admin can navigate to and edit every Voucher section 1–8.
+3. Removed the broken Review step; Extras is now step 8 and its final button saves the Voucher.
+4. Removed repeated Super Admin edit notices that accumulated while navigating.
+5. Super Admin edits are tracked to the original owner when editing records from Admin.
+6. Service-worker cache key bumped.
 
-SECURITY NOTE:
-This remains a GitHub Pages/static application. User separation is implemented in browser storage and is not server-enforced. For true multi-device privacy, secure authentication, and database-level row isolation, connect the app to a backend such as Supabase, Firebase, or a custom API with server-side authorization.
-
-
-V12 changes:
-- New Booking replaces New Quotation.
-- New Booking opens two choices: New Booking or Calculate the Package.
-- Package Cost Q is a separate tab for simple visa + hotel + ticket calculation.
-- Package Cost Q follows the same child-with-bed / child-without-bed hotel rules as the full booking.
-- Infant ticket is fixed at zero in Package Cost Q.
-- Package Cost Q results are saved per user.
-- Voucher is the saved-voucher tab; Voucher Preview is the generated voucher view.
-- Super Admin can see all users' saved vouchers and Package Cost Q records with usernames.
+Support/AI from V14 is not included.
