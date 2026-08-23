@@ -354,38 +354,61 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
 <script>
 (function(){
   const cfg=window.KARVAN_SUPABASE||{};
-  if(!cfg.url||!cfg.publishableKey||!window.supabase) return;
-  const sb=window.supabase.createClient(cfg.url,cfg.publishableKey);
+  function onlineError(msg){
+    try{ showAuthError(msg); }catch(e){ const el=document.getElementById('authError'); if(el){el.textContent=msg;el.style.display='block';} }
+    console.error('[V14 Sales]',msg);
+  }
+  if(!cfg.url || !cfg.publishableKey || !window.supabase){
+    console.error('[V14 Sales] Supabase configuration/library unavailable.');
+    return;
+  }
+  const sb=window.supabase.createClient(cfg.url,cfg.publishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
   window.KARVAN_ONLINE={sb,enabled:true};
   const originalSet=localStorage.setItem.bind(localStorage);
   const pending=new Map();
-  function owner(){return window.currentUser?.username||'';}
-  async function profile(){const {data}=await sb.from('profiles').select('*').eq('id',(await sb.auth.getUser()).data.user?.id).single();return data;}
+  async function getProfileByAuthUser(){
+    const {data:{user},error:ue}=await sb.auth.getUser();
+    if(ue||!user) return null;
+    const {data,error}=await sb.from('profiles').select('*').eq('id',user.id).maybeSingle();
+    if(error){console.error('Profile load failed',error);return null;}
+    return data;
+  }
   async function loadServer(){
-    const u=(await sb.auth.getUser()).data.user; if(!u) return;
-    const p=await profile(); if(p){ currentUser=Object.assign(currentUser||{},p,{username:p.username||u.email?.split('@')[0]}); }
-    const superA=currentUser?.role==='superadmin';
+    const {data:{user},error:ue}=await sb.auth.getUser();
+    if(ue||!user) return null;
+    const p=await getProfileByAuthUser();
+    if(!p) return null;
+    currentUser=Object.assign({},currentUser||{},p,{username:p.username||user.email?.split('@')[0],email:p.email||user.email||''});
+    const superA=currentUser.role==='superadmin';
     if(superA){
       const pr=await sb.from('profiles').select('*').order('created_at',{ascending:true});
-      if(!pr.error&&pr.data){ users=pr.data.map(x=>({username:x.username||String(x.email||'').split('@')[0],email:x.email||'',firstName:x.first_name||'',lastName:x.last_name||'',name:[x.first_name,x.last_name].filter(Boolean).join(' ')||x.username||'',contact:x.contact||'',agency:x.agency||'',address:x.address||'',role:x.role||'user',active:x.active!==false,id:x.id})); }
+      if(!pr.error&&pr.data){
+        users=pr.data.map(x=>({username:x.username||String(x.email||'').split('@')[0],email:x.email||'',firstName:x.first_name||'',lastName:x.last_name||'',name:[x.first_name,x.last_name].filter(Boolean).join(' ')||x.username||'',contact:x.contact||'',agency:x.agency||'',address:x.address||'',role:x.role||'user',active:x.active!==false,id:x.id}));
+        originalSet(AUTH_KEY,JSON.stringify(users));
+      }
     }
-    const vq=superA?await sb.from('vouchers').select('*'):await sb.from('vouchers').select('*').eq('owner_id',u.id);
-    const pq=superA?await sb.from('package_costs').select('*'):await sb.from('package_costs').select('*').eq('owner_id',u.id);
+    const vq=superA?await sb.from('vouchers').select('*'):await sb.from('vouchers').select('*').eq('owner_id',user.id);
+    const pq=superA?await sb.from('package_costs').select('*'):await sb.from('package_costs').select('*').eq('owner_id',user.id);
     if(vq.data){
-      const by={}; vq.data.forEach(r=>(by[r.owner_username||window.currentUser.username]??=[]).push({...r.payload,_onlineId:r.id}));
-      if(superA) Object.entries(by).forEach(([k,a])=>originalSet('keaQuotesV10_'+k,JSON.stringify(a))); else originalSet('keaQuotesV10_'+window.currentUser.username,JSON.stringify(by[window.currentUser.username]||[]));
+      const by={};
+      vq.data.forEach(r=>{const k=r.owner_username||currentUser.username;(by[k]??=[]).push({...r.payload,_onlineId:r.id});});
+      if(superA) Object.entries(by).forEach(([k,a])=>originalSet('keaQuotesV10_'+k,JSON.stringify(a)));
+      else originalSet('keaQuotesV10_'+currentUser.username,JSON.stringify(by[currentUser.username]||[]));
     }
     if(pq.data){
-      const by={}; pq.data.forEach(r=>(by[r.owner_username||window.currentUser.username]??=[]).push({...r.payload,_onlineId:r.id}));
-      if(superA) Object.entries(by).forEach(([k,a])=>originalSet('keaPackageCostsV11_'+k,JSON.stringify(a))); else originalSet('keaPackageCostsV11_'+window.currentUser.username,JSON.stringify(by[window.currentUser.username]||[]));
+      const by={};
+      pq.data.forEach(r=>{const k=r.owner_username||currentUser.username;(by[k]??=[]).push({...r.payload,_onlineId:r.id});});
+      if(superA) Object.entries(by).forEach(([k,a])=>originalSet('keaPackageCostsV11_'+k,JSON.stringify(a)));
+      else originalSet('keaPackageCostsV11_'+currentUser.username,JSON.stringify(by[currentUser.username]||[]));
     }
+    return currentUser;
   }
   async function syncKey(key){
     if(!key.startsWith('keaQuotesV10_')&&!key.startsWith('keaPackageCostsV11_')) return;
     const username=key.replace(/^kea(QuotesV10_|PackageCostsV11_)/,'');
     if(!username) return;
-    const {data:me}=await sb.auth.getUser(); if(!me.user) return;
-    const {data:prof}=await sb.from('profiles').select('id,username').eq('username',username).single(); if(!prof) return;
+    const {data:{user}}=await sb.auth.getUser(); if(!user) return;
+    const {data:prof}=await sb.from('profiles').select('id,username').ilike('username',username).maybeSingle(); if(!prof) return;
     let arr=[]; try{arr=JSON.parse(localStorage.getItem(key)||'[]')}catch{}
     const table=key.startsWith('keaQuotesV10_')?'vouchers':'package_costs';
     const existing=await sb.from(table).select('id,payload').eq('owner_id',prof.id);
@@ -393,59 +416,62 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
     for(const item of arr){
       const payload=JSON.parse(JSON.stringify(item)); delete payload._onlineId;
       const id=item._onlineId;
-      if(id){keep.add(id); await sb.from(table).update({payload,total:Number(item.total||0),reference:item.reference||null,booking_date:item.bookingDate||null,updated_at:new Date().toISOString()}).eq('id',id);}
-      else {const ins=await sb.from(table).insert({owner_id:prof.id,owner_username:username,payload,total:Number(item.total||0),reference:item.reference||null,booking_date:item.bookingDate||null}).select('id').single(); if(ins.data?.id){item._onlineId=ins.data.id; keep.add(ins.data.id);}}
+      if(id){keep.add(id);await sb.from(table).update({payload,total:Number(item.total||0),reference:item.reference||null,booking_date:item.bookingDate||null,updated_at:new Date().toISOString()}).eq('id',id);}
+      else{const ins=await sb.from(table).insert({owner_id:prof.id,owner_username:username,payload,total:Number(item.total||0),reference:item.reference||null,booking_date:item.bookingDate||null}).select('id').single();if(ins.data?.id){item._onlineId=ins.data.id;keep.add(ins.data.id);}}
     }
-    if(existing.data){for(const row of existing.data){if(!keep.has(row.id)) await sb.from(table).delete().eq('id',row.id);}}
+    if(existing.data){for(const row of existing.data){if(!keep.has(row.id))await sb.from(table).delete().eq('id',row.id);}}
   }
-  localStorage.setItem=function(k,v){originalSet(k,v); if(window.KARVAN_ONLINE?.enabled && (k.startsWith('keaQuotesV10_')||k.startsWith('keaPackageCostsV11_'))){clearTimeout(pending.get(k));pending.set(k,setTimeout(()=>syncKey(k),500));}};
+  localStorage.setItem=function(k,v){originalSet(k,v);if(window.KARVAN_ONLINE?.enabled&&(k.startsWith('keaQuotesV10_')||k.startsWith('keaPackageCostsV11_'))){clearTimeout(pending.get(k));pending.set(k,setTimeout(()=>syncKey(k).catch(console.error),500));}};
   window.initAuthOnline=async function(){
-    const {data:{session}}=await sb.auth.getSession();
-    if(session){
-      await loadServer();
-      if(currentUser?.active===false){await sb.auth.signOut();return;}
-      sessionStorage.setItem(SESSION_KEY,currentUser?.username||'');
-      loadUserQuotes(); loadPackageCosts();
-      $('authScreen').style.display='none'; $('appRoot').style.display='block'; applyUserUI(); init();
-    } else {
-      $('authScreen').style.display='flex'; $('appRoot').style.display='none';
-    }
+    try{
+      const {data:{session},error}=await sb.auth.getSession();
+      if(error) throw error;
+      if(session){
+        const p=await loadServer();
+        if(!p){await sb.auth.signOut();return onlineError('Your online profile could not be loaded. Please contact the Super Admin.');}
+        if(p.active===false){await sb.auth.signOut();return onlineError('This account is inactive. Please contact the Super Admin.');}
+        sessionStorage.setItem(SESSION_KEY,p.username||'');loadUserQuotes();loadPackageCosts();$('authScreen').style.display='none';$('appRoot').style.display='block';applyUserUI();init();
+      }else{$('authScreen').style.display='flex';$('appRoot').style.display='none';}
+    }catch(e){onlineError('Unable to initialize online login: '+(e.message||e));}
   };
   window.loginUser=async function(){
-    const raw=$('loginUser').value.trim(), un=raw.toLowerCase(), pw=$('loginPass').value;
-    if(!raw||!pw) return showAuthError('Please enter your username/email and password.');
-    let email=raw;
-    if(!raw.includes('@')){
-      // Username lookup is performed through a SECURITY DEFINER RPC so RLS on profiles remains enabled.
-      let rpc=null;
-      try { rpc=await sb.rpc('get_login_email_by_username',{p_username:raw}); } catch(e) { rpc={error:e}; }
-      if(!rpc.error && rpc.data) email=Array.isArray(rpc.data)?rpc.data[0]?.email||rpc.data[0]:rpc.data;
-      // Compatibility fallback for projects whose profiles policy permits the lookup.
-      if(!email.includes('@')){
-        const {data}=await sb.from('profiles').select('email').ilike('username',un).eq('active',true).maybeSingle();
-        if(data?.email) email=data.email;
+    const raw=$('loginUser').value.trim(),pw=$('loginPass').value;
+    if(!raw||!pw)return onlineError('Please enter your username/email and password.');
+    const button=document.querySelector('#loginPanel button[onclick="loginUser()"]');
+    if(button){button.disabled=true;button.textContent='Signing in…';}
+    try{
+      let email=raw;
+      if(!raw.includes('@')){
+        const {data,error}=await sb.rpc('get_login_email_by_username',{p_username:raw});
+        if(error){console.error('Username RPC failed',error);throw new Error('Username login service is not configured. Please run the V14 username-login SQL in Supabase.');}
+        email=typeof data==='string'?data:(Array.isArray(data)?(data[0]?.email||data[0]):data?.email||'');
       }
-    }
-    if(!String(email).includes('@')) return showAuthError('No active account was found for this username.');
-    const {error}=await sb.auth.signInWithPassword({email:String(email).trim(),password:pw});
-    if(error)return showAuthError(error.message);
-    await loadServer();
-    if(!currentUser){ await sb.auth.signOut(); return showAuthError('Your account profile could not be loaded. Please contact the Super Admin.'); }
-    loadUserQuotes(); loadPackageCosts(); $('authScreen').style.display='none'; $('appRoot').style.display='block'; applyUserUI(); init();
+      email=String(email||'').trim();
+      if(!email.includes('@'))return onlineError('No active account was found for this username.');
+      const {data,error}=await sb.auth.signInWithPassword({email,password:pw});
+      if(error)throw error;
+      if(!data?.user)throw new Error('Supabase did not return an authenticated user.');
+      const p=await loadServer();
+      if(!p){await sb.auth.signOut();return onlineError('Login succeeded, but the user profile could not be loaded. Check the profiles RLS policy.');}
+      if(p.active===false){await sb.auth.signOut();return onlineError('This account is inactive. Please contact the Super Admin.');}
+      sessionStorage.setItem(SESSION_KEY,p.username||'');loadUserQuotes();loadPackageCosts();$('authScreen').style.display='none';$('appRoot').style.display='block';applyUserUI();init();
+    }catch(e){onlineError(e?.message||'Sign in failed. Please try again.');}
+    finally{if(button){button.disabled=false;button.textContent='Sign In';}}
   };
   window.registerUser=async function(){
-    let first=$('regFirst').value.trim(),last=$('regLast').value.trim(),email=$('regEmail').value.trim().toLowerCase(),contact=$('regContact').value.trim(),agency=$('regAgency').value.trim(),address=$('regAddress').value.trim(),pass=$('regPass').value,pass2=$('regPass2').value,question=$('regQuestion').value,answer=$('regAnswer').value.trim();
-    if(!first||!last||!email||!contact||!agency||!address||!pass||!pass2||!question||!answer)return showAuthError('Please complete all required registration fields.');
-    if(pass!==pass2)return showAuthError('Passwords do not match.');
-    const username=usernameFromEmail(email);
-    const {error}=await sb.auth.signUp({email,password:pass,options:{data:{username,firstName:first,lastName:last,contact,agency,address,securityQuestion:question}}});
-    if(error)return showAuthError(error.message);
-    showAuthPanel('login'); showAuthError('Account created. Check your email if email confirmation is enabled, then sign in with your email.');
+    try{
+      let first=$('regFirst').value.trim(),last=$('regLast').value.trim(),email=$('regEmail').value.trim().toLowerCase(),contact=$('regContact').value.trim(),agency=$('regAgency').value.trim(),address=$('regAddress').value.trim(),pass=$('regPass').value,pass2=$('regPass2').value,question=$('regQuestion').value,answer=$('regAnswer').value.trim();
+      if(!first||!last||!email||!contact||!agency||!address||!pass||!pass2||!question||!answer)return onlineError('Please complete all required registration fields.');
+      if(pass!==pass2)return onlineError('Passwords do not match.');
+      const username=usernameFromEmail(email);
+      const {error}=await sb.auth.signUp({email,password:pass,options:{data:{username,firstName:first,lastName:last,contact,agency,address,securityQuestion:question}}});
+      if(error)throw error;
+      showAuthPanel('login');onlineError('Account created. Check your email if email confirmation is enabled, then sign in.');
+    }catch(e){onlineError(e?.message||'Registration failed.');}
   };
-  window.logoutUser=async function(){await sb.auth.signOut(); sessionStorage.removeItem(SESSION_KEY); location.reload();};
-  window.resetPasswordBySecurity=async function(){showAuthError('For online accounts, use the secure password-reset email flow. Contact the Super Admin if you need assistance.');};
-  // Start the original UI only after the online layer has been installed.
-  setTimeout(()=>{try{initAuthOnline()}catch(e){console.error(e);initAuth()}},0);
+  window.logoutUser=async function(){await sb.auth.signOut();sessionStorage.removeItem(SESSION_KEY);location.reload();};
+  window.resetPasswordBySecurity=async function(){onlineError('For online accounts, use the secure password-reset email flow.');};
+  setTimeout(()=>window.initAuthOnline(),0);
 })();
 </script>
 
