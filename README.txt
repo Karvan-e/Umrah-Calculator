@@ -1,27 +1,18 @@
-KARVAN E ASAL — UMRAH MANAGER V12
+KARVAN E ASAL UMRAH MANAGER V14
 
-New in V11:
-- First-page Login with email or username.
-- Register New User flow.
-- Registration fields: first name, last name, email, contact number, agency name, address, password and security question/answer.
-- Five common security questions are provided for password recovery.
-- Forgot Password flow using registered email + selected security question + answer.
-- Super Admin account: username Umar / password admin126@.
-- Super Admin role is protected from deletion and can manage users.
-- Admin/Super Admin can add, edit, enable/disable and reset user passwords.
-- Each user's quotations remain in that user's own local account namespace.
-- Login accepts either username or registered email.
+Support & Contact added after Settings.
 
-SECURITY NOTE:
-This remains a GitHub Pages/static application. User separation is implemented in browser storage and is not server-enforced. For true multi-device privacy, secure authentication, and database-level row isolation, connect the app to a backend such as Supabase, Firebase, or a custom API with server-side authorization.
+Support features:
+- Contact form addressed to karvaneasal@gmail.com using the device's configured mail app.
+- Built-in short-question assistant for common software questions.
+- Questions outside the built-in FAQ can be forwarded to WhatsApp +92 345 0995555.
+- Support system is controlled by Super Admin from Settings and can be enabled/disabled globally within the app.
 
+IMPORTANT:
+This is a static GitHub Pages/PWA application. The contact email uses mailto, so the device must have a configured mail app for one-tap sending. The built-in assistant is a local FAQ-style assistant and does not call a remote AI service. For true cloud AI, email delivery, and server-enforced multi-user privacy, a backend/API is required.
 
-V12 changes:
-- New Booking replaces New Quotation.
-- New Booking opens two choices: New Booking or Calculate the Package.
-- Package Cost Q is a separate tab for simple visa + hotel + ticket calculation.
-- Package Cost Q follows the same child-with-bed / child-without-bed hotel rules as the full booking.
-- Infant ticket is fixed at zero in Package Cost Q.
-- Package Cost Q results are saved per user.
-- Voucher is the saved-voucher tab; Voucher Preview is the generated voucher view.
-- Super Admin can see all users' saved vouchers and Package Cost Q records with usernames.
+GitHub structure:
+index.html
+manifest.json
+sw.js
+assets/logo.png
