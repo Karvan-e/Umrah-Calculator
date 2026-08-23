@@ -419,8 +419,8 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
   window.loginUser=async function(){
     const un=$('loginUser').value.trim().toLowerCase(),pw=$('loginPass').value;
     let email=un;
-    if(!un.includes('@')){const {data}=await sb.from('profiles').select('email').eq('username',un).single(); if(data?.email) email=data.email;}
-    if(!email.includes('@')) return showAuthError('No account was found for that username.');
+    if(!un.includes('@')){const {data,error}=await sb.from('profiles').select('email,username,active').ilike('username',un).maybeSingle(); if(!error && data?.active!==false && data?.email) email=data.email;}
+    if(!email.includes('@')) return showAuthError('No active account was found for that username.');
     const {error}=await sb.auth.signInWithPassword({email,password:pw});
     if(error)return showAuthError(error.message);
     await loadServer(); loadUserQuotes(); loadPackageCosts(); $('authScreen').style.display='none'; $('appRoot').style.display='block'; applyUserUI(); init();
