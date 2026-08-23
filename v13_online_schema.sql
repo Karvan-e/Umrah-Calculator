@@ -107,3 +107,20 @@ for each row execute procedure public.handle_new_user();
 
 -- After your first account is registered, promote the intended super admin:
 -- update public.profiles set role='superadmin' where username='umar';
+
+
+-- V14 Sales hardening: secure username lookup for email-or-username login.
+create or replace function public.get_login_email_by_username(p_username text)
+returns text
+language sql
+security definer
+set search_path = public
+as $$
+  select p.email
+  from public.profiles p
+  where lower(trim(p.username)) = lower(trim(p_username))
+    and p.active = true
+  limit 1;
+$$;
+revoke all on function public.get_login_email_by_username(text) from public;
+grant execute on function public.get_login_email_by_username(text) to anon, authenticated;

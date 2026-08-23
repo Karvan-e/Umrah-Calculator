@@ -1,4 +1,13 @@
-KARVAN E ASAL — UMRAH MANAGER V14 SALES
-Online multi-user version based on the V13 Sales build.
+KARVAN E ASAL — V14 SALES
+Online multi-user Umrah Manager
 
-Supabase is configured in supabase-config.js. Never put a service_role or secret key in this file.
+Baseline: V13 Sales
+V14 additions in this build:
+- Email OR username login flow
+- Visa duration/category pricing
+- Only Visa defaults: 15d PKR 40,000; 21d PKR 41,000; 28d PKR 42,000; 75d PKR 45,000
+- Editable duration and PKR prices for every visa type
+- SAR conversion fixed by default at 1 SAR = 75 PKR
+- Existing Voucher, Package Cost Q, Sales, Super Admin, RLS and PWA features retained
+
+Do not put a Supabase service_role/secret key in the frontend.
