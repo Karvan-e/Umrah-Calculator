@@ -1,14 +1,5 @@
-UMRAH CALCULATOR — iPHONE PWA
+UMRAH CALCULATOR PWA v2
 
-This is a standalone Progressive Web App.
+Added: separate Adult/Child/Infant totals with Visa/Hotel/Ticket breakdown; hotel distance in Summary and Invoice; add/edit hotels and room rates; editable visa rates; separate Flight screen with outbound/return/transit legs; international airport IATA and country codes; routing options Direct/Dubai/Istanbul/Doha/Other.
 
-To install on iPhone:
-1. Host this folder on an HTTPS website.
-2. Open the website in Safari on iPhone.
-3. Tap Share.
-4. Choose Add to Home Screen.
-5. Launch Umrah Calculator from the new Home Screen icon.
-
-The app stores entered data locally on the device.
-
-For a true App Store app, this same interface can later be wrapped/ported to a signed native iOS application.
+Live automatic airline/flight-number lookup requires connecting a flight-data API/backend and is intentionally not faked.
