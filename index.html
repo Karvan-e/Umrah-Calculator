@@ -418,19 +418,25 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
   };
   window.loginUser=async function(){
     const raw=$('loginUser').value.trim(), un=raw.toLowerCase(), pw=$('loginPass').value;
-    if(!un||!pw)return showAuthError('Please enter your username/email and password.');
+    if(!raw||!pw) return showAuthError('Please enter your username/email and password.');
     let email=raw;
-    if(!un.includes('@')){
-      // Username lookup must use a SECURITY DEFINER RPC because profiles is protected by RLS.
-      // This returns only the email for an active, exact username; it does not expose profile rows.
-      const {data,error}=await sb.rpc('get_login_email_by_username',{p_username:raw});
-      if(!error && data) email=data;
-      else if(error) return showAuthError('Username lookup is not available yet. Please run the V14 Sales SQL update in Supabase.');
+    if(!raw.includes('@')){
+      // Username lookup is performed through a SECURITY DEFINER RPC so RLS on profiles remains enabled.
+      let rpc=null;
+      try { rpc=await sb.rpc('get_login_email_by_username',{p_username:raw}); } catch(e) { rpc={error:e}; }
+      if(!rpc.error && rpc.data) email=Array.isArray(rpc.data)?rpc.data[0]?.email||rpc.data[0]:rpc.data;
+      // Compatibility fallback for projects whose profiles policy permits the lookup.
+      if(!email.includes('@')){
+        const {data}=await sb.from('profiles').select('email').ilike('username',un).eq('active',true).maybeSingle();
+        if(data?.email) email=data.email;
+      }
     }
-    if(!String(email).includes('@')) return showAuthError('No active account was found for that username.');
-    const {error}=await sb.auth.signInWithPassword({email:String(email),password:pw});
+    if(!String(email).includes('@')) return showAuthError('No active account was found for this username.');
+    const {error}=await sb.auth.signInWithPassword({email:String(email).trim(),password:pw});
     if(error)return showAuthError(error.message);
-    await loadServer(); loadUserQuotes(); loadPackageCosts(); $('authScreen').style.display='none'; $('appRoot').style.display='block'; applyUserUI(); init();
+    await loadServer();
+    if(!currentUser){ await sb.auth.signOut(); return showAuthError('Your account profile could not be loaded. Please contact the Super Admin.'); }
+    loadUserQuotes(); loadPackageCosts(); $('authScreen').style.display='none'; $('appRoot').style.display='block'; applyUserUI(); init();
   };
   window.registerUser=async function(){
     let first=$('regFirst').value.trim(),last=$('regLast').value.trim(),email=$('regEmail').value.trim().toLowerCase(),contact=$('regContact').value.trim(),agency=$('regAgency').value.trim(),address=$('regAddress').value.trim(),pass=$('regPass').value,pass2=$('regPass2').value,question=$('regQuestion').value,answer=$('regAnswer').value.trim();
