@@ -118,11 +118,11 @@ let extras=JSON.parse(localStorage.getItem('keaExtrasV10')||localStorage.getItem
 let fx=Number(localStorage.getItem('keaFxV14')||75),quotes=[],q=null,step=0,hotelCity='Makkah',pc=null,packageCosts=[];
 const AUTH_KEY='keaUsersV10',SESSION_KEY='keaSessionV10';
 const SECURITY_QUESTIONS=[
+  'What city were you born in?',
   'What is your mother’s maiden name?',
   'What was the name of your first school?',
   'What is the name of your first pet?',
-  'What was the make or model of your first car?',
-  'What is your favourite childhood place?'
+  'What was the make or model of your first car?'
 ];
 let users=JSON.parse(localStorage.getItem(AUTH_KEY)||'null');
 if(!users){
