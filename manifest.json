@@ -1,15 +1,1 @@
-{
-  "name": "Umrah Calculator",
-  "short_name": "Umrah Calculator",
-  "start_url": "./",
-  "display": "standalone",
-  "background_color": "#f4f7fb",
-  "theme_color": "#071b3d",
-  "icons": [
-    {
-      "src": "assets/logo.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
-}
+{"name":"Karvan e Asal — Umrah Manager","short_name":"Umrah Manager","start_url":"./","display":"standalone","background_color":"#f5f7fa","theme_color":"#071b3d","icons":[{"src":"assets/logo.png","sizes":"512x512","type":"image/png"}]}

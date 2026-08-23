@@ -1,5 +1,6 @@
-UMRAH CALCULATOR PWA v2
+KARVAN E ASAL — UMRAH MANAGER V3
 
-Added: separate Adult/Child/Infant totals with Visa/Hotel/Ticket breakdown; hotel distance in Summary and Invoice; add/edit hotels and room rates; editable visa rates; separate Flight screen with outbound/return/transit legs; international airport IATA and country codes; routing options Direct/Dubai/Istanbul/Doha/Other.
+Guided workflow: Customer > Passengers > Journey > Hotels > Visa > Flights > Transport > Extras > Review.
+Includes separate Adult/Child/Infant Visa-Hotel-Ticket totals, hotel distance in review/invoice, add/edit hotel and rates, add/edit visa types and prices, airport IATA/country codes, multi-leg flights, transport/extras management, PKR/SAR conversion, saved quotations and print/save PDF.
 
-Live automatic airline/flight-number lookup requires connecting a flight-data API/backend and is intentionally not faked.
+Live flight-number/airline availability and live FX require an external API/backend; this build does not fabricate live data.
