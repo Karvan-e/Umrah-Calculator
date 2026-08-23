@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#071b3d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Umrah Calculator">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="assets/logo.png">
+<title>Umrah Calculator</title>
+<style>
+:root{--navy:#071b3d;--blue:#0d3d78;--gold:#d8a52b;--orange:#ef8b36;--bg:#f4f7fb;--card:#fff;--muted:#667085;--line:#e3e8ef}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;color:#101828;padding-bottom:82px}
+header{position:sticky;top:0;z-index:5;background:linear-gradient(135deg,var(--navy),#0d315e);color:#fff;padding:calc(12px + env(safe-area-inset-top)) 16px 14px;box-shadow:0 2px 12px #0002}
+.brand{display:flex;align-items:center;gap:12px}.brand img{width:52px;height:52px;object-fit:contain}.brand h1{font-size:18px;margin:0}.brand p{font-size:11px;margin:3px 0 0;opacity:.75}
+main{max-width:720px;margin:auto;padding:12px}.screen{display:none}.screen.active{display:block}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px;margin:10px 0;box-shadow:0 2px 8px #1020400a}
+h2{font-size:19px;margin:5px 0 14px}.section-title{font-weight:800;color:var(--navy);margin-bottom:10px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.full{grid-column:1/-1}
+label{font-size:12px;font-weight:700;color:#475467;display:block;margin:2px 0 5px}input,select,button{font:inherit}input,select{width:100%;padding:12px;border:1px solid #d0d5dd;border-radius:11px;background:#fff;min-height:44px}input:focus,select:focus{outline:2px solid #d8a52b55;border-color:var(--gold)}
+.stepper{display:flex;align-items:center;gap:8px}.stepper button{width:42px;height:42px;border:0;border-radius:11px;background:#edf2f8;color:var(--navy);font-weight:800}.stepper input{text-align:center}
+.stay{border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:10px}.stay-head{display:flex;justify-content:space-between;align-items:center}.stay-head strong{color:var(--navy)}
+.rate{font-size:12px;color:var(--muted);margin-top:7px}.total{font-size:17px;font-weight:900;color:var(--navy)}
+.row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.grand{font-size:19px;font-weight:900;color:var(--navy)}
+.bottom{position:fixed;bottom:0;left:0;right:0;z-index:10;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:7px 4px calc(7px + env(safe-area-inset-bottom));box-shadow:0 -3px 15px #0001}.bottom button{border:0;background:none;color:#667085;font-size:10px;font-weight:700}.bottom button.active{color:var(--navy)}.bottom span{display:block;font-size:21px;margin-bottom:2px}
+.primary{width:100%;border:0;background:linear-gradient(135deg,var(--navy),var(--blue));color:white;padding:13px;border-radius:12px;font-weight:800}.secondary{width:100%;border:1px solid #cbd5e1;background:#fff;color:var(--navy);padding:12px;border-radius:12px;font-weight:800}
+.notice{font-size:12px;color:var(--muted);background:#f8fafc;border-radius:10px;padding:10px}.hotel-name{font-weight:800}.chips{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:7px}.chip{background:#f4f6f8;border-radius:8px;padding:6px;text-align:center;font-size:10px}.chip b{display:block;font-size:12px}
+.invoice{background:white;padding:22px;border-radius:14px}.invoice h3{margin:0 0 3px;color:var(--navy)}.small{font-size:11px;color:var(--muted)}.print{margin-top:12px}
+@media(min-width:650px){.bottom{max-width:720px;margin:auto;left:50%;transform:translateX(-50%);border-radius:18px 18px 0 0}.grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<header><div class="brand"><img src="assets/logo.png" alt="Company logo"><div><h1>UMRAH CALCULATOR</h1><p>Hotel • Visa • Ticket • Invoice</p></div></div></header>
+<main>
+<section id="calculator" class="screen active">
+<div class="card"><h2>Group Details</h2><div class="grid">
+<div class="full"><label>Customer Name</label><input id="customer" placeholder="Customer name"></div>
+<div><label>Reference</label><input id="reference" placeholder="Reference"></div>
+<div><label>Departure City</label><input id="departureCity" placeholder="City"></div>
+<div><label>Departure Date</label><input id="departureDate" type="date"></div>
+<div><label>Arrival Date</label><input id="arrivalDate" type="date"></div>
+<div><label>Adults</label><div class="stepper"><button onclick="step('adults',-1)">−</button><input id="adults" type="number" min="0" value="1" oninput="calculate()"><button onclick="step('adults',1)">+</button></div></div>
+<div><label>Child Without Bed</label><div class="stepper"><button onclick="step('childNoBed',-1)">−</button><input id="childNoBed" type="number" min="0" value="0" oninput="calculate()"><button onclick="step('childNoBed',1)">+</button></div></div>
+<div><label>Child With Bed</label><div class="stepper"><button onclick="step('childBed',-1)">−</button><input id="childBed" type="number" min="0" value="0" oninput="calculate()"><button onclick="step('childBed',1)">+</button></div></div>
+<div><label>Infants</label><div class="stepper"><button onclick="step('infants',-1)">−</button><input id="infants" type="number" min="0" value="0" oninput="calculate()"><button onclick="step('infants',1)">+</button></div></div>
+</div></div>
+
+<div class="card"><div class="section-title">Hotel Stays</div><div id="stays"></div></div>
+<div class="card"><div class="section-title">Quick Total</div><div id="quickTotal"></div></div>
+</section>
+
+<section id="summary" class="screen">
+<div class="card"><h2>Summary</h2><div id="summaryContent"></div></div>
+</section>
+
+<section id="hotels" class="screen">
+<div class="card"><h2>Hotel Tariff</h2><label>City</label><select id="hotelCity" onchange="renderHotels()"><option>Makkah</option><option>Madinah</option></select><div id="hotelList"></div></div>
+</section>
+
+<section id="invoice" class="screen">
+<div class="card"><h2>Quotation / Invoice</h2><div class="invoice" id="invoiceContent"></div><button class="primary print" onclick="window.print()">Print / Save PDF</button></div>
+</section>
+
+<section id="settings" class="screen">
+<div class="card"><h2>Settings</h2>
+<div class="section-title">Currency</div><label>PKR per SAR</label><input id="pkrPerSar" type="number" step="0.01" placeholder="e.g. 75" oninput="calculate()">
+<div class="notice" style="margin-top:8px">Manual exchange-rate input. A live internet rate can be connected in a later production version.</div>
+</div>
+<div class="card"><div class="section-title">Ticket Rates — PKR</div>
+<div class="grid">
+<div><label>Adult Ticket</label><input id="adultTicket" type="number" oninput="calculate()"></div>
+<div><label>Child Without Bed</label><input id="childNoBedTicket" type="number" oninput="calculate()"></div>
+<div><label>Child With Bed</label><input id="childBedTicket" type="number" oninput="calculate()"></div>
+<div><label>Infant Ticket</label><input id="infantTicket" type="number" oninput="calculate()"></div>
+</div></div>
+<div class="card"><div class="section-title">Tariff Information</div><div class="row"><span>Effective Date</span><b>15 Aug 2026</b></div><div class="row"><span>Version</span><b>V.07</b></div><div class="row"><span>Hotel Check-out</span><b>20 Oct 2026</b></div></div>
+</section>
+</main>
+
+<nav class="bottom">
+<button data-screen="calculator" class="active" onclick="show('calculator',this)"><span>🧮</span>Calculator</button>
+<button data-screen="summary" onclick="show('summary',this)"><span>📊</span>Summary</button>
+<button data-screen="hotels" onclick="show('hotels',this)"><span>🏨</span>Hotels</button>
+<button data-screen="invoice" onclick="show('invoice',this)"><span>🧾</span>Invoice</button>
+<button data-screen="settings" onclick="show('settings',this)"><span>⚙️</span>Settings</button>
+</nav>
+
+<script>
+const hotels=[
+["Makkah","Wedam Six","Ibrahim Khalil Road","Shuttle",15,15,18,24,35,70],
+["Makkah","White Lion","Hijra Road","1100 M",20,20,24,32,49,95],
+["Makkah","Masarat Khalil / Nada Hijra","Ibrahim Khalil / Hijra Road","750 M",41,null,45,60,90,180],
+["Makkah","Saif Al Majd","Hijra Road","750 M",43,43,50,67,100,200],
+["Makkah","Masarat Golden","Ibrahim Khalil Road","550 M",48,48,55,73,110,220],
+["Makkah","Badar Masa","Ibrahim Khalil Road","550 M",null,57,68,90,135,270],
+["Makkah","Tara Zahbi (Old-Majd Al Zahabi Hotel)","Manshia","400 M",null,null,75,100,150,300],
+["Madinah","Qadat Al Dyyafah / Afaq Al Masi","Omer Bin Al Khattab Road","Shuttle",27,27,30,40,60,120],
+["Madinah","Hamouda Al Masi","Masjid Bilal Side","650 M",38,38,43,57,85,170],
+["Madinah","Hamouda Nebras Silver","Al Zahida Area Quba Road","550 M",44,44,53,70,105,210],
+["Madinah","Hamouda Nebras 1&2 (Old Burj Hakeem)","Masjid Bilal Side","450 M",48,48,55,73,110,220],
+["Madinah","Mukhtara Diamond","Markazia","120 M",null,null,75,100,150,300],
+["Madinah","Ansar Golden Tulip","Markazia","100 M",null,null,100,133,200,400]
+];
+const roomNames=["Sharing","Quint","Quad","Triple","Double","Full Room"];
+let stays=[
+ {city:"Makkah",hotel:"",room:"Sharing",rooms:0,checkIn:"",checkOut:""},
+ {city:"Madinah",hotel:"",room:"Sharing",rooms:0,checkIn:"",checkOut:""},
+ {city:"Makkah",hotel:"",room:"Sharing",rooms:0,checkIn:"",checkOut:""},
+ {city:"Madinah",hotel:"",room:"Sharing",rooms:0,checkIn:"",checkOut:""}
+];
+function $(id){return document.getElementById(id)}
+function num(id){return Math.max(0,Number($(id).value)||0)}
+function step(id,d){$(id).value=Math.max(0,num(id)+d);calculate()}
+function show(id,btn){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));$(id).classList.add('active');document.querySelectorAll('.bottom button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');if(id==="summary")renderSummary();if(id==="hotels")renderHotels();if(id==="invoice")renderInvoice()}
+function hotelFor(s){return hotels.find(h=>h[0]===s.city&&h[1]===s.hotel)}
+function rateFor(h,room){if(!h)return null;return h[4+roomNames.indexOf(room)]}
+function nights(s){if(!s.checkIn||!s.checkOut)return 0;let a=new Date(s.checkIn),b=new Date(s.checkOut);return Math.max(0,Math.round((b-a)/86400000))}
+function visaRate(){let p=num("adults")+num("childNoBed")+num("childBed");return p>=5?615:p===4?665:p===3?690:p===2?715:765}
+function hotelCost(s){let h=hotelFor(s),r=rateFor(h,s.room),n=nights(s);if(r==null||!n)return 0;let eligible=num("adults")+num("childBed");if(s.rooms>0||s.room==="Full Room")return r*Math.max(1,s.rooms)*n;return r*eligible*n}
+function totals(){let visa=(num("adults")+num("childNoBed")+num("childBed"))*visaRate()+num("infants")*475;let hotel=stays.reduce((a,s)=>a+hotelCost(s),0);let ticketPKR=num("adults")*num("adultTicket")+num("childNoBed")*num("childNoBedTicket")+num("childBed")*num("childBedTicket")+num("infants")*num("infantTicket");let fx=num("pkrPerSar"),ticketSAR=fx?ticketPKR/fx:0;return {visa,hotel,ticketPKR,ticketSAR,total:visa+hotel+ticketSAR,fx}}
+function renderStays(){let box=$("stays");box.innerHTML="";stays.forEach((s,i)=>{let hs=hotels.filter(h=>h[0]===s.city);let opts=hs.map(h=>`<option ${s.hotel===h[1]?"selected":""}>${h[1]}</option>`).join("");let roomOpts=roomNames.map(r=>{let available=rateFor(hotelFor(s),r)!=null;return `<option value="${r}" ${s.room===r?"selected":""} ${available?"":"disabled"}>${r}${available?"":" — N/A"}</option>`}).join("");box.innerHTML+=`<div class="stay"><div class="stay-head"><strong>Stay ${i+1} • ${s.city}</strong><span class="small">${nights(s)} night(s)</span></div><div class="grid" style="margin-top:8px"><div><label>Check-in</label><input type="date" value="${s.checkIn}" onchange="stayChange(${i},'checkIn',this.value)"></div><div><label>Check-out</label><input type="date" value="${s.checkOut}" onchange="stayChange(${i},'checkOut',this.value)"></div><div class="full"><label>Hotel</label><select onchange="stayChange(${i},'hotel',this.value)"><option value="">Select Hotel</option>${opts}</select></div><div><label>Room Type</label><select onchange="stayChange(${i},'room',this.value)">${roomOpts}</select></div><div><label>Rooms (0 = sharing/per-person)</label><input type="number" min="0" value="${s.rooms}" onchange="stayChange(${i},'rooms',this.value)"></div></div><div class="rate">${hotelFor(s)?hotelFor(s)[2]+" • "+hotelFor(s)[3]:"Select a hotel"}</div><div class="total">Stay Cost: SAR ${hotelCost(s).toFixed(2)}</div></div>`})}
+function stayChange(i,k,v){stays[i][k]=k==="rooms"?Math.max(0,Number(v)||0):v;renderStays();calculate()}
+function calculate(){renderStays();let t=totals();$("quickTotal").innerHTML=`<div class="row"><span>Visa</span><b>SAR ${t.visa.toFixed(2)}</b></div><div class="row"><span>Hotels</span><b>SAR ${t.hotel.toFixed(2)}</b></div><div class="row"><span>Tickets</span><b>SAR ${t.ticketSAR.toFixed(2)}</b></div><div class="row grand"><span>Grand Total</span><b>SAR ${t.total.toFixed(2)}</b></div>${t.fx?`<div class="row"><span>Grand Total PKR</span><b>PKR ${(t.total*t.fx).toFixed(0)}</b></div>`:""}`;save()}
+function renderSummary(){let t=totals(),p=Math.max(1,num("adults")+num("childBed")),mk=stays.filter(s=>s.city==="Makkah").reduce((a,s)=>a+hotelCost(s),0),md=stays.filter(s=>s.city==="Madinah").reduce((a,s)=>a+hotelCost(s),0);$("summaryContent").innerHTML=`<div class="row"><span>Adults</span><b>${num("adults")}</b></div><div class="row"><span>Child Without Bed</span><b>${num("childNoBed")}</b></div><div class="row"><span>Child With Bed</span><b>${num("childBed")}</b></div><div class="row"><span>Infants</span><b>${num("infants")}</b></div><div class="row"><span>Visa</span><b>SAR ${t.visa.toFixed(2)}</b></div><div class="row"><span>Makkah Overall</span><b>SAR ${mk.toFixed(2)}</b></div><div class="row"><span>Madinah Overall</span><b>SAR ${md.toFixed(2)}</b></div><div class="row"><span>Makkah / eligible person</span><b>SAR ${(mk/p).toFixed(2)}</b></div><div class="row"><span>Madinah / eligible person</span><b>SAR ${(md/p).toFixed(2)}</b></div><div class="row grand"><span>Group Total</span><b>SAR ${t.total.toFixed(2)}</b></div>${t.fx?`<div class="row grand"><span>Group Total PKR</span><b>PKR ${(t.total*t.fx).toFixed(0)}</b></div>`:""}`}
+function renderHotels(){let city=$("hotelCity").value;let list=hotels.filter(h=>h[0]===city);$("hotelList").innerHTML=list.map(h=>`<div class="stay"><div class="hotel-name">${h[1]}</div><div class="small">${h[2]} • ${h[3]}</div><div class="chips">${roomNames.map((r,i)=>`<div class="chip">${r}<b>${h[4+i]==null?"N/A":h[4+i]}</b></div>`).join("")}</div></div>`).join("")}
+function renderInvoice(){let t=totals();$("invoiceContent").innerHTML=`<h3>UMRAH QUOTATION / INVOICE</h3><div class="small">${new Date().toLocaleDateString()}</div><hr><div class="row"><span>Customer</span><b>${$("customer").value||"—"}</b></div><div class="row"><span>Reference</span><b>${$("reference").value||"—"}</b></div><div class="row"><span>Visa</span><b>SAR ${t.visa.toFixed(2)}</b></div><div class="row"><span>Hotels</span><b>SAR ${t.hotel.toFixed(2)}</b></div><div class="row"><span>Tickets</span><b>SAR ${t.ticketSAR.toFixed(2)}</b></div><div class="row grand"><span>GRAND TOTAL</span><b>SAR ${t.total.toFixed(2)}</b></div>${t.fx?`<div class="row grand"><span>PKR</span><b>PKR ${(t.total*t.fx).toFixed(0)}</b></div>`:""}<hr><div class="small">Hotel availability is subject to confirmation. Rates may change according to supplier tariff updates. Child Without Bed has no hotel bed charge. Infant has visa cost only by default.</div>`}
+function save(){let data={customer:$("customer").value,reference:$("reference").value,departureCity:$("departureCity").value,departureDate:$("departureDate").value,arrivalDate:$("arrivalDate").value,adults:$("adults").value,childNoBed:$("childNoBed").value,childBed:$("childBed").value,infants:$("infants").value,pkrPerSar:$("pkrPerSar").value,adultTicket:$("adultTicket").value,childNoBedTicket:$("childNoBedTicket").value,childBedTicket:$("childBedTicket").value,infantTicket:$("infantTicket").value,stays};localStorage.setItem("umrahCalc",JSON.stringify(data))}
+function load(){let x;try{x=JSON.parse(localStorage.getItem("umrahCalc")||"null")}catch(e){}if(!x)return;for(let id of ["customer","reference","departureCity","departureDate","arrivalDate","adults","childNoBed","childBed","infants","pkrPerSar","adultTicket","childNoBedTicket","childBedTicket","infantTicket"])if(x[id]!=null)$(id).value=x[id];if(Array.isArray(x.stays))stays=x.stays;calculate()}
+window.addEventListener("load",()=>{renderHotels();load();if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js")})
+</script>
+</body></html>
