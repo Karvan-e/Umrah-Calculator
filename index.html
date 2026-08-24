@@ -1433,6 +1433,31 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
 }
 </style>
 
+
+<style id="v14-desktop-option2-theme">
+/* Option 2 theme carried consistently to desktop/tablet sidebar. */
+.sidebar{
+  background:linear-gradient(180deg,rgba(255,224,139,.97) 0%,rgba(226,183,80,.97) 52%,rgba(198,145,39,.98) 100%)!important;
+  color:#06204a!important;
+  border-right:1px solid rgba(255,247,211,.9)!important;
+  box-shadow:6px 0 18px rgba(70,43,0,.16),inset -1px 0 0 rgba(255,255,255,.34)!important;
+}
+.navitem{
+  color:#06204a!important;
+  background:transparent!important;
+  border:0!important;
+  text-shadow:none!important;
+}
+.navitem.active,.navitem:hover{
+  background:linear-gradient(180deg,#06204a 0%,#0a3268 100%)!important;
+  color:#f7d36b!important;
+  box-shadow:0 2px 7px rgba(6,26,58,.22),inset 0 1px 0 rgba(255,255,255,.13)!important;
+}
+.navicon{color:inherit!important}
+@media(max-width:650px){
+  .sidebar{display:none!important;}
+}
+</style>
 </body></html>
 
 <style>
