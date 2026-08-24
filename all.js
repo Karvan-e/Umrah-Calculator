@@ -1,105 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#061a3a"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Karvan e Asal">
-<link rel="manifest" href="manifest.json"><title>Karvan e Asal — Umrah Manager</title>
-<style>
-:root{--navy:#061a3a;--navy2:#0a2d62;--gold:#c9962d;--gold2:#e6b84f;--bg:#f4f6fa;--card:#fff;--line:#dfe4ec;--muted:#667085;--green:#16845a;--red:#d92d20;--soft:#edf4ff;--shadow:0 8px 26px rgba(6,26,58,.08)}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#f7faff 0%,#ffffff 45%,#f8fafc 100%);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#101828}button,input,select{font:inherit}button{cursor:pointer}.app{min-height:100vh}.topbar{height:64px;background:rgba(6,26,58,.76);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#fff;display:flex;align-items:center;padding:0 14px;gap:10px;position:fixed;top:0;left:0;right:0;z-index:100;box-shadow:0 4px 18px rgba(0,0,0,.14);border-bottom:1px solid rgba(230,184,79,.22)}.topbar img{height:54px;width:54px;object-fit:contain}.topbar .title{font-weight:900;letter-spacing:.4px}.topbar .sub{font-size:9px;opacity:.72;margin-top:2px}.user-chip{margin-left:auto;display:flex;align-items:center;gap:8px;min-width:0}.user-role{font-size:9px;opacity:.75}.logout{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;border-radius:8px;padding:7px 10px;font-weight:800;font-size:10px}.layout{display:flex;max-width:1400px;margin:auto;padding-top:64px}.sidebar{width:220px;background:rgba(6,26,58,.94);color:#fff;min-height:calc(100vh - 64px);padding:15px 10px;position:sticky;top:64px;align-self:flex-start}.navicon{width:22px;min-width:22px;text-align:center;font-size:17px;line-height:1}.navitem{display:flex;gap:10px;align-items:center;padding:11px 12px;border-radius:10px;margin:3px 0;color:#b8c7dd;border:0;background:none;width:100%;text-align:left;font-size:12px;font-weight:800}.navitem.active,.navitem:hover{background:#c9962d;color:#fff}.content{flex:1;padding:18px;min-width:0}.page{display:none;position:relative;overflow:hidden}.page.active{display:block}.page::before{content:"";position:absolute;inset:72px 0 0;background-image:url("assets/logo.png");background-repeat:no-repeat;background-position:center 45%;background-size:min(58vw,520px);opacity:.035;pointer-events:none;z-index:0}.page>*{position:relative;z-index:1}.pageBrand{display:flex;align-items:center;gap:11px;padding:10px 13px;margin:0 0 12px;border:1px solid #e7d5a7;border-radius:14px;background:linear-gradient(90deg,#ffffff 0%,#fffaf0 55%,#f7fbff 100%);box-shadow:0 6px 20px rgba(6,26,58,.06)}.pageBrand img{width:48px;height:48px;object-fit:contain;display:block}.pageBrand .brandMain{font-size:14px;font-weight:950;letter-spacing:.8px;color:var(--navy)}.pageBrand .brandSub{font-size:9px;font-weight:800;color:#8b6a24;letter-spacing:.7px;margin-top:2px}.pageBrand .brandLine{margin-left:auto;height:32px;width:4px;border-radius:9px;background:linear-gradient(180deg,var(--gold2),var(--navy))}.pagehead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.pagehead h1{margin:0;color:var(--navy);font-size:23px}.pagehead p{margin:4px 0 0;color:var(--muted);font-size:11px}.card{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow);padding:15px;margin-bottom:13px}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.field label{display:block;font-size:10px;font-weight:900;color:#475467;margin:0 0 5px}.field input,.field select{width:100%;border:1px solid #cfd6e1;border-radius:9px;padding:10px 11px;background:#fff;min-height:40px;outline:none}.field input:focus,.field select:focus{border-color:var(--gold);box-shadow:0 0 0 3px #c9962d18}.btn{border:1px solid transparent;border-radius:9px;padding:10px 13px;font-size:11px;font-weight:900}.primary{background:var(--navy);color:#fff}.gold{background:linear-gradient(135deg,#b57e19,#d7a63b);color:#fff}.outline{background:#fff;border-color:#cdd5df;color:var(--navy)}.danger{background:#fff;border-color:#f0b4b0;color:var(--red)}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.metric{background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px}.metric .k{font-size:10px;color:var(--muted)}.metric .v{font-size:20px;font-weight:900;color:var(--navy);margin-top:5px}.steps{display:flex;gap:6px;overflow:auto;margin-bottom:12px;position:relative;z-index:20;pointer-events:auto}.steps .step{position:relative;z-index:21;pointer-events:auto}.step{flex:0 0 auto;white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:99px;padding:8px 11px;font-size:10px;font-weight:900;color:#667085}.step.active{background:var(--navy);color:#fff;border-color:var(--navy)}.section-title{font-size:14px;font-weight:900;color:var(--navy);margin:0 0 9px}.muted{font-size:10px;color:var(--muted)}.paxgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.pax{border:1px solid var(--line);border-radius:12px;padding:11px}.pax b{display:block;color:var(--navy);font-size:12px}.counter{display:flex;gap:6px;align-items:center;margin-top:9px}.counter button{width:35px;height:35px;border:0;border-radius:8px;background:#eef2f7;color:var(--navy);font-weight:900}.counter input{flex:1;text-align:center;border:1px solid var(--line);border-radius:8px;height:35px}.stay,.flight,.service{border:1px solid var(--line);border-radius:12px;padding:11px;margin-top:9px}.stayhead{display:flex;justify-content:space-between;align-items:center}.badge{font-size:9px;font-weight:900;background:#eef5ff;color:#1457a6;border-radius:99px;padding:5px 8px}.rate{font-size:10px;color:var(--muted);margin-top:7px}.tablewrap{overflow:auto}.table{width:100%;border-collapse:collapse;font-size:10px}.table th,.table td{padding:9px 7px;border-bottom:1px solid var(--line);white-space:nowrap;text-align:left}.table th{background:#f7f8fa;color:#475467;font-weight:900}.table td strong{color:var(--navy)}.tabs{display:flex;gap:6px;overflow:auto;margin-bottom:10px}.tabs button{white-space:nowrap}.tabs .on{background:var(--navy);color:#fff}.totalbox{background:linear-gradient(135deg,#f8fbff,#fff9ea);border:1px solid #e8d39b;border-radius:13px;padding:12px}.row{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:11px}.row:last-child{border-bottom:0}.row b{color:var(--navy)}.grand{font-size:16px;font-weight:900}.invoice{background:#fff;border:1px solid #d8c27d;padding:18px;position:relative;overflow:hidden}.invoice::after{content:"";position:absolute;inset:0;background:url("assets/logo.png") center/420px no-repeat;opacity:.025;pointer-events:none}.invoice>*{position:relative;z-index:1}.invoiceLogo{width:72px;height:72px;object-fit:contain;display:block;margin-bottom:6px}.invoiceBrand{display:flex;align-items:flex-start;gap:12px}.invoicehead{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px;border-bottom:2px solid var(--navy);padding-bottom:12px}.invoice h2{margin:0;color:var(--navy);font-size:19px}.invoice h3{color:var(--navy);font-size:12px;margin:14px 0 6px}.mobileNav{display:none;background:rgba(201,150,45,.78)!important;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,.28)}.notice{background:#fff9e6;border:1px solid #efd184;border-radius:10px;padding:10px;font-size:10px;color:#6b4d00}.modal{position:fixed;inset:0;background:#0007;display:none;align-items:center;justify-content:center;z-index:100;padding:12px;overflow:hidden;-webkit-overflow-scrolling:touch}.modal.open{display:flex}.modalbox{background:#fff;border-radius:15px;width:min(620px,100%);max-height:calc(100dvh - 24px);overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:16px;box-shadow:0 20px 60px #0004;box-sizing:border-box}.modalbox .grid,.modalbox .grid2{min-width:0}.modalbox input,.modalbox select,.modalbox button{max-width:100%;box-sizing:border-box}@media(max-width:600px){.modal{align-items:flex-start;padding:8px}.modalbox{width:100%;max-height:calc(100dvh - 16px);border-radius:12px;padding:13px}.modalbox .grid,.modalbox .grid2{grid-template-columns:1fr;gap:9px}.modalbox [style*="grid-column:span 2"]{grid-column:auto!important}.modalbox .modalhead{position:sticky;top:-13px;background:#fff;z-index:5;padding:4px 0 9px;border-bottom:1px solid var(--line);margin-bottom:8px}.modalbox .modalhead button{flex:0 0 auto}}.modalhead{display:flex;justify-content:space-between;align-items:center}.modalhead h3{margin:0;color:var(--navy)}
-.choicegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.choicecard{border:1px solid #e1d3a8;border-radius:16px;background:linear-gradient(145deg,#fff,#f7fbff);padding:20px;box-shadow:var(--shadow);cursor:pointer;transition:.18s}.choicecard:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(6,26,58,.12);border-color:var(--gold)}.choiceicon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--navy),#0c4c94);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:10px}.choicecard h3{margin:0;color:var(--navy);font-size:15px}.choicecard p{font-size:10px;color:var(--muted);line-height:1.5}.pcresult{border:1px solid #e3d09a;border-radius:14px;background:linear-gradient(135deg,#f8fbff,#fff9e9);padding:13px}.pcrow{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid #e7e7e7;font-size:11px}.pcrow:last-child{border-bottom:0}.pcgrand{font-size:17px;font-weight:950;color:var(--navy)}.mini-note{font-size:9px;color:var(--muted)}
-@media(max-width:700px){.choicegrid{grid-template-columns:1fr}.choicecard{padding:15px}.pcrow{font-size:10px}}
-@media(max-width:650px){.auth-card{padding:20px}.auth-grid{grid-template-columns:1fr}.auth-grid .field[style*="grid-column"]{grid-column:span 1!important}}
-@media(max-width:900px){.sidebar{width:190px}.grid{grid-template-columns:repeat(2,1fr)}.metrics{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:651px) and (max-width:1100px){.paxgrid{grid-template-columns:repeat(2,minmax(0,1fr));}.pax{min-width:0;overflow:hidden;}.counter{min-width:0;}.counter input{min-width:0;width:100%;}.counter button{flex:0 0 35px;}}
-.paxgrid .pax{min-width:0;overflow:hidden;} .paxgrid .counter{min-width:0;} .paxgrid .counter input{min-width:0;width:100%;}
-@media(max-width:650px){.topbar{height:58px;padding:0 8px;gap:7px}.layout{padding-top:58px}.topbar img{height:34px;width:34px}.topbar .title{font-size:11px;white-space:nowrap}.topbar .sub{font-size:7px}.user-chip{margin-left:auto;gap:5px;max-width:180px}.user-chip>span{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.user-chip b{font-size:10px}.user-role{font-size:8px}.logout{padding:6px 7px!important;font-size:8px!important}.topbar img{height:48px;width:48px}.topbar img{height:48px;width:48px}.sidebar{display:none}.content{padding:10px 10px 78px}.pagehead h1{font-size:19px}.grid,.grid2{grid-template-columns:1fr 1fr}.paxgrid{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;width:100%}.pax{padding:7px 5px;border-radius:9px;min-width:0}.pax b{font-size:9px;line-height:1.12;min-height:30px;display:flex;align-items:flex-start}.counter{gap:3px;margin-top:5px}.counter button{width:25px;height:29px;min-width:25px;padding:0;border-radius:6px;font-size:13px}.counter input{width:100%;min-width:0;height:29px;padding:0 2px;font-size:12px}.metrics{grid-template-columns:1fr 1fr}.invoicehead{grid-template-columns:1fr}.mobileNav{display:grid;position:fixed;bottom:0;left:0;right:0;z-index:60;background:rgba(201,150,45,.82)!important;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,.3);grid-template-columns:repeat(7,1fr);padding:7px 3px calc(7px + env(safe-area-inset-bottom));box-shadow:0 -5px 20px rgba(6,26,58,.18)}.mobileNav button{border:0;background:transparent;color:#fff;font-size:8px;font-weight:900;border-radius:10px;padding:3px 1px}.mobileNav button.active{color:#fff;background:rgba(6,26,58,.72)}.mobileNav span{display:block;font-size:17px;margin-bottom:2px}.table{font-size:9px}}
-@media(max-width:380px){.paxgrid{gap:4px}.pax{padding:6px 3px}.pax b{font-size:8px;min-height:29px}.counter{gap:2px}.counter button{width:22px;min-width:22px;height:27px;font-size:12px}.counter input{height:27px;font-size:11px}}
-@media print{.topbar,.sidebar,.mobileNav,.pagehead.no-print{display:none!important}.layout{padding-top:0}.content{padding:0}.page::before{display:none}.topbar,.sidebar,.mobileNav,.no-print,.pageBrand{display:none!important}.content{padding:0}.page{display:none!important}.page#invoicePage{display:block!important}.card{box-shadow:none;border:0}.invoice{border:0}}
-.voucher{background:#fff;border:1px solid #9aa4b2;padding:10px;color:#111;font-family:Arial,sans-serif;font-size:10px}.voucher{position:relative;overflow:hidden}.voucher::after{content:"";position:absolute;inset:0;background:url("assets/logo.png") center/390px no-repeat;opacity:.028;pointer-events:none;z-index:0}.voucher>*{position:relative;z-index:1}.voucherHead{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:8px;align-items:center;border-bottom:1px solid #8c96a5;padding-bottom:7px}.voucherLogo{width:62px;height:62px;object-fit:contain;display:block}.voucherBrand{display:flex;align-items:center;gap:8px}.voucherBrandText{font-size:12px;font-weight:900;color:var(--navy)}.voucherTitle{color:var(--navy);font-size:15px;font-weight:900}.voucherSub{font-size:9px;color:#333}.voucherSampleTitle{text-align:center;font-size:14px;font-weight:900}.voucherMeta{font-size:9px;line-height:1.5}.voucherMeta b{font-weight:800}.vtable{width:100%;border-collapse:collapse;margin-top:7px;font-size:8.5px}.vtable th,.vtable td{border:1px solid #9aa4b2;padding:4px 3px;vertical-align:middle}.vtable th{background:#f0f2f5;font-weight:900}.vsectionTitle{background:#061a3a;color:#fff;font-weight:900;text-align:center;padding:4px;margin-top:8px}.vblue{background:#1f386d!important;color:#fff}.vblue td,.vblue th{background:#1f386d;color:#fff}.vsmall{font-size:8px;color:#333}.voucherNote{border:1px solid #9aa4b2;padding:6px;margin-top:7px;min-height:55px}.voucherNoPrint{margin-bottom:10px;position:relative;z-index:20}.voucherNoPrint button{position:relative;z-index:21;pointer-events:auto}.voucher .row{display:flex;justify-content:space-between;gap:10px;padding:3px 0}.voucher .grand{font-size:11px;font-weight:900}.voucherGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:8px}.voucherSection{border:1px solid #9aa4b2;border-radius:0;padding:7px;margin-top:7px}.voucherSection h3{margin:0 0 5px;color:var(--navy);font-size:10px}.savebar{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}@media(max-width:650px){.voucher{padding:6px;font-size:8px}.voucherHead{grid-template-columns:1fr 1.2fr 1fr}.voucherLogo{width:45px;height:45px}.vtable{font-size:7px}.vtable th,.vtable td{padding:3px 2px}.voucherGrid{grid-template-columns:1fr}}
 
-.auth-screen{position:fixed;inset:0;z-index:1000;background:linear-gradient(135deg,#061a3a 0%,#0b3973 55%,#c9962d 160%);display:flex;align-items:center;justify-content:center;padding:18px}.auth-card{width:min(430px,100%);background:#fff;border-radius:22px;box-shadow:0 25px 80px #0006;padding:26px;border:1px solid #e7d5a7}.auth-logo{width:110px;height:110px;object-fit:contain;display:block;margin:0 auto 10px}.auth-title{text-align:center;color:var(--navy);font-size:23px;font-weight:950}.auth-sub{text-align:center;color:#667085;font-size:11px;margin:5px 0 18px}.auth-error{display:none;background:#fff0ef;border:1px solid #f3b3ae;color:#a51b14;border-radius:9px;padding:9px;font-size:10px;margin-bottom:10px}.linkbtn{border:0;background:none;color:#0b3973;font-size:10px;font-weight:900;padding:2px 4px;text-decoration:underline}.auth-section-title{margin:0 0 12px;color:var(--navy);font-size:16px}.auth-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.auth-grid .field input,.auth-grid .field select{min-height:38px;padding:8px 9px}.user-chip{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:10px;font-weight:800}.user-chip .logout{background:#ffffff18;border:1px solid #ffffff35;color:#fff;border-radius:8px;padding:7px 9px}.adminOnly{display:none}.user-role{font-size:9px;opacity:.7}.admin-table td,.admin-table th{font-size:10px}.admin-badge{display:inline-block;padding:4px 7px;border-radius:99px;background:#eef5ff;color:#1457a6;font-weight:900}.admin-badge.off{background:#fff0ef;color:#b42318}
-.modal-open{overflow:hidden!important;touch-action:none}@media(max-width:600px){.modalbox{scrollbar-width:thin}}
-</style></head>
-<body>
-<div class="auth-screen" id="authScreen">
-  <div class="auth-card">
-    <img class="auth-logo" src="assets/logo.png" alt="Karvan e Asal logo">
-    <div class="auth-title">KARVAN E ASAL</div>
-    <div class="auth-sub">TRAVEL & TOURS • UMRAH PACKAGE MANAGER</div>
-    <div class="auth-error" id="authError"></div>
-    <div id="loginPanel">
-      <div class="field"><label>Email or Username</label><input id="loginUser" autocomplete="username" placeholder="Enter email or username"></div>
-      <div class="field" style="margin-top:10px"><label>Password</label><input id="loginPass" type="password" autocomplete="current-password" placeholder="Enter password" onkeydown="if(event.key==='Enter')loginUser()"></div>
-      <button class="btn gold" style="width:100%;margin-top:14px" onclick="loginUser()">Sign In</button>
-      <div style="display:flex;justify-content:center;gap:14px;margin-top:13px;flex-wrap:wrap">
-        <button class="linkbtn" onclick="showAuthPanel('register')">Register New User</button>
-        <button class="linkbtn" onclick="showAuthPanel('forgot')">Forgot Password?</button>
-      </div>
-    </div>
-    <div id="registerPanel" style="display:none">
-      <h3 class="auth-section-title">Register New User</h3>
-      <div class="auth-grid">
-        <div class="field"><label>First Name *</label><input id="regFirst" placeholder="First name"></div>
-        <div class="field"><label>Last Name *</label><input id="regLast" placeholder="Last name"></div>
-        <div class="field"><label>Email Address *</label><input id="regEmail" type="email" autocomplete="email" placeholder="name@example.com"></div>
-        <div class="field"><label>Contact Number *</label><input id="regContact" type="tel" placeholder="+92 300 0000000"></div>
-        <div class="field" style="grid-column:span 2"><label>Agency Name *</label><input id="regAgency" placeholder="Travel agency name"></div>
-        <div class="field" style="grid-column:span 2"><label>Address *</label><input id="regAddress" placeholder="Agency address"></div>
-        <div class="field"><label>Password *</label><input id="regPass" type="password" autocomplete="new-password" placeholder="Minimum 8 characters"></div>
-        <div class="field"><label>Confirm Password *</label><input id="regPass2" type="password" autocomplete="new-password" placeholder="Confirm password"></div>
-        <div class="field" style="grid-column:span 2"><label>Security Question *</label><select id="regQuestion"><option value="">Select a security question</option><option value="What city were you born in?">What city were you born in?</option><option value="What is your mother’s maiden name?">What is your mother’s maiden name?</option><option value="What was the name of your first school?">What was the name of your first school?</option><option value="What is the name of your first pet?">What is the name of your first pet?</option><option value="What was the make or model of your first car?">What was the make or model of your first car?</option></select></div>
-        <div class="field" style="grid-column:span 2"><label>Security Answer *</label><input id="regAnswer" type="text" placeholder="Your answer"></div>
-      </div>
-      <div class="notice" style="margin-top:10px">Your username will be generated automatically from your email address. Keep your security answer safe; it is required to reset your password.</div>
-      <button class="btn gold" style="width:100%;margin-top:12px" onclick="registerUser()">Create Account</button>
-      <button class="btn outline" style="width:100%;margin-top:8px" onclick="showAuthPanel('login')">← Back to Login</button>
-    </div>
-    <div id="forgotPanel" style="display:none">
-      <h3 class="auth-section-title">Reset Password</h3>
-      <div class="field"><label>Email Address *</label><input id="resetEmail" type="email" placeholder="Registered email" onblur="loadResetQuestionFromEmail()"></div>
-      <div class="field" style="margin-top:10px"><label>Security Question</label><select id="resetQuestion"><option value="">Select a security question</option><option value="What city were you born in?">What city were you born in?</option><option value="What is your mother’s maiden name?">What is your mother’s maiden name?</option><option value="What was the name of your first school?">What was the name of your first school?</option><option value="What is the name of your first pet?">What is the name of your first pet?</option><option value="What was the make or model of your first car?">What was the make or model of your first car?</option></select></div>
-      <div class="field" style="margin-top:10px"><label>Security Answer *</label><input id="resetAnswer" placeholder="Enter your answer"></div>
-      <div class="notice" style="margin-top:10px">After your security answer is verified, a secure Supabase password-reset link will be sent to your registered email. You will choose the new password from that secure link.</div>
-      <button class="btn gold" style="width:100%;margin-top:12px" onclick="resetPasswordBySecurity()">Verify & Send Reset Link</button>
-      <button class="btn outline" style="width:100%;margin-top:8px" onclick="showAuthPanel('login')">← Back to Login</button>
-    </div>
-    <div class="muted" style="text-align:center;margin-top:12px">Secure access • Your quotations are stored separately for each account.</div>
-  </div>
-</div>
-<div class="app" id="appRoot" style="display:none">
-<header class="topbar"><img src="assets/logo.png" onerror="this.style.display='none'"><div><div class="title">KARVAN E ASAL</div><div class="sub">UMRAH PACKAGE MANAGER</div></div><div class="user-chip"><span><b id="topUserName">User</b><span class="user-role" id="topUserRole"></span></span><button class="themeToggle" id="themeToggle" type="button" onclick="toggleTheme()" aria-label="Switch between day and night mode" title="Day / Night mode"><span id="themeToggleIcon" aria-hidden="true"></span></button><button class="logout" onclick="logoutUser()">Logout</button></div></header>
-<div class="layout">
-<aside class="sidebar"><button class="navitem active" onclick="showPage('dashboard',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.5 10.5 12 3l8.5 7.5v9a1 1 0 0 1-1 1H4.5a1 1 0 0 1-1-1z"/><path d="M9 20.5v-6h6v6"/></svg></span><span>Dashboard</span></button><button class="navitem" onclick="showPage('calculator',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 5v3M16 5v3M3 10h18M8 14h3"/></svg></span><span>New Booking</span></button><button class="navitem" onclick="showPage('quotes',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4.5h11a3 3 0 0 1 3 3v12H8a3 3 0 0 1-3-3z"/><path d="M8 4.5v15M11 9h5M11 13h5M11 17h4"/></svg></span><span>Voucher & Quotes</span></button><button class="navitem" onclick="showPage('sales',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V6M16 20v-9M22 20V3"/><path d="M2.5 20.5h20"/></svg></span><span>Sales</span></button><button class="navitem" onclick="showPage('packageCost',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M7 7h2M13 7h2M7 11h2M13 11h2M7 15h2M13 15h2M7 19h8"/></svg></span><span>Package Cost Q</span></button><button class="navitem" onclick="showPage('hotels',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20V6.5a1 1 0 0 1 1-1h6v14.5M11 9h8a1 1 0 0 1 1 1v10M2.5 20.5h19M7 8h2M7 12h2M14 12h3M14 16h3"/></svg></span><span>Hotels</span></button><button class="navitem" onclick="showPage('visa',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3.5" width="16" height="17" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M13 8h4M13 11h4M7 14h10M7 17h7"/></svg></span><span>Visa Management</span></button><button class="navitem" onclick="showPage('flights',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 12 18-6-6 6 6 6-18-6z"/><path d="m9 10-2-5M9 14l-2 5"/></svg></span><span>Flights</span></button><button class="navitem" onclick="showPage('transport',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 17V9l2-4h10l2 4v8"/><path d="M3 17h18M7 17v2M17 17v2M7 11h10"/><circle cx="7" cy="14" r="1.2"/><circle cx="17" cy="14" r="1.2"/></svg></span><span>Transportation</span></button><button class="navitem" onclick="showPage('extras',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="8.5"/></svg></span><span>Extras / Services</span></button><button class="navitem" onclick="showPage('summary',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5h9l3 3V20.5H6z"/><path d="M15 3.5v4h3M9 11h6M9 15h6"/></svg></span><span>Summary</span></button><button class="navitem" onclick="showPage('invoicePage',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5h12v17l-3-1.8-3 1.8-3-1.8-3 1.8z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span><span>Invoice</span></button><button class="navitem" onclick="showPage('settings',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9.7 3.7h4.6l.7 2.2 2 .9 2.1-1 3.2 3.2-1 2.1.9 2 .8.8v4.6l-2.2.7-.9 2-2.1-1-2 .9-.7 2.2H9.7L9 20.1l-2-.9-2.1 1-3.2-3.2 1-2.1-.9-2-.8-.7V7.6l2.2-.7.9-2 2.1 1 2-.9z"/><circle cx="12" cy="12" r="3.2"/></svg></span><span>Settings</span></button><button class="navitem adminOnly" id="adminNav" onclick="showPage('admin',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 20 6v5.5c0 4.8-3.2 7.8-8 9.5-4.8-1.7-8-4.7-8-9.5V6z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg></span><span>Admin</span></button></aside>
-<main class="content">
-<section id="dashboard" class="page active"><div class="pagehead"><div><h1>Dashboard</h1><p>Umrah package management at a glance.</p></div><button class="btn gold" onclick="newBooking()">+ New Booking</button></div><div class="metrics"><div class="metric"><div class="k">Saved Vouchers</div><div class="v" id="mQuotes">0</div></div><div class="metric"><div class="k">Hotels</div><div class="v" id="mHotels">0</div></div><div class="metric"><div class="k">Visa Types</div><div class="v" id="mVisa">0</div></div><div class="metric"><div class="k">PKR / SAR</div><div class="v" id="mFx">75</div></div></div><div class="card" style="margin-top:13px"><h3 class="section-title">Quick Actions</h3><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn outline" onclick="showPage('hotels')">Manage Hotels</button><button class="btn outline" onclick="showPage('visa')">Manage Visa</button><button class="btn outline" onclick="showPage('flights')">Flight Details</button><button class="btn outline" onclick="showPage('settings')">Settings</button></div></div></section>
-<section id="calculator" class="page"><div class="pagehead"><div><h1>New Booking</h1><p>Create a full booking voucher or calculate a simple package cost.</p></div></div><div class="steps" id="steps"></div><div class="card" id="wizard"></div></section>
-<section id="quotes" class="page"><div class="pagehead"><div><h1>Voucher & Quotes</h1><p>Saved vouchers and Package Cost Q are kept in separate sections.</p></div><button class="btn gold" onclick="newBooking()">+ New Booking</button></div><div class="tabs"><button id="savedVoucherTab" class="btn outline on" onclick="renderSavedFiles('voucher',this)">Voucher</button><button id="savedQuoteTab" class="btn outline" onclick="renderSavedFiles('quote',this)">Quotes</button></div><div class="card" id="quoteList"></div></section>
-<section id="sales" class="page"><div class="pagehead"><div><h1>Sales</h1><p>Voucher sales automatically appear here. Choose a period to view the total and individual sales.</p></div></div><div class="card"><div class="grid2"><div class="field"><label>Sales Period</label><select id="salesPeriod" onchange="renderSales()"><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="monthly" selected>Monthly</option><option value="3month">3 Months</option><option value="6month">6 Months</option><option value="yearly">Yearly</option><option value="custom">Custom: From Date to Date</option></select></div><div id="salesCustomDates" style="display:none" class="grid2"><div class="field"><label>From Date</label><input id="salesFrom" type="date" onchange="renderSales()"></div><div class="field"><label>To Date</label><input id="salesTo" type="date" onchange="renderSales()"></div></div></div></div><div class="metrics"><div class="metric"><div class="k">Period Total — SAR</div><div class="v" id="salesTotalSar">SAR 0.00</div></div><div class="metric"><div class="k">Period Total — PKR</div><div class="v" id="salesTotalPkr">PKR 0</div></div><div class="metric"><div class="k">Number of Sales</div><div class="v" id="salesCount">0</div></div><div class="metric"><div class="k">Total Pax</div><div class="v" id="salesPax">0</div></div></div><div class="card" style="margin-top:13px"><h3 class="section-title">Sales Details</h3><div id="salesList"></div></div></section>
-<section id="hotels" class="page"><div class="pagehead"><div><h1>Hotel Management</h1><p>Add new hotels or edit room rates and distances.</p></div><button class="btn gold" onclick="openHotelModal()">+ Add New Hotel</button></div><div class="card"><div class="tabs"><button class="btn outline on" onclick="hotelCity='Makkah';renderHotels(this)">Makkah Hotels</button><button class="btn outline" onclick="hotelCity='Madinah';renderHotels(this)">Madinah Hotels</button></div><div class="tablewrap"><table class="table"><thead><tr><th>Hotel</th><th>Location</th><th>Distance</th><th>Sharing</th><th>Quint</th><th>Quad</th><th>Triple</th><th>Double</th><th>Room</th><th>Actions</th></tr></thead><tbody id="hotelTable"></tbody></table></div></div></section>
-<section id="visa" class="page"><div class="pagehead"><div><h1>Visa Management</h1><p>Simple two-step editing for group-size visa prices.</p></div><button class="btn gold" onclick="openVisaModal()">+ Add New Visa Type</button></div><div class="card"><div class="tablewrap"><table class="table"><thead><tr><th>Visa Type</th><th>05–49 Pax</th><th>04 Pax</th><th>03 Pax</th><th>02 Pax</th><th>01 Pax</th><th>Child</th><th>Infant</th><th>Status</th><th>Action</th></tr></thead><tbody id="visaTable"></tbody></table></div></div></section>
-<section id="flights" class="page"><div class="pagehead"><div><h1>Flight Details</h1><p>Airport, country and routing codes are built in.</p></div></div><div class="card"><div id="flightManager"></div></div></section>
-<section id="transport" class="page"><div class="pagehead"><div><h1>Transportation</h1><p>Manage internal Saudi transport rates.</p></div><button class="btn gold" onclick="addSimple('transport')">+ Add Transport</button></div><div class="card"><div id="transportManager"></div></div></section>
-<section id="extras" class="page"><div class="pagehead"><div><h1>Extras / Services</h1><p>Manage optional services and prices.</p></div><button class="btn gold" onclick="addSimple('extras')">+ Add Service</button></div><div class="card"><div id="extrasManager"></div></div></section>
-<section id="packageCost" class="page"><div class="pagehead"><div><h1>Package Cost Q</h1><p>Simple package calculator for visa, hotel accommodation and tickets.</p></div><button class="btn gold" onclick="newPackageCost()">+ New Package Cost</button></div><div class="card" id="packageCostBody"></div></section>
-<section id="summary" class="page"><div class="pagehead"><div><h1>Quotation Summary</h1><p>Only the sections relevant to the current quotation are shown.</p></div><button class="btn gold no-print" onclick="showPage('invoicePage')">Open Invoice</button></div><div class="card" id="summaryBody"></div></section>
-<section id="voucher" class="page"><div class="pagehead"><div><h1>Voucher</h1><p>Automatically filled from the quotation form. Terms & conditions are intentionally excluded.</p></div><div class="savebar no-print"><button class="btn gold" onclick="printVoucher()">Print / Save PDF</button><button class="btn outline" onclick="downloadVoucher()">Save to Device</button><button class="btn outline" onclick="shareVoucher()">Share / Save to Files</button></div></div><div class="card"><div class="voucher" id="voucherBody"></div></div></section>
-<section id="settings" class="page"><div class="pagehead"><div><h1>Settings</h1><p>System settings, exchange rate, airlines and local backup.</p></div></div><div class="card"><h3 class="section-title">Appearance</h3><p class="muted">Choose Day for a bright clean workspace or Night for a darker, low-glare workspace. Your choice is saved on this device.</p><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn outline" id="dayModeBtn" onclick="setTheme('day')">☀ Day Mode</button><button class="btn outline" id="nightModeBtn" onclick="setTheme('night')">☾ Night Mode</button></div></div><div class="card"><h3 class="section-title">Exchange Rate</h3><div class="grid2"><div class="field"><label>1 SAR = PKR</label><input id="fxInput" type="number"></div><div style="display:flex;align-items:end"><button class="btn primary" onclick="saveFx()">Save Exchange Rate</button></div></div></div><div class="card"><h3 class="section-title">Airlines</h3><div class="muted">Airlines below are available in the Flight dropdown. You can add your own airline anytime.</div><div id="airlineManager" style="margin-top:10px"></div><button class="btn gold" onclick="addAirline()" style="margin-top:10px">+ Add Airline</button></div><div class="card"><h3 class="section-title">Recycle Bin</h3><p class="muted">Deleted vouchers and Package Cost Q records are kept here until recovered or permanently deleted.</p><div id="recycleBin" style="margin-top:10px"></div></div><div class="card"><h3 class="section-title">Local Backup</h3><p class="muted">Export your account quotations plus shared hotels, visa rules, airlines and settings as one JSON backup file. Import it later on another device.</p><div class="savebar"><button class="btn outline" onclick="exportBackup()">Export Backup</button><button class="btn outline" onclick="document.getElementById('backupFile').click()">Import Backup</button><input id="backupFile" type="file" accept="application/json" style="display:none" onchange="importBackup(event)"></div></div></section>
-<section id="admin" class="page adminOnlyPage"><div class="pagehead"><div><h1>Admin</h1><p>Manage user accounts and access.</p></div><button class="btn gold" onclick="openUserModal()">+ Add User</button></div><div class="card"><div class="notice">Admin accounts can manage users. Each normal user can only see and open vouchers saved under their own account.</div><div id="adminUserTable" style="margin-top:12px"></div></div><div class="card"><h3 class="section-title">Account Security</h3><p class="muted">For true server-enforced privacy across devices, connect this app to a backend authentication/database service. GitHub Pages alone cannot securely enforce access control.</p></div></section>
-<section id="invoicePage" class="page"><div class="pagehead no-print"><div><h1>Invoice Preview</h1><p>Professional quotation / invoice.</p></div><button class="btn gold" onclick="window.print()">Print / Save PDF</button></div><div class="card"><div class="invoice" id="invoice"></div></div></section>
-</main></div>
-<nav class="mobileNav" aria-label="Main navigation">
-<button class="active" onclick="showPage('dashboard',this)" aria-label="Home"><span class="navsvg homeIcon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.5 10.5 12 3l8.5 7.5v9a1 1 0 0 1-1 1H4.5a1 1 0 0 1-1-1z"/><path d="M9 20.5v-6h6v6"/></svg></span><b>Home</b></button>
-<button onclick="newBooking()" aria-label="New Booking"><span class="navsvg" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 5v3M16 5v3M3 10h18M8 14h3"/></svg></span><b>New Booking</b></button>
-<button onclick="showPage('packageCost',this);newPackageCost()" aria-label="Package"><span class="navsvg" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M7 7h2M13 7h2M7 11h2M13 11h2M7 15h2M13 15h2M7 19h8"/></svg></span><b>Package</b></button>
-<button onclick="showPage('summary',this)" aria-label="Summary"><span class="navsvg" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5h9l3 3V20.5H6z"/><path d="M15 3.5v4h3M9 11h6M9 15h6"/></svg></span><b>Summary</b></button>
-<button onclick="showPage('quotes',this)" aria-label="Voucher and Quotes"><span class="navsvg" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4.5h11a3 3 0 0 1 3 3v12H8a3 3 0 0 1-3-3z"/><path d="M8 4.5v15M11 9h5M11 13h5M11 17h4"/></svg></span><b>Voucher &amp; Quotes</b></button>
-<button onclick="showPage('sales',this)" aria-label="Sales"><span class="navsvg" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V6M16 20v-9M22 20V3"/><path d="M2.5 20.5h20"/></svg></span><b>Sales</b></button>
-<button onclick="showPage('settings',this)" aria-label="Settings"><span class="navsvg" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9.7 3.7h4.6l.7 2.2 2 .9 2.1-1 3.2 3.2-1 2.1.9 2 .8.8v4.6l-2.2.7-.9 2-2.1-1-2 .9-.7 2.2H9.7L9 20.1l-2-.9-2.1 1-3.2-3.2 1-2.1-.9-2-.8-.7V7.6l2.2-.7.9-2 2.1 1 2-.9z"/><circle cx="12" cy="12" r="3.2"/></svg></span><b>Settings</b></button>
-<button class="adminOnly" id="adminMobileNav" onclick="showPage('admin',this)" aria-label="Admin"><span class="navsvg" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 20 6v5.5c0 4.8-3.2 7.8-8 9.5-4.8-1.7-8-4.7-8-9.5V6z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg></span><b>Admin</b></button>
-</nav>
-</div>
-<div class="modal" id="modal"><div class="modalbox" id="modalbox"></div></div>
-<script>
 const roomTypes=['Sharing','Quint','Quad','Triple','Double','Full Room'];
 const defaultHotels=[
 ['Makkah','Wedam Six','Ibrahim Khalil Road','Shuttle',15,15,18,24,35,70],['Makkah','White Lion','Hijra Road','1100 M',20,20,24,32,49,95],['Makkah','Masarat Khalil / Nada Hijra','Ibrahim Khalil / Hijra Road','750 M',41,null,45,60,90,180],['Makkah','Saif Al Majd','Hijra Road','750 M',43,43,50,67,100,200],['Makkah','Masarat Golden','Ibrahim Khalil Road','550 M',48,48,55,73,110,220],['Makkah','Badar Masa','Ibrahim Khalil Road','550 M',null,57,68,90,135,270],['Makkah','Tara Zahbi (Old-Majd Al Zahabi)','Manshia','400 M',null,null,75,100,150,300],
@@ -646,11 +545,10 @@ function dashboard(){$('mQuotes').textContent=quotes.length;$('mHotels').textCon
 function saveFx(){fx=Number($('fxInput').value)||75;localStorage.setItem('keaFxV15',fx);dashboard();alert('Exchange rate saved.')}
 function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();renderVisa();renderSimple('transport');renderSimple('extras');$('fxInput').value=fx;renderAirlines();if(!q){q={bookingDate:new Date().toISOString().slice(0,10),customer:'',contact:'',whatsapp:'',reference:'KEA-'+Date.now().toString().slice(-6),package:'Umrah 1448-H',visaShirka:'',reservationNo:'',transportCompany:'',transportType:'Company Transport',transportDescription:'',departureCity:'ISB',adults:1,childBed:0,childNoBed:0,infants:0,passengers:[],departure:'',arrival:'',returnDate:'',visa:'Umrah Visa',visaDuration:30,stays:[{city:'Makkah',hotel:'',room:'Sharing',rooms:0,in:'',out:'',meal:'RO',conf:''},{city:'Madinah',hotel:'',room:'Sharing',rooms:0,in:'',out:'',meal:'RO',conf:''},{city:'Makkah',hotel:'',room:'Sharing',rooms:0,in:'',out:'',meal:'RO',conf:''},{city:'Madinah',hotel:'',room:'Sharing',rooms:0,in:'',out:'',meal:'RO',conf:''}],flights:[{type:'Outbound',from:'ISB',to:'JED',date:'',timeOut:'',timeIn:'',flight:'',airline:'Pakistan International Airlines',via:'Direct'},{type:'Return',from:'JED',to:'ISB',date:'',timeOut:'',timeIn:'',flight:'',airline:'Pakistan International Airlines',via:'Direct'}],tickets:{adult:0,childBed:0,childNoBed:0,infant:0},transport:[],extras:[]};step=-1;}renderWizard()}
 
-</script>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase-config.js"></script>
-<script>
+
+
+
 (function(){
   const cfg=window.KARVAN_SUPABASE||{};
   function onlineError(msg){
@@ -772,27 +670,8 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
   window.resetPasswordBySecurity=async function(){onlineError('For online accounts, use the secure password-reset email flow.');};
   setTimeout(()=>window.initAuthOnline(),0);
 })();
-</script>
 
 
-<style>
-/* V15 Sales consolidated mobile/topbar hardening */
-.topbar{background:rgba(6,26,58,.72)!important;backdrop-filter:blur(18px)!important;-webkit-backdrop-filter:blur(18px)!important}
-.topbar .title{color:#fff}.topbar .sub{color:#e6b84f}
-.user-chip{max-width:42vw;overflow:hidden}.user-chip>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-@media(max-width:650px){
- .topbar{height:58px!important;padding:0 7px!important}
- .topbar img{width:48px!important;height:48px!important;flex:0 0 48px}
- .topbar .title{font-size:10px!important}.topbar .sub{font-size:6.5px!important}
- .user-chip{max-width:48vw!important}.user-chip .user-role{display:none}
- .logout{padding:6px 7px!important;font-size:8px!important}
- .content{padding-top:10px}
- .pagehead{min-width:0}.pagehead>div{min-width:0}.pagehead h1{white-space:normal}
-}
-.modal{overflow:hidden!important;touch-action:none}
-.modalbox{touch-action:pan-y!important;overscroll-behavior:contain!important}
-</style>
-<script>
 /* ================= V15 SALES CONSOLIDATED ONLINE HARDENING ================= */
 (function(){
   'use strict';
@@ -1170,9 +1049,8 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
   setTimeout(()=>clearInterval(timer),15000);
 
 })();
-</script>
 
-<script>
+
 (function(){
   function onReady(){
     const online=window.KARVAN_ONLINE?.enabled, sb=window.KARVAN_ONLINE?.sb;
@@ -1215,9 +1093,8 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',onReady);else setTimeout(onReady,300);
 })();
-</script>
 
-<script>
+
 (function(){
   const admin=()=>typeof isSuperAdmin==='function'&&isSuperAdmin();
   const deny=()=>alert('Only Super Admin can edit shared configuration.');
@@ -1228,9 +1105,8 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
   window.saveHotel=function(index){if(!admin())return deny();let h=[$('hmCity').value,$('hmName').value,$('hmLoc').value,$('hmDist').value,...roomTypes.map((r,i)=>{let v=$('hm'+i).value;return v===''?null:+v})];if(!h[1])return alert('Hotel name is required.');if(index===null)hotels.push(h);else hotels[index]=h;saveData();closeModal();renderHotels()};
   window.openHotelModal=function(index=null){if(!admin())return deny();let h=index===null?null:hotels[index];if(!h&&index!==null)return; $('modalbox').innerHTML='<div class="modalhead"><h3>'+(h?'Edit Hotel':'Add New Hotel')+'</h3><button class="btn outline" onclick="closeModal()">×</button></div><div class="grid" style="margin-top:12px"><div class="field"><label>City</label><select id="hmCity"><option '+(h?.[0]==='Makkah'?'selected':'')+'>Makkah</option><option '+(h?.[0]==='Madinah'?'selected':'')+'>Madinah</option></select></div><div class="field"><label>Hotel Name</label><input id="hmName" value="'+esc(h?.[1]||'')+'"></div><div class="field"><label>Location</label><input id="hmLoc" value="'+esc(h?.[2]||'')+'"></div><div class="field"><label>Distance</label><input id="hmDist" value="'+esc(h?.[3]||'')+'"></div>'+roomTypes.map((r,i)=>'<div class="field"><label>'+r+' Rate (SAR)</label><input id="hm'+i+'" type="number" value="'+(h?.[4+i]??'')+'"></div>').join('')+'</div><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:13px"><button class="btn outline" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveHotel('+(index===null?'null':index)+')">Save Hotel</button></div>';$('modal').classList.add('open');document.body.classList.add('modal-open')};
 })();
-</script>
 
-<script>
+
 (function(){
  const admin=()=>typeof isSuperAdmin==='function'&&isSuperAdmin();
  const deny=()=>alert('Only Super Admin can edit shared configuration.');
@@ -1244,9 +1120,8 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
  const oldSaveVisa=window.saveVisa;
  window.saveVisa=function(i){if(!admin())return deny();return oldSaveVisa(i)};
 })();
-</script>
 
-<script>
+
 (function(){
  const admin=()=>typeof isSuperAdmin==='function'&&isSuperAdmin();
  window.openUserModal=function(){if(!admin())return;alert('For secure online accounts, new users register from the Login → Register New User screen. Super Admin can then manage, edit, disable and reset accounts here.');};
@@ -1279,9 +1154,8 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
      (only?'':'<div class="tablewrap" style="margin-top:10px"><table class="table"><tr><th>Passenger Group</th><th>Range</th><th>SAR / Person</th><th>PKR / Person</th></tr>'+groups+'</table></div><div class="grid2" style="margin-top:10px"><div class="field"><label>Child Visa (SAR)</label><input type="number" value="'+v.child+'" onchange="v.child=+this.value||0;saveData();renderWizard()"></div><div class="field"><label>Infant Visa (SAR)</label><input type="number" value="'+v.infant+'" onchange="v.infant=+this.value||0;saveData();renderWizard()"></div></div>');
  };
 })();
-</script>
 
-<script>
+
 (function(){
  const onlyVisa=v=>String(v?.name||'').toLowerCase()==='only visa';
  const oldTotals=window.totals;
@@ -1306,9 +1180,8 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
    return t;
  };
 })();
-</script>
 
-<script>
+
 (function(){
   const protectedKeys=new Set([
     'keaUsersV10','keaFxV15','keaHotelsV10','keaHotelsV7','keaVisaV10','keaVisaV7',
@@ -1329,275 +1202,3 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
   };
   window.v14PurgeLocalCache=purge;
 })();
-</script>
-
-
-<style id="v14-fixed-bottom-theme">
-/* V15 mobile navigation: permanently fixed above the iOS safe area */
-@media (max-width:650px){
-  html,body{min-height:100%;}
-  body{padding-bottom:calc(76px + env(safe-area-inset-bottom))!important;}
-  .content{padding-bottom:calc(92px + env(safe-area-inset-bottom))!important;}
-  .mobileNav{
-    position:fixed!important;
-    left:0!important;right:0!important;bottom:0!important;top:auto!important;
-    width:100%!important;
-    height:auto!important;
-    min-height:62px!important;
-    z-index:99999!important;
-    transform:translate3d(0,0,0)!important;
-    margin:0!important;
-    display:grid!important;
-    padding:7px 3px calc(7px + env(safe-area-inset-bottom))!important;
-    box-sizing:border-box!important;
-    overflow:visible!important;
-    isolation:isolate;
-  }
-  .mobileNav button{position:relative;z-index:2;}
-}
-</style>
-
-
-<style id="v14-bottom-option2">
-/* Option 2 — Gold & Navy Minimal bottom navigation */
-@media(max-width:650px){
-  .mobileNav{
-    background:linear-gradient(180deg,rgba(255,224,139,.97) 0%,rgba(226,183,80,.97) 52%,rgba(198,145,39,.98) 100%)!important;
-    border-top:1px solid rgba(255,247,211,.9)!important;
-    box-shadow:0 -6px 18px rgba(6,26,58,.16),inset 0 1px 0 rgba(255,255,255,.5)!important;
-    grid-template-columns:repeat(8,minmax(0,1fr))!important;
-    min-height:68px!important;
-    padding:6px 3px calc(6px + env(safe-area-inset-bottom))!important;
-    gap:2px!important;
-  }
-  .mobileNav button{
-    display:flex!important;
-    flex-direction:column!important;
-    align-items:center!important;
-    justify-content:center!important;
-    min-width:0!important;
-    min-height:54px!important;
-    padding:4px 2px!important;
-    border:0!important;
-    border-radius:10px!important;
-    background:transparent!important;
-    color:#06204a!important;
-    text-shadow:none!important;
-    font-size:7px!important;
-    font-weight:800!important;
-    line-height:1.05!important;
-  }
-  .mobileNav button b{
-    display:block!important;
-    font-weight:800!important;
-    max-width:100%!important;
-    overflow:hidden!important;
-    text-overflow:ellipsis!important;
-    white-space:nowrap!important;
-  }
-  .mobileNav .navsvg{
-    width:21px!important;
-    height:21px!important;
-    display:flex!important;
-    align-items:center!important;
-    justify-content:center!important;
-    margin:0 0 4px!important;
-    color:#06204a!important;
-  }
-  .mobileNav .navsvg svg{
-    width:21px!important;
-    height:21px!important;
-    fill:none!important;
-    stroke:currentColor!important;
-    stroke-width:1.9!important;
-    stroke-linecap:round!important;
-    stroke-linejoin:round!important;
-  }
-  .mobileNav button.active{
-    background:linear-gradient(180deg,#06204a 0%,#0a3268 100%)!important;
-    color:#f7d36b!important;
-    box-shadow:0 2px 7px rgba(6,26,58,.22),inset 0 1px 0 rgba(255,255,255,.13)!important;
-  }
-  .mobileNav button.active .navsvg{color:#f7d36b!important}
-  .mobileNav button.active .navsvg svg{stroke:currentColor!important}
-}
-</style>
-
-
-<style id="v14-desktop-option2-theme">
-/* Option 2 theme carried consistently to desktop/tablet sidebar. */
-.sidebar{
-  background:linear-gradient(180deg,rgba(255,224,139,.97) 0%,rgba(226,183,80,.97) 52%,rgba(198,145,39,.98) 100%)!important;
-  color:#06204a!important;
-  border-right:1px solid rgba(255,247,211,.9)!important;
-  box-shadow:6px 0 18px rgba(70,43,0,.16),inset -1px 0 0 rgba(255,255,255,.34)!important;
-}
-.navitem{
-  color:#06204a!important;
-  background:transparent!important;
-  border:0!important;
-  text-shadow:none!important;
-}
-.navitem.active,.navitem:hover{
-  background:linear-gradient(180deg,#06204a 0%,#0a3268 100%)!important;
-  color:#f7d36b!important;
-  box-shadow:0 2px 7px rgba(6,26,58,.22),inset 0 1px 0 rgba(255,255,255,.13)!important;
-}
-.navicon{color:inherit!important}
-@media(max-width:650px){
-  .sidebar{display:none!important;}
-}
-</style>
-</body>
-<style id="v14-universal-appearance">
-/* Desktop sidebar: darker gold matching the mobile Option 2 bar, with equal SVG icons. */
-.sidebar{
-  background:linear-gradient(180deg,#b27b19 0%,#95620f 52%,#70450a 100%)!important;
-  color:#fff4c4!important;
-  border-right:1px solid rgba(255,239,157,.45)!important;
-  box-shadow:7px 0 22px rgba(45,26,0,.28),inset -1px 0 0 rgba(255,255,255,.18)!important;
-}
-.navitem{
-  min-height:44px!important;
-  display:flex!important;
-  align-items:center!important;
-  gap:11px!important;
-  padding:8px 12px!important;
-  color:#fff3c2!important;
-  border:1px solid transparent!important;
-  font-size:12px!important;
-}
-.navitem:hover{background:rgba(1,22,59,.18)!important;color:#fff!important}
-.navitem.active{
-  background:linear-gradient(180deg,#06204a 0%,#0a3268 100%)!important;
-  color:#f7d36b!important;
-  border-color:rgba(247,211,107,.32)!important;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.13),0 3px 9px rgba(0,0,0,.22)!important;
-}
-.navicon{
-  width:24px!important;min-width:24px!important;height:24px!important;
-  display:inline-flex!important;align-items:center!important;justify-content:center!important;
-  font-size:0!important;color:inherit!important;
-}
-.navicon svg{width:21px!important;height:21px!important;fill:none!important;stroke:currentColor!important;stroke-width:1.85!important;stroke-linecap:round!important;stroke-linejoin:round!important}
-.themeToggle{
-  width:34px;height:34px;flex:0 0 34px;border-radius:50%;
-  display:inline-flex;align-items:center;justify-content:center;
-  border:1px solid rgba(254,219,107,.42);
-  background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.05));
-  color:#f7d36b;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 2px 6px rgba(0,0,0,.18)
-}
-.themeToggle span{width:18px;height:18px;display:flex;align-items:center;justify-content:center}
-.themeToggle svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-/* Night mode: dark content, restrained navy/gold accents, no harsh pure black. */
-:root[data-theme="night"]{
-  --bg:#08111f;--card:#101c2d;--line:#24344b;--muted:#9aa9bc;--soft:#12243a;
-  --shadow:0 10px 30px rgba(0,0,0,.30);
-}
-:root[data-theme="night"] body{background:linear-gradient(180deg,#07111f 0%,#0a1422 48%,#08111f 100%)!important;color:#e8eef7}
-:root[data-theme="night"] .layout{background:transparent}
-:root[data-theme="night"] .content{background:transparent}
-:root[data-theme="night"] .card,
-:root[data-theme="night"] .metric,
-:root[data-theme="night"] .pax,
-:root[data-theme="night"] .stay,
-:root[data-theme="night"] .flight,
-:root[data-theme="night"] .service,
-:root[data-theme="night"] .invoice,
-:root[data-theme="night"] .choicecard{background:rgba(16,28,45,.96)!important;border-color:#24344b!important;color:#e8eef7}
-:root[data-theme="night"] .pageBrand{background:linear-gradient(90deg,#101c2d,#16263a)!important;border-color:#31445e!important}
-:root[data-theme="night"] .pageBrand .brandMain,
-:root[data-theme="night"] .pagehead h1,
-:root[data-theme="night"] .section-title,
-:root[data-theme="night"] .metric .v,
-:root[data-theme="night"] .pax b,
-:root[data-theme="night"] .row b,
-:root[data-theme="night"] .choicecard h3,
-:root[data-theme="night"] .invoice h2,
-:root[data-theme="night"] .invoice h3{color:#f2f5f9!important}
-:root[data-theme="night"] .field label{color:#b9c6d8!important}
-:root[data-theme="night"] .field input,
-:root[data-theme="night"] .field select{background:#0d1928!important;color:#e8eef7!important;border-color:#31445e!important}
-:root[data-theme="night"] .field input::placeholder{color:#7f90a5}
-:root[data-theme="night"] .outline{background:#101c2d!important;color:#f1f5f9!important;border-color:#3a4c64!important}
-:root[data-theme="night"] .step{background:#101c2d!important;color:#aebdd0!important;border-color:#2b3c53!important}
-:root[data-theme="night"] .step.active{background:#06204a!important;color:#f7d36b!important;border-color:#163e73!important}
-:root[data-theme="night"] .table th{background:#16263a!important;color:#c4d0df!important}
-:root[data-theme="night"] .table td{border-color:#24344b!important;color:#dfe7f1!important}
-:root[data-theme="night"] .notice{background:#2a2412!important;border-color:#66501b!important;color:#f3dda0!important}
-:root[data-theme="night"] .totalbox,
-:root[data-theme="night"] .pcresult{background:linear-gradient(135deg,#101d2d,#242016)!important;border-color:#66501b!important}
-:root[data-theme="night"] .counter button{background:#1a2a3e!important;color:#f2f5f9!important}
-:root[data-theme="night"] .badge{background:#132e4c!important;color:#9ec8ff!important}
-:root[data-theme="night"] .modalbox{background:#101c2d!important;color:#e8eef7}
-:root[data-theme="night"] .modalbox .modalhead{background:#101c2d!important;border-color:#24344b!important}
-:root[data-theme="night"] .mobileNav{background:linear-gradient(180deg,rgba(171,119,25,.94),rgba(127,83,10,.97))!important}
-:root[data-theme="night"] .page::before{opacity:.025}
-@media(max-width:650px){
-  .themeToggle{width:31px;height:31px;flex-basis:31px}.themeToggle span,.themeToggle svg{width:17px;height:17px}
-  .topbar .user-chip{gap:4px}
-}
-</style>
-</html>
-
-<style>
-/* Karvan e Asal V15 premium glass 3D chrome */
-:root{
-  --logo-navy:#01163b;
-  --logo-navy-mid:#01274f;
-  --logo-gold-dark:#ab7719;
-  --logo-gold:#fedb6b;
-  --logo-gold-light:#fff09a;
-}
-.topbar{
-  background:linear-gradient(180deg,rgba(1,22,59,.94) 0%,rgba(1,39,79,.86) 48%,rgba(0,18,47,.92) 100%)!important;
-  backdrop-filter:blur(18px) saturate(145%)!important;
-  -webkit-backdrop-filter:blur(18px) saturate(145%)!important;
-  border-bottom:1px solid rgba(254,219,107,.48)!important;
-  box-shadow:0 5px 0 rgba(0,0,0,.10),0 9px 24px rgba(0,10,30,.34),inset 0 1px 0 rgba(255,255,255,.14),inset 0 -1px 0 rgba(0,0,0,.28)!important;
-}
-.topbar::after{
-  content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
-  background:linear-gradient(90deg,transparent,rgba(254,219,107,.78),transparent);
-  pointer-events:none;
-}
-.topbar img{
-  width:76px!important;height:60px!important;flex:0 0 76px;
-  object-fit:contain;
-  filter:drop-shadow(0 3px 5px rgba(0,0,0,.38));
-}
-.topbar .title{color:#fff!important;text-shadow:0 2px 3px rgba(0,0,0,.35)}
-.topbar .sub{color:var(--logo-gold)!important}
-.logout{
-  background:linear-gradient(180deg,rgba(255,255,255,.15),rgba(255,255,255,.05))!important;
-  border-color:rgba(254,219,107,.42)!important;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 2px 5px rgba(0,0,0,.18)!important;
-}
-.mobileNav{
-  background:linear-gradient(180deg,rgba(171,119,25,.92) 0%,rgba(201,150,45,.86) 42%,rgba(127,83,10,.94) 100%)!important;
-  backdrop-filter:blur(18px) saturate(145%)!important;
-  -webkit-backdrop-filter:blur(18px) saturate(145%)!important;
-  border-top:1px solid rgba(255,240,154,.62)!important;
-  box-shadow:0 -5px 0 rgba(0,0,0,.08),0 -10px 28px rgba(70,43,0,.30),inset 0 1px 0 rgba(255,255,255,.25),inset 0 -1px 0 rgba(72,43,0,.32)!important;
-}
-.mobileNav::before{
-  content:"";position:absolute;left:0;right:0;top:0;height:2px;
-  background:linear-gradient(90deg,transparent,var(--logo-gold-light),transparent);
-  pointer-events:none;
-}
-.mobileNav button{
-  text-shadow:0 1px 2px rgba(50,30,0,.34);
-}
-.mobileNav button.active{
-  background:linear-gradient(180deg,rgba(1,22,59,.78),rgba(1,39,79,.68))!important;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 2px 7px rgba(0,0,0,.22)!important;
-}
-@media(max-width:650px){
-  .topbar{height:64px!important;padding:0 7px!important;gap:6px!important}
-  .layout{padding-top:64px!important}
-  .topbar img{width:62px!important;height:56px!important;flex:0 0 62px!important}
-  .topbar .title{font-size:10.5px!important}
-  .topbar .sub{font-size:6.8px!important}
-  .user-chip{max-width:45vw!important}
-}
-</style>

@@ -1,4 +1,4 @@
-# V14 Sales Auth / Forgot Password Update
+# V15 Sales Auth / Forgot Password Update
 
 ## Supabase SQL required
 
@@ -22,7 +22,7 @@ revoke all on function public.get_password_reset_question(text) from public;
 grant execute on function public.get_password_reset_question(text) to anon, authenticated;
 ```
 
-The existing V14 functions `verify_password_reset` and `get_login_email_by_username` must also exist.
+The existing V15 functions `verify_password_reset` and `get_login_email_by_username` must also exist.
 
 ## Forgot password flow
 

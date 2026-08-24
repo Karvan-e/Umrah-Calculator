@@ -1,8 +1,8 @@
-KARVAN E ASAL — V14 SALES
+KARVAN E ASAL — V15 SALES
 Online multi-user Umrah Manager
 
 Baseline: V13 Sales
-V14 additions in this build:
+V15 additions in this build:
 - Email OR username login flow
 - Visa duration/category pricing
 - Only Visa defaults: 15d PKR 40,000; 21d PKR 41,000; 28d PKR 42,000; 75d PKR 45,000
