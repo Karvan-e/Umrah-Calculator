@@ -1,0 +1,1 @@
+V16.8 Login hardening: global var compatibility alias, cache/manifest/version synchronized.
