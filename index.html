@@ -1336,7 +1336,7 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
     if(!admin())return deny();
     editingHotelIndex=index;
     let h=index===null?null:hotels[index];if(!h&&index!==null)return;
-    $('modalbox').innerHTML=`<div class="modalhead"><h3>${h?'Edit Hotel':'Add New Hotel'}</h3><button class="btn outline" onclick="closeModal()">×</button></div>
+    $('modalbox').innerHTML=`<div class="modalhead"><h3>${h?'Edit Hotel':'Add New Hotel'}</h3></div>
     <div class="hotel-modal-actions-top"><button class="btn outline" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveHotel(${index===null?'null':index})">Save Hotel</button></div>
     <div class="grid" style="margin-top:12px">
       <div class="field"><label>Provider</label><select id="hmProvider" onchange="renderHotelRateEditor()"><option value="Gulf" ${hotelProvider(h)==='Gulf'?'selected':''}>Gulf</option><option value="Meezab" ${hotelProvider(h)==='Meezab'?'selected':''}>Meezab</option></select></div>
@@ -1886,6 +1886,46 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
 }
 @media(min-width:651px){
   #modal.modal .modalbox{max-height:calc(100dvh - 32px)!important;}
+}
+:root[data-theme="night"] #modal.modal .modalhead,
+:root[data-theme="night"] #modal.modal .hotel-modal-actions-top{background:#101c2d!important}
+</style>
+
+<style id="v15-hotel-modal-definitive-mobile">
+/* Definitive mobile Hotel Edit modal: compact, fully above fixed bottom navigation. */
+@media(max-width:650px){
+  #modal.modal{
+    z-index:2147483647!important;
+    align-items:flex-start!important;
+    justify-content:center!important;
+    padding:68px 8px calc(72px + env(safe-area-inset-bottom))!important;
+    overflow:hidden!important;
+  }
+  #modal.modal .modalbox{
+    width:calc(100vw - 16px)!important;
+    max-width:560px!important;
+    height:auto!important;
+    max-height:calc(100dvh - 140px - env(safe-area-inset-bottom))!important;
+    min-height:0!important;
+    margin:0 auto!important;
+    padding:10px!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    -webkit-overflow-scrolling:touch!important;
+    overscroll-behavior:contain!important;
+  }
+  #modal.modal .modalhead{
+    position:sticky!important;top:-10px!important;z-index:80!important;
+    padding:3px 0 7px!important;margin:0 0 6px!important;
+    background:#fff!important;
+  }
+  #modal.modal .hotel-modal-actions-top{
+    position:sticky!important;top:28px!important;z-index:79!important;
+    margin:0 -10px 8px!important;padding:7px 10px!important;
+    background:#fff!important;
+  }
+  #modal.modal .hotel-modal-actions-top .btn{min-height:36px!important;padding:7px 10px!important;font-size:10px!important}
+  #modal.modal .field input,#modal.modal .field select{min-height:36px!important;padding:8px 9px!important}
 }
 :root[data-theme="night"] #modal.modal .modalhead,
 :root[data-theme="night"] #modal.modal .hotel-modal-actions-top{background:#101c2d!important}
