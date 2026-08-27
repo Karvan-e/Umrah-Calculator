@@ -1,0 +1,15 @@
+{
+  "name": "Karvan e Asal \u2014 Umrah Manager V16.1",
+  "short_name": "KEA V16.1",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f7faff",
+  "theme_color": "#061a3a",
+  "icons": [
+    {
+      "src": "assets/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
