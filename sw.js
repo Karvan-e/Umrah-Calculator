@@ -1,4 +1,4 @@
-const CACHE='kea-v15.7-final-ui-fix-v4';
+const CACHE='kea-v15.7-theme-contrast-v5';
 const CORE=['./manifest.json','./assets/logo.png'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
