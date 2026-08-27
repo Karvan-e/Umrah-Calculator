@@ -1855,3 +1855,38 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
   setTimeout(fixCalculator,100);
 })();
 </script>
+<style id="v15-hotel-modal-mobile-final">
+/* Definitive mobile Hotel Edit layout: modal is above the fixed nav and has its own compact viewport. */
+@media(max-width:650px){
+  #modal.modal{
+    align-items:flex-start!important;
+    justify-content:center!important;
+    padding:calc(72px + env(safe-area-inset-top)) 8px calc(10px + env(safe-area-inset-bottom))!important;
+    overflow:hidden!important;
+    z-index:1000000!important;
+  }
+  #modal.modal .modalbox{
+    width:calc(100vw - 16px)!important;
+    max-width:620px!important;
+    height:calc(100dvh - 92px - env(safe-area-inset-top) - env(safe-area-inset-bottom))!important;
+    max-height:none!important;
+    min-height:0!important;
+    margin:0 auto!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    -webkit-overflow-scrolling:touch!important;
+    overscroll-behavior:contain!important;
+    padding:11px!important;
+    border-radius:12px!important;
+  }
+  #modal.modal .modalhead{position:sticky!important;top:-11px!important;z-index:70!important;background:#fff!important}
+  #modal.modal .hotel-modal-actions-top{position:sticky!important;top:45px!important;z-index:69!important;background:#fff!important}
+  #modal.modal .hotel-modal-actions-top .btn{min-height:38px!important;padding:8px 11px!important}
+  #modal.modal .hotel-modal-actions-top + .grid{margin-top:8px!important}
+}
+@media(min-width:651px){
+  #modal.modal .modalbox{max-height:calc(100dvh - 32px)!important;}
+}
+:root[data-theme="night"] #modal.modal .modalhead,
+:root[data-theme="night"] #modal.modal .hotel-modal-actions-top{background:#101c2d!important}
+</style>
