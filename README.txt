@@ -1,4 +1,4 @@
-Karvan e Asal Umrah Manager — V15.4
+Karvan e Asal Umrah Manager — V15.7
 Baseline: V15 Professional Icons Audited & Fixed.
 
 Hotel providers:
@@ -10,3 +10,5 @@ Meezab rates are date-bound:
 - 15 Nov 2026 through 15 Jan 2027
 
 For Meezab, the source sheet provides Sharing and one combined DBL/TPL/QD room rate. The app uses Sharing as per-person and the combined room rate as a per-room rate for non-sharing room selections; Quint is N/A because no separate Quint rate was supplied.
+
+V15.7 fix: canonical 52-hotel catalog migration prevents an old 13-hotel local/Supabase catalog from masking the Gulf + Meezab list.
