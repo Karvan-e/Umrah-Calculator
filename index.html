@@ -20,7 +20,7 @@
 
 .auth-screen{position:fixed;inset:0;z-index:1000;background:linear-gradient(135deg,#061a3a 0%,#0b3973 55%,#c9962d 160%);display:flex;align-items:center;justify-content:center;padding:18px}.auth-card{width:min(430px,100%);background:#fff;border-radius:22px;box-shadow:0 25px 80px #0006;padding:26px;border:1px solid #e7d5a7}.auth-logo{width:110px;height:110px;object-fit:contain;display:block;margin:0 auto 10px}.auth-title{text-align:center;color:var(--navy);font-size:23px;font-weight:950}.auth-sub{text-align:center;color:#667085;font-size:11px;margin:5px 0 18px}.auth-error{display:none;background:#fff0ef;border:1px solid #f3b3ae;color:#a51b14;border-radius:9px;padding:9px;font-size:10px;margin-bottom:10px}.linkbtn{border:0;background:none;color:#0b3973;font-size:10px;font-weight:900;padding:2px 4px;text-decoration:underline}.auth-section-title{margin:0 0 12px;color:var(--navy);font-size:16px}.auth-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.auth-grid .field input,.auth-grid .field select{min-height:38px;padding:8px 9px}.user-chip{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:10px;font-weight:800}.user-chip .logout{background:#ffffff18;border:1px solid #ffffff35;color:#fff;border-radius:8px;padding:7px 9px}.adminOnly{display:none}.user-role{font-size:9px;opacity:.7}.admin-table td,.admin-table th{font-size:10px}.admin-badge{display:inline-block;padding:4px 7px;border-radius:99px;background:#eef5ff;color:#1457a6;font-weight:900}.admin-badge.off{background:#fff0ef;color:#b42318}
 .modal-open{overflow:hidden!important;touch-action:none}@media(max-width:600px){.modalbox{scrollbar-width:thin}}
-</style><style id="v15-professional-internal-icons-1">
+</style><style id="v201-professional-internal-icons">
 .step{display:inline-flex!important;align-items:center!important;gap:6px!important}
 .stepicon{width:18px!important;height:18px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:0 0 18px!important;color:currentColor!important}
 .stepicon svg{width:18px!important;height:18px!important;fill:none!important;stroke:currentColor!important;stroke-width:1.8!important;stroke-linecap:round!important;stroke-linejoin:round!important}
@@ -60,7 +60,7 @@
 </style>
 
 <style>
-/* Karvan e Asal V15 premium glass 3D chrome */
+/* Karvan e Asal V2.0.1 premium glass 3D chrome */
 :root{
   --logo-navy:#01163b;
   --logo-navy-mid:#01274f;
@@ -309,7 +309,39 @@
   window.syncSharedConfigControls=applySharedConfigPermissions;
   window.applySharedConfigPermissions=applySharedConfigPermissions;
 })();
-</script></head>
+</script><style id="v201-final-theme">
+html[data-theme="day"]{--final-bg:#f5f7fb;--final-surface:#fff;--final-surface2:#eef2f7;--final-text:#172033;--final-muted:#526079;--final-border:#d7deea;--final-accent:#1769e0}
+html[data-theme="night"]{--final-bg:#0e1420;--final-surface:#171f2e;--final-surface2:#202b3d;--final-text:#f3f6fb;--final-muted:#c2ccda;--final-border:#344158;--final-accent:#65a8ff}
+html[data-theme] body{background:var(--final-bg);color:var(--final-text)}
+html[data-theme="night"] input,html[data-theme="night"] select,html[data-theme="night"] textarea{background:var(--final-surface)!important;color:var(--final-text)!important;border-color:var(--final-border)!important}
+html[data-theme="night"] input::placeholder,html[data-theme="night"] textarea::placeholder{color:var(--final-muted)!important;opacity:1}
+html[data-theme] .nav-item,html[data-theme] .mobile-nav-item{color:var(--final-muted)!important}
+html[data-theme] .nav-item.active,html[data-theme] .mobile-nav-item.active{color:#fff!important;background:var(--final-accent)!important}
+html[data-theme] button svg,html[data-theme] .btn svg,html[data-theme] .nav-item svg,html[data-theme] .mobile-nav-item svg{color:currentColor!important;stroke:currentColor;fill:currentColor}
+html[data-theme="night"] .icon-btn,html[data-theme="night"] .close-btn{color:#f3f6fb!important}
+html[data-theme="night"] .package-cost-q,html[data-theme="night"] #packageCostQ{background:linear-gradient(135deg,#c99a2e,#a87916)!important;color:#fff!important}
+</style><script id="v201-data-migration">
+(function(){
+  try{
+    const copy=(oldKey,newKey)=>{if(!localStorage.getItem(newKey)&&localStorage.getItem(oldKey))localStorage.setItem(newKey,localStorage.getItem(oldKey));};
+    const pairs=[
+      [['kea','Hotels','V10'].join(''),['kea','Hotels','V201'].join('')],[['kea','Visa','V10'].join(''),['kea','Visa','V201'].join('')],
+      [['kea','Transport','V10'].join(''),['kea','Transport','V201'].join('')],[['kea','Extras','V10'].join(''),['kea','Extras','V201'].join('')],
+      [['kea','Airlines','V10'].join(''),['kea','Airlines','V201'].join('')],[['kea','Fx','V2.0.1'].join(''),['kea','Fx','V201'].join('')],
+      [['kea','Users','V10'].join(''),['kea','Users','V201'].join('')],[['kea','Session','V10'].join(''),['kea','Session','V201'].join('')]
+    ];
+    pairs.forEach(x=>copy(x[0],x[1]));
+    const migratePrefix=(oldPrefix,newPrefix)=>{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith(oldPrefix)){const nk=newPrefix+k.slice(oldPrefix.length);copy(k,nk);}}};
+    migratePrefix(['kea','QuotesV10_'].join(''),['kea','QuotesV201_'].join(''));
+    migratePrefix(['kea','QuotesV11_'].join(''),['kea','QuotesV201_'].join(''));
+    migratePrefix(['kea','QuotesV7'].join(''),['kea','QuotesV201_'].join(''));
+    migratePrefix(['kea','PackageCostsV11_'].join(''),['kea','PackageCostsV201_'].join(''));
+    migratePrefix(['kea','RecycleV13_'].join(''),['kea','RecycleV201_'].join(''));
+    if(!localStorage.getItem('keaV201Architecture'))localStorage.setItem('keaV201Architecture',JSON.stringify({version:'2.0.1',migratedAt:new Date().toISOString()}));
+  }catch(e){console.warn('V2.0.1 data migration skipped:',e);}
+})();
+</script>
+</head>
 <body>
 <div class="auth-screen" id="authScreen">
   <div class="auth-card">
@@ -374,7 +406,7 @@
 <section id="summary" class="page"><div class="pagehead"><div><h1>Quotation Summary</h1><p>Only the sections relevant to the current quotation are shown.</p></div><button class="btn gold no-print" onclick="showPage('invoicePage')">Open Invoice</button></div><div class="card" id="summaryBody"></div></section>
 <section id="voucher" class="page"><div class="pagehead"><div><h1>Voucher</h1><p>Automatically filled from the quotation form. Terms & conditions are intentionally excluded.</p></div><div class="savebar no-print"><button class="btn gold" onclick="printVoucher()">Print / Save PDF</button><button class="btn outline" onclick="downloadVoucher()">Save to Device</button><button class="btn outline" onclick="shareVoucher()">Share / Save to Files</button></div></div><div class="card"><div class="voucher" id="voucherBody"></div></div></section>
 <section id="settings" class="page"><div class="pagehead"><div><h1>Settings</h1><p>System settings, exchange rate, airlines and local backup.</p></div></div><div class="card" style="text-align:center"><div class="software-version" style="font-size:20px;font-weight:950">V2.0.1</div></div><div class="card"><h3 class="section-title">Contact</h3><div class="grid2"><div><div class="muted">Phone</div><div style="font-size:13px;font-weight:900;color:var(--navy);margin-top:4px">0345-0995555</div></div><div><div class="muted">Email</div><div style="font-size:13px;font-weight:900;color:var(--navy);margin-top:4px"><a href="mailto:Karvaneasal@gmail.com" style="color:var(--navy);text-decoration:none">Karvaneasal@gmail.com</a></div></div></div></div><div class="card"><h3 class="section-title">Appearance</h3><p class="muted">Choose Day for a bright clean workspace or Night for a darker, low-glare workspace. Your choice is saved on this device.</p><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn outline" id="dayModeBtn" onclick="setTheme('day')"><span class="modeicon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span> Day Mode</button><button class="btn outline" id="nightModeBtn" onclick="setTheme('night')"><span class="modeicon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.5A8 8 0 0 1 8.5 4 8 8 0 1 0 20 15.5z"/></svg></span> Night Mode</button></div></div><div class="card"><h3 class="section-title">Exchange Rate</h3><div class="grid2"><div class="field"><label>1 SAR = PKR</label><input id="fxInput" type="number"></div><div style="display:flex;align-items:end"><button class="btn primary" onclick="saveFx()">Save Exchange Rate</button></div></div></div><div class="card"><h3 class="section-title">Airlines</h3><div class="muted">Airlines below are available in the Flight dropdown.</div><div id="airlineManager" style="margin-top:10px"></div><button id="addAirlineBtn" class="btn gold" onclick="addAirline()" style="margin-top:10px">+ Add Airline</button></div><div class="card"><h3 class="section-title">Recycle Bin</h3><p class="muted">Deleted vouchers and Package Cost Q records are kept here until recovered or permanently deleted.</p><div id="recycleBin" style="margin-top:10px"></div></div><div class="card"><h3 class="section-title">Local Backup</h3><p class="muted">Export your account quotations plus shared hotels, visa rules, airlines and settings as one JSON backup file. Import it later on another device.</p><div class="savebar"><button class="btn outline" onclick="exportBackup()">Export Backup</button><button class="btn outline" onclick="document.getElementById('backupFile').click()">Import Backup</button><input id="backupFile" type="file" accept="application/json" style="display:none" onchange="importBackup(event)"></div></div></section>
-<section id="admin" class="page adminOnlyPage"><div class="pagehead"><div><h1>Admin</h1><p>Manage user accounts and access.</p></div><button class="btn gold" onclick="openUserModal()">+ Add User</button></div><div class="card"><div class="notice">Admin accounts can manage users. Each normal user can only see and open vouchers saved under their own account.</div><div id="adminUserTable" style="margin-top:12px"></div></div><div class="card"><h3 class="section-title">Account Security</h3><p class="muted">For true server-enforced privacy across devices, connect this app to a backend authentication/database service. GitHub Pages alone cannot securely enforce access control.</p></div></section>
+<section id="admin" class="page adminOnlyPage"><div class="pagehead"><div><h1>Admin</h1><p>Manage user accounts and access.</p></div><button class="btn gold" onclick="openUserRegistration()">+ Add User</button></div><div class="card"><div class="notice">Admin accounts can manage users. Each normal user can only see and open vouchers saved under their own account.</div><div id="adminUserTable" style="margin-top:12px"></div></div><div class="card"><h3 class="section-title">Account Security</h3><p class="muted">For true server-enforced privacy across devices, connect this app to a backend authentication/database service. GitHub Pages alone cannot securely enforce access control.</p></div></section>
 <section id="invoicePage" class="page"><div class="pagehead no-print"><div><h1>Invoice Preview</h1><p>Professional quotation / invoice.</p></div><button class="btn gold" onclick="window.print()">Print / Save PDF</button></div><div class="card"><div class="invoice" id="invoice"></div></div></section>
 </main></div>
 <nav class="mobileNav" aria-label="Main navigation">
@@ -393,7 +425,7 @@
 const roomTypes=['Sharing','Quint','Quad','Triple','Double','Full Room'];
 const defaultHotels=[["Makkah","Wedam Six","Ibrahim Khalil Road","Shuttle",13,13,13,17,25,50,{"provider":"Gulf","rate_mode":"per_person"}],["Makkah","White Lion","Hijra Road","1100 M",17,17,19,25,38,75,{"provider":"Gulf","rate_mode":"per_person"}],["Makkah","Masarat Khalil / Nada Hijra","Ibrahim Khalil / Hijra Road","750 M",41,null,45,60,90,180,{"provider":"Gulf","rate_mode":"per_person"}],["Makkah","Saif Al Majd","Hijra Road","750 M",43,43,46,62,93,185,{"provider":"Gulf","rate_mode":"per_person"}],["Makkah","Masarat Golden","Ibrahim Khalil Road","550 M",48,48,48,63,95,190,{"provider":"Gulf","rate_mode":"per_person"}],["Makkah","Badar Masa","Ibrahim Khalil Road","550 M",null,57,63,83,125,250,{"provider":"Gulf","rate_mode":"per_person"}],["Makkah","Tara Zahbi (Old-Majd Al Zahabi)","Manshia","400 M",null,null,63,83,125,250,{"provider":"Gulf","rate_mode":"per_person"}],["Madinah","Qadat Al Dyyafah / Afaq Al Masi","Omer Bin Al Khattab Road","Shuttle",27,27,30,40,60,120,{"provider":"Gulf","rate_mode":"per_person"}],["Madinah","Hamouda Al Masi","Masjid Bilal Side","650 M",36,36,40,53,80,160,{"provider":"Gulf","rate_mode":"per_person"}],["Madinah","Hamouda Nebras 1&2 (Old Burj Hakeem)","Masjid Bilal Side","450 M",46,46,50,67,100,200,{"provider":"Gulf","rate_mode":"per_person"}],["Madinah","Mukhtara Diamond","Markazia","120 M",null,null,75,100,150,300,{"provider":"Gulf","rate_mode":"per_person"}],["Madinah","Ansar Golden Tulip","Markazia","100 M",null,null,100,133,200,400,{"provider":"Gulf","rate_mode":"per_person"}],["Makkah","Arafat Zahbi","Umm Al-Moumin Street Kudai","Shuttle Service",null,null,null,null,null,null,{"provider":"Meezab","checkin":"08-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":13,"room":78},{"start":"2026-08-31","end":"2026-11-14","sharing":14,"room":84},{"start":"2026-11-15","end":"2027-01-15","sharing":17,"room":100}]}],["Makkah","Fakhir Al Azizia","Azizia Makkah","Shuttle Service",null,null,null,null,null,null,{"provider":"Meezab","checkin":"21-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":14,"room":70},{"start":"2026-08-31","end":"2026-11-14","sharing":15,"room":75},{"start":"2026-11-15","end":"2027-01-15","sharing":18,"room":85}]}],["Makkah","Snood Mowtan","Ibrahim Khalil Road","Shuttle Service",null,null,null,null,null,null,{"provider":"Meezab","checkin":"16-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":16,"room":80},{"start":"2026-08-31","end":"2026-11-14","sharing":18,"room":90},{"start":"2026-11-15","end":"2027-01-15","sharing":21,"room":95}]}],["Makkah","Qla Ajyad","Ajyad Street","Shuttle Service",null,null,null,null,null,null,{"provider":"Meezab","checkin":"04-Jul","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":18,"room":90},{"start":"2026-08-31","end":"2026-11-14","sharing":20,"room":100},{"start":"2026-11-15","end":"2027-01-15","sharing":25,"room":115}]}],["Makkah","Taj Fiddi Hotel","Ajyad Street","700-800 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"08-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":28,"room":140},{"start":"2026-08-31","end":"2026-11-14","sharing":30,"room":150},{"start":"2026-11-15","end":"2027-01-15","sharing":35,"room":160}]}],["Makkah","That Hotel","Misfalah Kubri","800-900 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"08-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":30,"room":150},{"start":"2026-08-31","end":"2026-11-14","sharing":32,"room":160},{"start":"2026-11-15","end":"2027-01-15","sharing":38,"room":175}]}],["Makkah","Al Kiswah Towers","Al Taysir Street","Shuttle Service",null,null,null,null,null,null,{"provider":"Meezab","checkin":"26-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":null,"room":120},{"start":"2026-08-31","end":"2026-11-14","sharing":null,"room":130},{"start":"2026-11-15","end":"2027-01-15","sharing":null,"room":150}]}],["Makkah","Rukan Al Zawia","Ibrahim Khalil Road","700-800 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"16-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":40,"room":180},{"start":"2026-08-31","end":"2026-11-14","sharing":42,"room":190},{"start":"2026-11-15","end":"2027-01-15","sharing":46,"room":210}]}],["Makkah","Mella 1","Ibrahim Khalil Road","650-700 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"08-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":null,"room":190},{"start":"2026-08-31","end":"2026-11-14","sharing":null,"room":200},{"start":"2026-11-15","end":"2027-01-15","sharing":null,"room":220}]}],["Makkah","Mella 2","Ibrahim Khalil Road","650-700 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"12-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":42,"room":190},{"start":"2026-08-31","end":"2026-11-14","sharing":44,"room":200},{"start":"2026-11-15","end":"2027-01-15","sharing":49,"room":220}]}],["Makkah","Diwan Al Bait","Ibrahim Khalil Road","500-600 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"10-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":42,"room":190},{"start":"2026-08-31","end":"2026-11-14","sharing":44,"room":200},{"start":"2026-11-15","end":"2027-01-15","sharing":49,"room":220}]}],["Makkah","Saif Al Majd","Al Hajlah Road","650 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"27-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":42,"room":190},{"start":"2026-08-31","end":"2026-11-14","sharing":44,"room":200},{"start":"2026-11-15","end":"2027-01-15","sharing":49,"room":220}]}],["Makkah","Areej Al Zahbi","Al Hijrah Road","450-500 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"16-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":44,"room":200},{"start":"2026-08-31","end":"2026-11-14","sharing":48,"room":210},{"start":"2026-11-15","end":"2027-01-15","sharing":53,"room":240}]}],["Makkah","Arfat Golden Rushd","Ibrahim Khalil Road","500 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"06-Jul","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":46,"room":210},{"start":"2026-08-31","end":"2026-11-14","sharing":52,"room":230},{"start":"2026-11-15","end":"2027-01-15","sharing":58,"room":260}]}],["Makkah","Badar Al Masa","Ibrahim Khalil Road","600 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"16-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":null,"room":280},{"start":"2026-08-31","end":"2026-11-14","sharing":null,"room":290},{"start":"2026-11-15","end":"2027-01-15","sharing":null,"room":310}]}],["Makkah","Shams Al Zahbi","Al Hijrah Road","350-400 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"16-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":48,"room":220},{"start":"2026-08-31","end":"2026-11-14","sharing":58,"room":260},{"start":"2026-11-15","end":"2027-01-15","sharing":62,"room":280}]}],["Makkah","Daif Ajyad","Ajyad Street","250-300 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"06-Jul","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":null,"room":325},{"start":"2026-08-31","end":"2026-11-14","sharing":null,"room":345},{"start":"2026-11-15","end":"2027-01-15","sharing":null,"room":360}]}],["Makkah","Areej Al Wafa","Ibrahim Khalil Road","250-300 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"16-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":null,"room":300},{"start":"2026-08-31","end":"2026-11-14","sharing":null,"room":370},{"start":"2026-11-15","end":"2027-01-15","sharing":null,"room":390}]}],["Makkah","Nawara Shams 3","Ibrahim Khalil Road","250-300 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"28-Jul","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":null,"room":300},{"start":"2026-08-31","end":"2026-11-14","sharing":null,"room":370},{"start":"2026-11-15","end":"2027-01-15","sharing":null,"room":390}]}],["Makkah","Lolo Al Falah","Ibrahim Khalil Road","100 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"01-Jul","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":null,"room":450},{"start":"2026-08-31","end":"2026-11-14","sharing":null,"room":475},{"start":"2026-11-15","end":"2027-01-15","sharing":null,"room":485}]}],["Makkah","Time Ruba","Al Haj Road","Shuttle Service",null,null,null,null,null,null,{"provider":"Meezab","checkin":"01-Jul","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":null,"room":135},{"start":"2026-08-31","end":"2026-11-14","sharing":null,"room":185},{"start":"2026-11-15","end":"2027-01-15","sharing":null,"room":195}]}],["Makkah","Park Inn","Azizia Makkah","Shuttle Service",null,null,null,null,null,null,{"provider":"Meezab","checkin":"01-Jul","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":null,"room":135},{"start":"2026-08-31","end":"2026-11-14","sharing":null,"room":185},{"start":"2026-11-15","end":"2027-01-15","sharing":null,"room":195}]}],["Madinah","Hala Taibah","Abdul Aziz Road","Shuttle Service",null,null,null,null,null,null,{"provider":"Meezab","checkin":"16-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":29,"room":130},{"start":"2026-08-31","end":"2026-11-14","sharing":32,"room":150},{"start":"2026-11-15","end":"2027-01-15","sharing":35,"room":160}]}],["Madinah","Manazil Marjan","Qurban Nazir Road","Shuttle Service",null,null,null,null,null,null,{"provider":"Meezab","checkin":"16-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":31,"room":140},{"start":"2026-08-31","end":"2026-11-14","sharing":33,"room":150},{"start":"2026-11-15","end":"2027-01-15","sharing":37,"room":170}]}],["Madinah","Jodh Marjan","Qurban Nazir Road","800-900 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"16-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":34,"room":155},{"start":"2026-08-31","end":"2026-11-14","sharing":36,"room":165},{"start":"2026-11-15","end":"2027-01-15","sharing":40,"room":180}]}],["Madinah","Diyar Al Safa (Old Safa Center)","Masjid Bilal Side","700 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"20-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":36,"room":165},{"start":"2026-08-31","end":"2026-11-14","sharing":37,"room":170},{"start":"2026-11-15","end":"2027-01-15","sharing":42,"room":190}]}],["Madinah","Wahat Al Shark","Masjid Bilal Side","700 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"16-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":36,"room":165},{"start":"2026-08-31","end":"2026-11-14","sharing":37,"room":170},{"start":"2026-11-15","end":"2027-01-15","sharing":42,"room":190}]}],["Madinah","Essa Karim Hotel","Albaik Opposite Side","600 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"16-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":37,"room":170},{"start":"2026-08-31","end":"2026-11-14","sharing":38,"room":175},{"start":"2026-11-15","end":"2027-01-15","sharing":43,"room":195}]}],["Madinah","Anwar Al Awali","Albaik Opposite Side","550 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"16-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":39,"room":180},{"start":"2026-08-31","end":"2026-11-14","sharing":42,"room":190},{"start":"2026-11-15","end":"2027-01-15","sharing":47,"room":210}]}],["Madinah","Manazil Majd","Masjid Bilal Side","400-500 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"26-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":41,"room":185},{"start":"2026-08-31","end":"2026-11-14","sharing":42,"room":190},{"start":"2026-11-15","end":"2027-01-15","sharing":47,"room":210}]}],["Madinah","Nuzul Waha Madain","Masjid Bilal Side","400-500 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"26-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":44,"room":190},{"start":"2026-08-31","end":"2026-11-14","sharing":45,"room":200},{"start":"2026-11-15","end":"2027-01-15","sharing":49,"room":220}]}],["Madinah","Najoom Al Madinah","Al Zahida Area Quba Road","450-500 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"30-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":48,"room":190},{"start":"2026-08-31","end":"2026-11-14","sharing":50,"room":225},{"start":"2026-11-15","end":"2027-01-15","sharing":54,"room":245}]}],["Madinah","Burj Muwaddah","Bab Al Salam Road","300-350 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"15-Jul","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":null,"room":270},{"start":"2026-08-31","end":"2026-11-14","sharing":null,"room":290},{"start":"2026-11-15","end":"2027-01-15","sharing":null,"room":310}]}],["Madinah","Burj Mukhtara","Bab Al Salam Road","300-350 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"26-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":null,"room":270},{"start":"2026-08-31","end":"2026-11-14","sharing":null,"room":290},{"start":"2026-11-15","end":"2027-01-15","sharing":null,"room":310}]}],["Madinah","Ergwan Al Madinah","South Markazia","200-250 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"16-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":60,"room":300},{"start":"2026-08-31","end":"2026-11-14","sharing":68,"room":340},{"start":"2026-11-15","end":"2027-01-15","sharing":72,"room":360}]}],["Madinah","Taif Nebras","South Markazia","200-250 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"01-Jul","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":null,"room":320},{"start":"2026-08-31","end":"2026-11-14","sharing":null,"room":340},{"start":"2026-11-15","end":"2027-01-15","sharing":null,"room":370}]}],["Madinah","Ergwan Al Salam","South Markazia","200-250 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"01-Jul","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":null,"room":350},{"start":"2026-08-31","end":"2026-11-14","sharing":null,"room":370},{"start":"2026-11-15","end":"2027-01-15","sharing":null,"room":395}]}],["Madinah","Marjan Golden","Garbia Side","100 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"26-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":null,"room":350},{"start":"2026-08-31","end":"2026-11-14","sharing":null,"room":380},{"start":"2026-11-15","end":"2027-01-15","sharing":null,"room":400}]}],["Madinah","Rama Al Madinah","South Markazia","100 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"26-Jun","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":null,"room":350},{"start":"2026-08-31","end":"2026-11-14","sharing":null,"room":380},{"start":"2026-11-15","end":"2027-01-15","sharing":null,"room":400}]}],["Madinah","Safwat Al Madinah","North Markazia","100 MTR",null,null,null,null,null,null,{"provider":"Meezab","checkin":"01-Jul","periods":[{"start":"2026-01-01","end":"2026-08-30","sharing":null,"room":400},{"start":"2026-08-31","end":"2026-11-14","sharing":null,"room":450},{"start":"2026-11-15","end":"2027-01-15","sharing":null,"room":470}]}]];
 let hotels=(()=>{
-  let raw=localStorage.getItem('keaHotelsV10')||localStorage.getItem('keaHotelsV7')||null;
+  let raw=localStorage.getItem('keaHotelsV201')||null;
   let parsed=null;
   try{parsed=raw?JSON.parse(raw):null}catch(e){parsed=null}
   if(!Array.isArray(parsed)||parsed.length<52)return JSON.parse(JSON.stringify(defaultHotels));
@@ -410,15 +442,15 @@ function normalizeHotelProviders(list){
 hotels=normalizeHotelProviders(hotels);
 /* Ensure an older 13-hotel local cache can never suppress the shipped 52-hotel catalog. */
 if(hotels.length<defaultHotels.length)hotels=JSON.parse(JSON.stringify(defaultHotels));
-localStorage.setItem('keaHotelsV10',JSON.stringify(hotels));
+localStorage.setItem('keaHotelsV201',JSON.stringify(hotels));
 let hotelProviderFilter='All';
-const defaultVisaTypes=[{name:'Umrah Visa',adult:[615,665,690,715,765],child:615,infant:475,durations:[{days:15,pkr:0},{days:21,pkr:0},{days:30,pkr:0},{days:90,pkr:0}],active:true},{name:'Only Visa',adult:[615,665,690,715,765],child:615,infant:475,durations:[{days:15,pkr:40000},{days:21,pkr:41000},{days:28,pkr:42000},{days:75,pkr:45000}],active:true},{name:'Visit Visa',adult:[0,0,0,0,0],child:0,infant:0,durations:[{days:30,pkr:0}],active:true},{name:'Work Visa',adult:[0,0,0,0,0],child:0,infant:0,durations:[{days:30,pkr:0}],active:true},{name:'Study Visa',adult:[0,0,0,0,0],child:0,infant:0,durations:[{days:30,pkr:0}],active:true}];
-let visaTypes=JSON.parse(localStorage.getItem('keaVisaV10')||localStorage.getItem('keaVisaV7')||'null')||JSON.parse(JSON.stringify(defaultVisaTypes));
-(function ensureVisaTypes(){visaTypes.forEach(v=>{v.adult=Array.isArray(v.adult)?[0,1,2,3,4].map(i=>Number(v.adult[i]||0)):[0,0,0,0,0];v.child=Number(v.child||0);v.infant=Number(v.infant||0);v.durations=Array.isArray(v.durations)?v.durations.map(d=>({days:Number(d.days)||0,pkr:Number(d.pkr)||0})).filter(d=>d.days>0):[];if(!v.durations.length)v.durations=[{days:30,pkr:0}];if(String(v.name||'').trim().toLowerCase()==='umrah visa'){const umrahDays=[15,21,30,90];v.durations=umrahDays.map(days=>{const old=v.durations.find(d=>Number(d.days)===days);return {days,pkr:0};});}if(!Array.isArray(v.adultRules)||!v.adultRules.length){v.adultRules=[{label:'05–49',min:5,max:49,price:Number(v.adult[0]||0),active:true},{label:'04',min:4,max:4,price:Number(v.adult[1]||0),active:true},{label:'03',min:3,max:3,price:Number(v.adult[2]||0),active:true},{label:'02',min:2,max:2,price:Number(v.adult[3]||0),active:true},{label:'01',min:1,max:1,price:Number(v.adult[4]||0),active:true}];}else{v.adultRules=v.adultRules.map(r=>({label:String(r.label||''),min:Number(r.min)||1,max:Number(r.max)||Number(r.min)||1,price:Number(r.price)||0,active:r.active!==false}));}if(v.active===undefined)v.active=true;});localStorage.setItem('keaVisaV10',JSON.stringify(visaTypes));})();
-let transport=JSON.parse(localStorage.getItem('keaTransportV10')||localStorage.getItem('keaTransportV7')||'null')||[{name:'Airport Transfer — Private Sedan',price:0,unit:'per vehicle',active:true},{name:'Makkah ↔ Madinah — Bus',price:0,unit:'per vehicle',active:true}];
-let extras=JSON.parse(localStorage.getItem('keaExtrasV10')||localStorage.getItem('keaExtrasV7')||'null')||[{name:'Ziyarah (Makkah)',price:0,unit:'per person',active:true},{name:'Ziyarah (Madinah)',price:0,unit:'per person',active:true},{name:'SIM Card',price:0,unit:'per SIM',active:true}];
-let fx=Number(localStorage.getItem('keaFxV15')||75),quotes=[],q=null,step=0,hotelCity='Makkah',pc=null,packageCosts=[];
-const AUTH_KEY='keaUsersV10',SESSION_KEY='keaSessionV10';
+const defaultVisaTypes=[{name:'Umrah Visa',adult:[615,665,690,715,765],child:615,infant:500,durations:[{days:15,pkr:0},{days:21,pkr:0},{days:30,pkr:0},{days:90,pkr:0}],active:true},{name:'Only Visa',adult:[615,665,690,715,765],child:615,infant:500,durations:[{days:15,pkr:40000},{days:21,pkr:41000},{days:28,pkr:42000},{days:75,pkr:45000}],active:true},{name:'Visit Visa',adult:[0,0,0,0,0],child:0,infant:0,durations:[{days:30,pkr:0}],active:true},{name:'Work Visa',adult:[0,0,0,0,0],child:0,infant:0,durations:[{days:30,pkr:0}],active:true},{name:'Study Visa',adult:[0,0,0,0,0],child:0,infant:0,durations:[{days:30,pkr:0}],active:true}];
+let visaTypes=JSON.parse(localStorage.getItem('keaVisaV201')||'null')||JSON.parse(JSON.stringify(defaultVisaTypes));
+(function ensureVisaTypes(){visaTypes.forEach(v=>{v.adult=Array.isArray(v.adult)?[0,1,2,3,4].map(i=>Number(v.adult[i]||0)):[0,0,0,0,0];v.child=Number(v.adult?.[4]||v.child||0);v.infant=500;v.durations=Array.isArray(v.durations)?v.durations.map(d=>({days:Number(d.days)||0,pkr:Number(d.pkr)||0})).filter(d=>d.days>0):[];if(!v.durations.length)v.durations=[{days:30,pkr:0}];if(String(v.name||'').trim().toLowerCase()==='umrah visa'){const umrahDays=[15,21,30,90];v.durations=umrahDays.map(days=>{const old=v.durations.find(d=>Number(d.days)===days);return {days,pkr:0};});}if(!Array.isArray(v.adultRules)||!v.adultRules.length){v.adultRules=[{label:'05–49',min:5,max:49,price:Number(v.adult[0]||0),active:true},{label:'04',min:4,max:4,price:Number(v.adult[1]||0),active:true},{label:'03',min:3,max:3,price:Number(v.adult[2]||0),active:true},{label:'02',min:2,max:2,price:Number(v.adult[3]||0),active:true},{label:'01',min:1,max:1,price:Number(v.adult[4]||0),active:true}];}else{v.adultRules=v.adultRules.map(r=>({label:String(r.label||''),min:Number(r.min)||1,max:Number(r.max)||Number(r.min)||1,price:Number(r.price)||0,active:r.active!==false}));}if(v.active===undefined)v.active=true;});localStorage.setItem('keaVisaV201',JSON.stringify(visaTypes));})();
+let transport=JSON.parse(localStorage.getItem('keaTransportV201')||'null')||[{name:'Airport Transfer — Private Sedan',price:0,unit:'per vehicle',active:true},{name:'Makkah ↔ Madinah — Bus',price:0,unit:'per vehicle',active:true}];
+let extras=JSON.parse(localStorage.getItem('keaExtrasV201')||'null')||[{name:'Ziyarah (Makkah)',price:0,unit:'per person',active:true},{name:'Ziyarah (Madinah)',price:0,unit:'per person',active:true},{name:'SIM Card',price:0,unit:'per SIM',active:true}];
+let fx=Number(localStorage.getItem('keaFxV201')||75),quotes=[],q=null,step=0,hotelCity='Makkah',pc=null,packageCosts=[];
+const AUTH_KEY='keaUsersV201',SESSION_KEY='keaSessionV201';
 const SECURITY_QUESTIONS=[
   'What city were you born in?',
   'What is your mother’s maiden name?',
@@ -436,13 +468,13 @@ if(!users){
   if(!users.some(u=>u.username.toLowerCase()==='umar')){users.push({username:'Umar',email:'umar@karvan-e-asal.local',firstName:'Umar',lastName:'',name:'Umar',contact:'',agency:'Karvan e Asal',address:'',role:'superadmin',active:true,passHash:'f21b65d0d8d1636ed42c50658ad9170de8e8b3404f50f48a21ea7a3b23866999',securityQuestion:'',securityAnswerHash:'',createdAt:new Date().toISOString()});changed=true;} 
   if(changed||users.length) localStorage.setItem(AUTH_KEY,JSON.stringify(users));
 }
-if(!localStorage.getItem('keaQuotesV10_Umar')&&localStorage.getItem('keaQuotesV7')){localStorage.setItem('keaQuotesV10_Umar',localStorage.getItem('keaQuotesV7'));}
+if(!localStorage.getItem('keaQuotesV201_Umar')&&localStorage.getItem('keaQuotesV201_')){localStorage.setItem('keaQuotesV201_Umar',localStorage.getItem('keaQuotesV201_'));}
 var currentUser=null;
 function hashText(t){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(t)).then(b=>Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join(''));}
-function quoteKey(){return 'keaQuotesV10_'+(currentUser?.username||'guest');}
+function quoteKey(){return 'keaQuotesV201_'+(currentUser?.username||'guest');}
 function loadUserQuotes(){quotes=JSON.parse(localStorage.getItem(quoteKey())||'[]');}
 function saveQuotes(){localStorage.setItem(quoteKey(),JSON.stringify(quotes));}
-function packageKey(){return 'keaPackageCostsV11_'+(currentUser?.username||'guest');}
+function packageKey(){return 'keaPackageCostsV201_'+(currentUser?.username||'guest');}
 function loadPackageCosts(){packageCosts=JSON.parse(localStorage.getItem(packageKey())||'[]');}
 function savePackageCosts(){localStorage.setItem(packageKey(),JSON.stringify(packageCosts));}
 function sessionUser(){let u=sessionStorage.getItem(SESSION_KEY);return u?users.find(x=>x.username.toLowerCase()===u.toLowerCase()&&x.active):null;}
@@ -462,7 +494,7 @@ function toggleTheme(){setTheme(document.documentElement.getAttribute('data-them
 function initAuth(){let u=sessionUser();if(u){currentUser=u;loadUserQuotes();loadPackageCosts();$('authScreen').style.display='none';$('appRoot').style.display='block';applyUserUI();init();}else{$('authScreen').style.display='flex';$('appRoot').style.display='none';}}
 
 const airports=[['Islamabad','ISB','Pakistan','PK'],['Lahore','LHE','Pakistan','PK'],['Rawalpindi','RWP','Pakistan','PK'],['Sialkot','SKT','Pakistan','PK'],['Karachi','KHI','Pakistan','PK'],['Multan','MUX','Pakistan','PK'],['Jeddah','JED','Saudi Arabia','SA'],['Madinah','MED','Saudi Arabia','SA'],['Riyadh','RUH','Saudi Arabia','SA'],['Dubai','DXB','United Arab Emirates','AE'],['Istanbul','IST','Türkiye','TR'],['Doha','DOH','Qatar','QA'],['Abu Dhabi','AUH','United Arab Emirates','AE'],['Muscat','MCT','Oman','OM'],['Bahrain','BAH','Bahrain','BH']];
-let airlines=JSON.parse(localStorage.getItem('keaAirlinesV10')||localStorage.getItem('keaAirlinesV7')||'null')||[
+let airlines=JSON.parse(localStorage.getItem('keaAirlinesV201')||'null')||[
 ['Pakistan International Airlines','PIA','PK'],['Airblue','Airblue','PA'],['AirSial','AirSial','PF'],['Fly Jinnah','Fly Jinnah','9P'],['SereneAir','SereneAir','ER'],['Saudia','Saudia','SV'],['flynas','flynas','XY'],['flyadeal','flyadeal','F3'],['Emirates','Emirates','EK'],['flydubai','flydubai','FZ'],['Air Arabia','Air Arabia','G9'],['Etihad Airways','Etihad','EY'],['Qatar Airways','Qatar','QR'],['SalamAir','SalamAir','OV'],['Turkish Airlines','Turkish','TK'],['Pegasus Airlines','Pegasus','PC'],['Gulf Air','Gulf Air','GF'],['Kuwait Airways','Kuwait Airways','KU'],['Oman Air','Oman Air','WY'],['Jazeera Airways','Jazeera','J9'],['Azerbaijan Airlines','Azerbaijan','J2'],['Uzbekistan Airways','Uzbekistan','HY'],['Batik Air Malaysia','Batik Air','OD'],['Royal Jordanian','Royal Jordanian','RJ'],['EgyptAir','EgyptAir','MS'],['SriLankan Airlines','SriLankan','UL']
 ];
 function airlineOpts(v){return '<option value="">Select airline</option>'+airlines.map(a=>`<option value="${esc(a[0])}" ${v===a[0]?'selected':''}>${esc(a[0])} (${a[2]})</option>`).join('')}
@@ -482,13 +514,13 @@ function passengerRows(){
 }
 function newBooking(){q={bookingDate:new Date().toISOString().slice(0,10),customer:'',contact:'',whatsapp:'',reference:'KEA-'+Date.now().toString().slice(-6),package:'Umrah 1448-H',visaShirka:'',reservationNo:'',transportCompany:'',transportType:'Company Transport',transportDescription:'',departureCity:'ISB',adults:1,childBed:0,childNoBed:0,infants:0,passengers:[],departure:'',arrival:'',returnDate:'',visa:'Umrah Visa',visaDuration:30,stays:[{city:'Makkah',hotel:'',room:'Sharing',rooms:0,in:'',out:'',meal:'RO',conf:''},{city:'Madinah',hotel:'',room:'Sharing',rooms:0,in:'',out:'',meal:'RO',conf:''},{city:'Makkah',hotel:'',room:'Sharing',rooms:0,in:'',out:'',meal:'RO',conf:''},{city:'Madinah',hotel:'',room:'Sharing',rooms:0,in:'',out:'',meal:'RO',conf:''}],flights:[{type:'Outbound',from:'ISB',to:'JED',date:'',timeOut:'',timeIn:'',flight:'',airline:'Pakistan International Airlines',via:'Direct'},{type:'Return',from:'JED',to:'ISB',date:'',timeOut:'',timeIn:'',flight:'',airline:'Pakistan International Airlines',via:'Direct'}],tickets:{adult:0,childBed:0,childNoBed:0,infant:0},transport:[],extras:[]};step=-1;const b=document.querySelector('.mobileNav button[aria-label="New Booking"]');showPage('calculator',b);renderWizard()}
 function startFullBooking(){step=0;showPage('calculator');renderWizard()}
-function v15Icon(name){const p={customer:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20c.7-3.5 3-5.5 6.5-5.5s5.8 2 6.5 5.5"/></svg>',passengers:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="16.5" cy="9" r="2.5"/><path d="M3.8 20c.6-3.5 2.5-5.4 5.2-5.4s4.6 1.9 5.2 5.4"/><path d="M14 15.5c2.9-.2 4.9 1.3 5.8 4.5"/></svg>',journey:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5"/><path d="M8 5h11v11"/><circle cx="5" cy="19" r="2"/></svg>',hotel:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V6l8-3 8 3v14"/><path d="M7 20v-7h10v7M7 9h2M15 9h2M7 12h2M15 12h2"/></svg>',visa:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M13 8h4M13 11h4M7 15h10M7 18h7"/></svg>',flight:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h7l3-8 2 .8-1.2 7.2H21l-2 2h-6.2l1.2 5.2-2 .8-3-6H3z"/></svg>',transport:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16V9l2-3h10l2 3v7"/><path d="M5 11h14M7 18h3M14 18h3"/><circle cx="7.5" cy="16.5" r="1.5"/><circle cx="16.5" cy="16.5" r="1.5"/></svg>',extras:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14v14H5z"/><path d="M8 7V5h8v2M9 11h6M9 15h6"/></svg>',sun:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',moon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.5A8 8 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5z"/></svg>',ticket:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7a2 2 0 0 0 0 4v2a2 2 0 0 0 0 4h16v-4a2 2 0 0 0 0-4V7z"/><path d="M12 8v8"/></svg>',calculator:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M14 11h2M8 15h2M14 15h2M8 18h8"/></svg>'};return p[name]||p.ticket}
-function renderSteps(){const icons=['customer','passengers','journey','hotel','visa','flight','transport','extras']; $('steps').innerHTML=stepNames.map((x,i)=>`<button type="button" class="step ${i===step?'active':''}" onclick="goBookingStep(${i})"><span class="stepicon">${v15Icon(icons[i])}</span><span>${i+1}. ${x}</span></button>`).join('') }
+function appIcon(name){const p={customer:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20c.7-3.5 3-5.5 6.5-5.5s5.8 2 6.5 5.5"/></svg>',passengers:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="16.5" cy="9" r="2.5"/><path d="M3.8 20c.6-3.5 2.5-5.4 5.2-5.4s4.6 1.9 5.2 5.4"/><path d="M14 15.5c2.9-.2 4.9 1.3 5.8 4.5"/></svg>',journey:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5"/><path d="M8 5h11v11"/><circle cx="5" cy="19" r="2"/></svg>',hotel:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V6l8-3 8 3v14"/><path d="M7 20v-7h10v7M7 9h2M15 9h2M7 12h2M15 12h2"/></svg>',visa:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M13 8h4M13 11h4M7 15h10M7 18h7"/></svg>',flight:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h7l3-8 2 .8-1.2 7.2H21l-2 2h-6.2l1.2 5.2-2 .8-3-6H3z"/></svg>',transport:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16V9l2-3h10l2 3v7"/><path d="M5 11h14M7 18h3M14 18h3"/><circle cx="7.5" cy="16.5" r="1.5"/><circle cx="16.5" cy="16.5" r="1.5"/></svg>',extras:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14v14H5z"/><path d="M8 7V5h8v2M9 11h6M9 15h6"/></svg>',sun:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',moon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.5A8 8 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5z"/></svg>',ticket:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7a2 2 0 0 0 0 4v2a2 2 0 0 0 0 4h16v-4a2 2 0 0 0 0-4V7z"/><path d="M12 8v8"/></svg>',calculator:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M14 11h2M8 15h2M14 15h2M8 18h8"/></svg>'};return p[name]||p.ticket}
+function renderSteps(){const icons=['customer','passengers','journey','hotel','visa','flight','transport','extras']; $('steps').innerHTML=stepNames.map((x,i)=>`<button type="button" class="step ${i===step?'active':''}" onclick="goBookingStep(${i})"><span class="stepicon">${appIcon(icons[i])}</span><span>${i+1}. ${x}</span></button>`).join('') }
 function normalizeBooking(){if(!q)return;q.stays=Array.isArray(q.stays)?q.stays:[];while(q.stays.length<4)q.stays.push({city:q.stays.length%2===0?'Makkah':'Madinah',hotel:'',room:'Sharing',rooms:0,in:'',out:'',meal:'RO',conf:''});q.flights=Array.isArray(q.flights)?q.flights:[];if(!q.flights.length)q.flights=[{type:'Outbound',from:'ISB',to:'JED',date:'',timeOut:'',timeIn:'',flight:'',airline:'Pakistan International Airlines',via:'Direct'},{type:'Return',from:'JED',to:'ISB',date:'',timeOut:'',timeIn:'',flight:'',airline:'Pakistan International Airlines',via:'Direct'}];q.tickets=q.tickets||{adult:0,childBed:0,childNoBed:0,infant:0};q.transport=Array.isArray(q.transport)?q.transport:[];q.extras=Array.isArray(q.extras)?q.extras:[];q.passengers=Array.isArray(q.passengers)?q.passengers:[];q.adults=Number(q.adults)||0;q.childBed=Number(q.childBed)||0;q.childNoBed=Number(q.childNoBed)||0;q.infants=Number(q.infants)||0;}
 function goBookingStep(i){if(i<0||i>7)return;step=i;showPage('calculator');renderWizard();window.scrollTo({top:0,behavior:'smooth'});}
 function adminEditVoucherSection(i){if(!isSuperAdmin()||!q)return;window._adminEditing=window._adminEditing||{type:'Voucher',user:currentUser.username,index:q._editIndex};q._editIndex=Number.isInteger(q._editIndex)?q._editIndex:window._adminEditing.index;step=i;showPage('calculator');renderWizard();window.scrollTo({top:0,behavior:'smooth'});}
 function nav(){return `<div style="display:flex;justify-content:space-between;gap:8px;margin-top:14px"><button type="button" class="btn outline" onclick="goBookingStep(Math.max(0,step-1))">← Previous</button><button type="button" class="btn primary" onclick="${step===7?'finishQuote()':'goBookingStep(step+1)'}">${step===7?'Save Voucher':'Next →'}</button></div>`}
-function renderWizard(){let w=$('wizard');if(!q)return;normalizeBooking();if(step===-1){$('steps').innerHTML='';w.innerHTML=`<div class="choicegrid"><div class="choicecard" onclick="startFullBooking()"><div class="choiceicon">${v15Icon('ticket')}</div><h3>New Booking</h3><p>Create a complete booking with passenger details, hotels, visa, flights, transport, services and an automatically generated voucher.</p><button class="btn gold" style="margin-top:8px">Start New Booking</button></div><div class="choicecard" onclick="newPackageCost()"><div class="choiceicon">${v15Icon('calculator')}</div><h3>Calculate the Package</h3><p>Quickly calculate visa, hotel accommodation and ticket cost for adults, children with/without bed and infants.</p><button id="packageCalcBtn" class="btn ${document.documentElement.getAttribute('data-theme')==='night'?'gold':'primary'}" style="margin-top:8px">Calculator</button></div></div>`;return;}renderSteps();if(!q)return;
+function renderWizard(){let w=$('wizard');if(!q)return;normalizeBooking();if(step===-1){$('steps').innerHTML='';w.innerHTML=`<div class="choicegrid"><div class="choicecard" onclick="startFullBooking()"><div class="choiceicon">${appIcon('ticket')}</div><h3>New Booking</h3><p>Create a complete booking with passenger details, hotels, visa, flights, transport, services and an automatically generated voucher.</p><button class="btn gold" style="margin-top:8px">Start New Booking</button></div><div class="choicecard" onclick="newPackageCost()"><div class="choiceicon">${appIcon('calculator')}</div><h3>Calculate the Package</h3><p>Quickly calculate visa, hotel accommodation and ticket cost for adults, children with/without bed and infants.</p><button id="packageCalcBtn" class="btn ${document.documentElement.getAttribute('data-theme')==='night'?'gold':'primary'}" style="margin-top:8px">Calculator</button></div></div>`;return;}renderSteps();if(!q)return;
 const adminEdit=isSuperAdmin() && (Number.isInteger(q._editIndex) || window._adminEditing?.type==='Voucher');const adminBar=adminEdit?`<div class="notice" style="margin-bottom:10px"><b>Super Admin Edit Mode</b><button type="button" class="btn outline" style="float:right;padding:6px 9px" onclick="showPage('voucher');renderVoucher()">Back to Voucher</button><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">${stepNames.map((n,i)=>`<button type="button" class="btn outline" onclick="adminEditVoucherSection(${i})">${i+1}. ${n}</button>`).join('')}</div></div>`:'';
 if(step===0)w.innerHTML=adminBar+`<h3 class="section-title">Customer & Origin</h3><div class="grid"><div class="field" style="grid-column:span 2"><label>Customer Name</label><input value="${esc(q.customer)}" oninput="q.customer=this.value"></div><div class="field"><label>Contact</label><input value="${esc(q.contact)}" oninput="q.contact=this.value"></div><div class="field"><label>Reference</label><input value="${esc(q.reference)}" oninput="q.reference=this.value"></div><div class="field"><label>Booking Date</label><input type="date" value="${q.bookingDate||''}" onchange="q.bookingDate=this.value"></div><div class="field"><label>Departure City</label><select onchange="q.departureCity=this.value">${airports.filter(a=>a[3]==='PK').map(a=>`<option value="${a[1]}" ${q.departureCity===a[1]?'selected':''}>${a[0]} (${a[1]})</option>`).join('')}</select></div></div>${nav()}`;
 else if(step===1)w.innerHTML=adminBar+`<h3 class="section-title">Passengers & Voucher Details</h3><div class="grid"><div class="field"><label>Package</label><input value="${esc(q.package)}" oninput="q.package=this.value"></div><div class="field"><label>Visa Shirkat / Company Name</label><input value="${esc(q.visaShirka)}" oninput="q.visaShirka=this.value"></div><div class="field"><label>Reservation No.</label><input value="${esc(q.reservationNo)}" oninput="q.reservationNo=this.value"></div><div class="field"><label>WhatsApp</label><input value="${esc(q.whatsapp)}" oninput="q.whatsapp=this.value"></div></div><div class="paxgrid" style="margin-top:10px">${pax('Adults','adults')}${pax('Child With Bed','childBed')}${pax('Child Without Bed','childNoBed')}${pax('Infants','infants')}</div><div class="notice" style="margin-top:10px">Infant = visa only by default. Child without bed = visa + ticket, no hotel bed. Child with bed = hotel occupancy participant.</div><h3 class="section-title" style="margin-top:14px">Passenger / Mutamer Details</h3>${passengerRows()}${nav()}`;
@@ -554,9 +586,9 @@ function pcHotelCost(city,name,room,rooms,nights,checkin){let h=pcHotelObj(city,
 function pcTotals(){let v=visaTypes.find(x=>x.name===pc.visa)||visaTypes[0],av=pc.adults*pcVisaPerAdult(),cv=(pc.childBed+pc.childNoBed)*v.child,iv=pc.infants*v.infant,mc=pcHotelCost('Makkah',pc.makkahHotel,pc.makkahRoom,pc.makkahRooms,pc.makkahNights,pc.makkahCheckin),dc=pcHotelCost('Madinah',pc.madinahHotel,pc.madinahRoom,pc.madinahRooms,pc.madinahNights,pc.madinahCheckin),hotel=mc+dc,eligible=pc.adults+pc.childBed,adultHotel=eligible?hotel*pc.adults/eligible:0,childBedHotel=eligible?hotel*pc.childBed/eligible:0,at=pc.adults*pc.tickets.adult/fx,ctb=pc.childBed*pc.tickets.childBed/fx,ctn=pc.childNoBed*pc.tickets.childNoBed/fx,it=0;return{av,cv,iv,mc,dc,hotel,adultHotel,childBedHotel,at,ctb,ctn,it,adult:av+adultHotel+at,childBed:(pc.childBed*v.child)+childBedHotel+ctb,childNoBed:(pc.childNoBed*v.child)+ctn,infant:iv+it,grand:av+cv+iv+hotel+at+ctb+ctn+it}}
 function pcPax(label,key){return `<div class="pax"><b>${label}</b><div class="counter"><button onclick="pc.${key}=Math.max(0,pc.${key}-1);renderPackageCost()">−</button><input readonly value="${pc[key]}"><button onclick="pc.${key}++;renderPackageCost()">+</button></div></div>`}
 function pcHotelFields(city,prefix){let nameKey=prefix+'Hotel',providerKey=prefix+'Provider',roomKey=prefix+'Room',roomsKey=prefix+'Rooms',nightsKey=prefix+'Nights',checkinKey=prefix+'Checkin',names=hotels.filter(h=>h[0]===city);return `<div class="stay"><div class="stayhead"><b>${city} Accommodation</b><span class="badge">${pc[nightsKey]} nights</span></div><div class="grid" style="margin-top:8px"><div class="field"><label>Check-in</label><input type="date" value="${pc[checkinKey]||''}" onchange="pc.${checkinKey}=this.value;renderPackageCost()"></div><div class="field"><label>Provider</label><select onchange="pc.${providerKey}=this.value;pc.${nameKey}='';renderPackageCost()"><option value="">All Providers</option><option value="Gulf" ${pc[providerKey]==='Gulf'?'selected':''}>Gulf</option><option value="Meezab" ${pc[providerKey]==='Meezab'?'selected':''}>Meezab</option></select></div><div class="field" style="grid-column:span 2"><label>Hotel</label><select onchange="pc.${nameKey}=this.value;renderPackageCost()"><option value="">Select hotel</option>${names.filter(h=>!pc[providerKey]||hotelProvider(h)===pc[providerKey]).map(h=>`<option ${pc[nameKey]===h[1]?'selected':''}>${esc(h[1])}</option>`).join('')}</select></div><div class="field"><label>Room Type</label><select onchange="pc.${roomKey}=this.value;renderPackageCost()">${roomTypes.map(r=>`<option ${pc[roomKey]===r?'selected':''}>${r}</option>`).join('')}</select></div><div class="field"><label>Rooms (0 = sharing)</label><input type="number" min="0" value="${pc[roomsKey]}" onchange="pc.${roomsKey}=+this.value||0;renderPackageCost()"></div><div class="field"><label>Nights</label><input type="number" min="0" value="${pc[nightsKey]}" onchange="pc.${nightsKey}=+this.value||0;renderPackageCost()"></div></div><div class="rate">Provider: <b>${esc(hotelProvider(pcHotelObj(city,pc[nameKey],pc[providerKey]))||'—')}</b> • Distance: <b>${esc(pcHotelObj(city,pc[nameKey],pc[providerKey])?.[3]||'—')}</b> • Rate: <b>${sar(pcRate(city,pc[nameKey],pc[roomKey],pc[checkinKey]))}</b> • Cost: <b>${sar(pcHotelCost(city,pc[nameKey],pc[roomKey],pc[roomsKey],pc[nightsKey],pc[checkinKey]))}</b></div></div>`}
-function renderPackageCost(){let box=$('packageCostBody');if(!box)return;if(!pc){box.innerHTML='<div class="choicegrid"><div class="choicecard" onclick="newPackageCost()"><div class="choiceicon">'+v15Icon('calculator')+'</div><h3>Calculate the Package</h3><p>Start a simple visa + hotel + ticket calculation.</p></div></div>';return;}let t=pcTotals();box.innerHTML=`<div class="grid"><div class="field"><label>Booking / Calculation Date</label><input type="date" value="${pc.date}" onchange="pc.date=this.value"></div><div class="field"><label>Reference</label><input value="${esc(pc.reference)}" oninput="pc.reference=this.value"></div><div class="field"><label>Visa Type</label><select onchange="pc.visa=this.value;renderPackageCost()">${visaTypes.filter(v=>v.active).map(v=>`<option ${pc.visa===v.name?'selected':''}>${esc(v.name)}</option>`).join('')}</select></div><div class="field"><label>Visa Duration / Category</label><select onchange="pc.visaDuration=+this.value;renderPackageCost()">${(visaTypes.find(x=>x.name===pc.visa)||visaTypes[0]).durations.map(d=>`<option value="${d.days}" ${Number(pc.visaDuration)===Number(d.days)?'selected':''}>${d.days} Days — PKR ${Number(d.pkr).toLocaleString()} / SAR ${(Number(d.pkr)/fx).toFixed(2)}</option>`).join('')}</select></div><div class="notice"><b>Adult visa:</b> ${sar(pcVisaPerAdult())} per person based on ${pc.adults+pc.childBed+pc.childNoBed} non-infant pax.</div></div><h3 class="section-title" style="margin-top:14px">Passengers</h3><div class="paxgrid">${pcPax('Adults','adults')}${pcPax('Child With Bed','childBed')}${pcPax('Child Without Bed','childNoBed')}${pcPax('Infants','infants')}</div><div class="notice" style="margin-top:10px">Same accommodation rule as New Booking: child without bed is not counted for hotel occupancy; child with bed is counted. Infant has no hotel bed.</div><h3 class="section-title" style="margin-top:14px">Hotel Accommodation</h3>${pcHotelFields('Makkah','makkah')}${pcHotelFields('Madinah','madinah')}<h3 class="section-title" style="margin-top:14px">Ticket Cost (PKR)</h3><div class="grid"><div class="field"><label>Adult Ticket</label><input type="number" value="${pc.tickets.adult}" onchange="pc.tickets.adult=+this.value||0;renderPackageCost()"></div><div class="field"><label>Child With Bed Ticket</label><input type="number" value="${pc.tickets.childBed}" onchange="pc.tickets.childBed=+this.value||0;renderPackageCost()"></div><div class="field"><label>Child Without Bed Ticket</label><input type="number" value="${pc.tickets.childNoBed}" onchange="pc.tickets.childNoBed=+this.value||0;renderPackageCost()"></div><div class="field"><label>Infant Ticket</label><input type="number" value="0" readonly><div class="mini-note">Infant ticket = SAR 0 / PKR 0 by package rule.</div></div></div><h3 class="section-title" style="margin-top:14px">Package Result</h3><div class="pcresult">${pc.adults?`<div class="pcrow"><span>Adult Cost — Per Person (${pc.adults})<br><span class="mini-note">Visa ${sar(t.av/pc.adults)} • Hotel ${sar(t.adultHotel/pc.adults)} • Ticket ${sar(t.at/pc.adults)}</span></span><b>${sar(t.adult/pc.adults)}<br><span class="mini-note">${pkr((t.adult/pc.adults)*fx)}</span></b></div>`:''}${pc.childBed?`<div class="pcrow"><span>Child With Bed — Per Person (${pc.childBed})<br><span class="mini-note">Visa ${sar((t.av*0 + pc.childBed*(visaTypes.find(x=>x.name===pc.visa)||visaTypes[0]).child)/pc.childBed)} • Hotel ${sar(t.childBedHotel/pc.childBed)} • Ticket ${sar(t.ctb/pc.childBed)}</span></span><b>${sar(t.childBed/pc.childBed)}<br><span class="mini-note">${pkr((t.childBed/pc.childBed)*fx)}</span></b></div>`:''}${pc.childNoBed?`<div class="pcrow"><span>Child Without Bed — Per Person (${pc.childNoBed})<br><span class="mini-note">Visa ${sar((pc.childNoBed*(visaTypes.find(x=>x.name===pc.visa)||visaTypes[0]).child)/pc.childNoBed)} • Hotel SAR 0 • Ticket ${sar(t.ctn/pc.childNoBed)}</span></span><b>${sar(t.childNoBed/pc.childNoBed)}<br><span class="mini-note">${pkr((t.childNoBed/pc.childNoBed)*fx)}</span></b></div>`:''}${pc.infants?`<div class="pcrow"><span>Infant Cost — Per Person (${pc.infants})<br><span class="mini-note">Visa ${sar(t.iv/pc.infants)} • Hotel SAR 0 • Ticket ${sar(t.it/pc.infants)}</span></span><b>${sar(t.infant/pc.infants)}<br><span class="mini-note">${pkr((t.infant/pc.infants)*fx)}</span></b></div>`:''}<div class="pcrow"><span>Makkah Hotel</span><b>${sar(t.mc)}<br><span class="mini-note">${pkr(t.mc*fx)}</span></b></div><div class="pcrow"><span>Madinah Hotel</span><b>${sar(t.dc)}<br><span class="mini-note">${pkr(t.dc*fx)}</span></b></div><div class="pcrow pcgrand"><span>Total Package Cost</span><b>${sar(t.grand)}<br><span class="mini-note">${pkr(t.grand*fx)} • 1 SAR = ${fx} PKR</span></b></div></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="btn gold" onclick="savePackageCost()">Save Package Cost Q</button><button class="btn outline" onclick="newPackageCost()">Clear / New</button></div><h3 class="section-title" style="margin-top:16px">My Saved Package Cost Q</h3>${packageCosts.length?packageCosts.map((x,i)=>`<div class="service" style="display:flex;justify-content:space-between;align-items:center"><div><b>${esc(x.reference)}</b><div class="muted">${esc(x.date)} • ${x.adults} adults • ${x.childBed} child with bed • ${x.childNoBed} child without bed • ${x.infants} infants • ${sar(x.total)}</div></div><div style="display:flex;gap:5px;flex-wrap:wrap"><button class="btn outline" onclick="openSavedQuote(${i})">Open</button><button class="btn outline" onclick="printSavedQuote(${i})">Print PDF</button><button class="btn outline" onclick="downloadSavedQuote(${i})">Download</button>${isSuperAdmin()?`<button class="btn outline" onclick="editSavedQuote(${i})">Edit</button><button class="btn danger" onclick="deleteSavedRecord('quote',${i})">Delete</button>`:''}</div></div>`).join(''):'<div class="muted">No saved Package Cost Q records yet.</div>'}`}
-function savePackageCost(){if(!pc)return;const wasEdit=isSuperAdmin()&&Number.isInteger(pc._editIndex);pc.total=pcTotals().grand;pc.savedAt=pc.savedAt||new Date().toISOString();pc.savedBy=wasEdit&&window._adminEditing?window._adminEditing.user:(currentUser?.username||'guest');if(wasEdit&&window._adminEditing?.type==='Package Cost Q'){let owner=window._adminEditing.user;let arr=JSON.parse(localStorage.getItem('keaPackageCostsV11_'+owner)||'[]');let idx=window._adminEditing.index;delete pc._editIndex;arr[idx]=JSON.parse(JSON.stringify(pc));localStorage.setItem('keaPackageCostsV11_'+owner,JSON.stringify(arr));window._adminEditing=null;packageCosts=owner===currentUser.username?arr:packageCosts;}else if(wasEdit){let idx=pc._editIndex;delete pc._editIndex;packageCosts[idx]=JSON.parse(JSON.stringify(pc));savePackageCosts();}else{packageCosts.unshift(JSON.parse(JSON.stringify(pc)));packageCosts=packageCosts.slice(0,100);savePackageCosts();}renderPackageCost();alert(wasEdit?'Package Cost Q updated.':'Package Cost Q saved to your account.');}
-function finishQuote(){const wasEdit=isSuperAdmin()&&Number.isInteger(q._editIndex);q.total=totals().grand;q.savedAt=q.savedAt||new Date().toISOString();q.id=q.id||Date.now();if(wasEdit&&window._adminEditing?.type==='Voucher'){let owner=window._adminEditing.user;let arr=JSON.parse(localStorage.getItem('keaQuotesV10_'+owner)||'[]');let idx=window._adminEditing.index;delete q._editIndex;arr[idx]=JSON.parse(JSON.stringify(q));localStorage.setItem('keaQuotesV10_'+owner,JSON.stringify(arr));window._adminEditing=null;quotes=owner===currentUser.username?arr:quotes;}else if(wasEdit){let idx=q._editIndex;delete q._editIndex;quotes[idx]=JSON.parse(JSON.stringify(q));saveQuotes();}else{quotes.unshift(JSON.parse(JSON.stringify(q)));quotes=quotes.slice(0,100);saveQuotes();}renderSummary();renderVoucher();showPage('voucher');dashboard();alert('Voucher '+(wasEdit?'updated':'saved')+' successfully.')}
+function renderPackageCost(){let box=$('packageCostBody');if(!box)return;if(!pc){box.innerHTML='<div class="choicegrid"><div class="choicecard" onclick="newPackageCost()"><div class="choiceicon">'+appIcon('calculator')+'</div><h3>Calculate the Package</h3><p>Start a simple visa + hotel + ticket calculation.</p></div></div>';return;}let t=pcTotals();box.innerHTML=`<div class="grid"><div class="field"><label>Booking / Calculation Date</label><input type="date" value="${pc.date}" onchange="pc.date=this.value"></div><div class="field"><label>Reference</label><input value="${esc(pc.reference)}" oninput="pc.reference=this.value"></div><div class="field"><label>Visa Type</label><select onchange="pc.visa=this.value;renderPackageCost()">${visaTypes.filter(v=>v.active).map(v=>`<option ${pc.visa===v.name?'selected':''}>${esc(v.name)}</option>`).join('')}</select></div><div class="field"><label>Visa Duration / Category</label><select onchange="pc.visaDuration=+this.value;renderPackageCost()">${(visaTypes.find(x=>x.name===pc.visa)||visaTypes[0]).durations.map(d=>`<option value="${d.days}" ${Number(pc.visaDuration)===Number(d.days)?'selected':''}>${d.days} Days — PKR ${Number(d.pkr).toLocaleString()} / SAR ${(Number(d.pkr)/fx).toFixed(2)}</option>`).join('')}</select></div><div class="notice"><b>Adult visa:</b> ${sar(pcVisaPerAdult())} per person based on ${pc.adults+pc.childBed+pc.childNoBed} non-infant pax.</div></div><h3 class="section-title" style="margin-top:14px">Passengers</h3><div class="paxgrid">${pcPax('Adults','adults')}${pcPax('Child With Bed','childBed')}${pcPax('Child Without Bed','childNoBed')}${pcPax('Infants','infants')}</div><div class="notice" style="margin-top:10px">Same accommodation rule as New Booking: child without bed is not counted for hotel occupancy; child with bed is counted. Infant has no hotel bed.</div><h3 class="section-title" style="margin-top:14px">Hotel Accommodation</h3>${pcHotelFields('Makkah','makkah')}${pcHotelFields('Madinah','madinah')}<h3 class="section-title" style="margin-top:14px">Ticket Cost (PKR)</h3><div class="grid"><div class="field"><label>Adult Ticket</label><input type="number" value="${pc.tickets.adult}" onchange="pc.tickets.adult=+this.value||0;renderPackageCost()"></div><div class="field"><label>Child With Bed Ticket</label><input type="number" value="${pc.tickets.childBed}" onchange="pc.tickets.childBed=+this.value||0;renderPackageCost()"></div><div class="field"><label>Child Without Bed Ticket</label><input type="number" value="${pc.tickets.childNoBed}" onchange="pc.tickets.childNoBed=+this.value||0;renderPackageCost()"></div><div class="field"><label>Infant Ticket</label><input type="number" value="0" readonly><div class="mini-note">Infant ticket = SAR 0 / PKR 0 by package rule.</div></div></div><h3 class="section-title" style="margin-top:14px">Package Result</h3><div class="pcresult">${pc.adults?`<div class="pcrow"><span>Adult Cost — Per Person (${pc.adults})<br><span class="mini-note">Visa ${sar(t.av/pc.adults)} • Hotel ${sar(t.adultHotel/pc.adults)} • Ticket ${sar(t.at/pc.adults)}</span></span><b>${sar(t.adult/pc.adults)}<br><span class="mini-note">${pkr((t.adult/pc.adults)*fx)}</span></b></div>`:''}${pc.childBed?`<div class="pcrow"><span>Child With Bed — Per Person (${pc.childBed})<br><span class="mini-note">Visa ${sar((t.av*0 + pc.childBed*(visaTypes.find(x=>x.name===pc.visa)||visaTypes[0]).child)/pc.childBed)} • Hotel ${sar(t.childBedHotel/pc.childBed)} • Ticket ${sar(t.ctb/pc.childBed)}</span></span><b>${sar(t.childBed/pc.childBed)}<br><span class="mini-note">${pkr((t.childBed/pc.childBed)*fx)}</span></b></div>`:''}${pc.childNoBed?`<div class="pcrow"><span>Child Without Bed — Per Person (${pc.childNoBed})<br><span class="mini-note">Visa ${sar((pc.childNoBed*(visaTypes.find(x=>x.name===pc.visa)||visaTypes[0]).child)/pc.childNoBed)} • Hotel SAR 0 • Ticket ${sar(t.ctn/pc.childNoBed)}</span></span><b>${sar(t.childNoBed/pc.childNoBed)}<br><span class="mini-note">${pkr((t.childNoBed/pc.childNoBed)*fx)}</span></b></div>`:''}${pc.infants?`<div class="pcrow"><span>Infant Cost — Per Person (${pc.infants})<br><span class="mini-note">Visa ${sar(t.iv/pc.infants)} • Hotel SAR 0 • Ticket ${sar(t.it/pc.infants)}</span></span><b>${sar(t.infant/pc.infants)}<br><span class="mini-note">${pkr((t.infant/pc.infants)*fx)}</span></b></div>`:''}<div class="pcrow"><span>Makkah Hotel</span><b>${sar(t.mc)}<br><span class="mini-note">${pkr(t.mc*fx)}</span></b></div><div class="pcrow"><span>Madinah Hotel</span><b>${sar(t.dc)}<br><span class="mini-note">${pkr(t.dc*fx)}</span></b></div><div class="pcrow pcgrand"><span>Total Package Cost</span><b>${sar(t.grand)}<br><span class="mini-note">${pkr(t.grand*fx)} • 1 SAR = ${fx} PKR</span></b></div></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="btn gold" onclick="savePackageCost()">Save Package Cost Q</button><button class="btn outline" onclick="newPackageCost()">Clear / New</button></div><h3 class="section-title" style="margin-top:16px">My Saved Package Cost Q</h3>${packageCosts.length?packageCosts.map((x,i)=>`<div class="service" style="display:flex;justify-content:space-between;align-items:center"><div><b>${esc(x.reference)}</b><div class="muted">${esc(x.date)} • ${x.adults} adults • ${x.childBed} child with bed • ${x.childNoBed} child without bed • ${x.infants} infants • ${sar(x.total)}</div></div><div style="display:flex;gap:5px;flex-wrap:wrap"><button class="btn outline" onclick="openSavedQuote(${i})">Open</button><button class="btn outline" onclick="printSavedQuote(${i})">Print PDF</button><button class="btn outline" onclick="downloadSavedQuote(${i})">Download</button>${isSuperAdmin()?`<button class="btn outline" onclick="editSavedQuote(${i})">Edit</button><button class="btn danger" onclick="deleteSavedRecord('quote',${i})">Delete</button>`:''}</div></div>`).join(''):'<div class="muted">No saved Package Cost Q records yet.</div>'}`}
+function savePackageCost(){if(!pc)return;const wasEdit=isSuperAdmin()&&Number.isInteger(pc._editIndex);pc.total=pcTotals().grand;pc.savedAt=pc.savedAt||new Date().toISOString();pc.savedBy=wasEdit&&window._adminEditing?window._adminEditing.user:(currentUser?.username||'guest');if(wasEdit&&window._adminEditing?.type==='Package Cost Q'){let owner=window._adminEditing.user;let arr=JSON.parse(localStorage.getItem('keaPackageCostsV201_'+owner)||'[]');let idx=window._adminEditing.index;delete pc._editIndex;arr[idx]=JSON.parse(JSON.stringify(pc));localStorage.setItem('keaPackageCostsV201_'+owner,JSON.stringify(arr));window._adminEditing=null;packageCosts=owner===currentUser.username?arr:packageCosts;}else if(wasEdit){let idx=pc._editIndex;delete pc._editIndex;packageCosts[idx]=JSON.parse(JSON.stringify(pc));savePackageCosts();}else{packageCosts.unshift(JSON.parse(JSON.stringify(pc)));packageCosts=packageCosts.slice(0,100);savePackageCosts();}renderPackageCost();alert(wasEdit?'Package Cost Q updated.':'Package Cost Q saved to your account.');}
+function finishQuote(){const wasEdit=isSuperAdmin()&&Number.isInteger(q._editIndex);q.total=totals().grand;q.savedAt=q.savedAt||new Date().toISOString();q.id=q.id||Date.now();if(wasEdit&&window._adminEditing?.type==='Voucher'){let owner=window._adminEditing.user;let arr=JSON.parse(localStorage.getItem('keaQuotesV201_'+owner)||'[]');let idx=window._adminEditing.index;delete q._editIndex;arr[idx]=JSON.parse(JSON.stringify(q));localStorage.setItem('keaQuotesV201_'+owner,JSON.stringify(arr));window._adminEditing=null;quotes=owner===currentUser.username?arr:quotes;}else if(wasEdit){let idx=q._editIndex;delete q._editIndex;quotes[idx]=JSON.parse(JSON.stringify(q));saveQuotes();}else{quotes.unshift(JSON.parse(JSON.stringify(q)));quotes=quotes.slice(0,100);saveQuotes();}renderSummary();renderVoucher();showPage('voucher');dashboard();alert('Voucher '+(wasEdit?'updated':'saved')+' successfully.')}
 function renderSummary(){
   const box=$('summaryBody');
   if(!box)return;
@@ -676,107 +708,65 @@ function downloadVoucher(){const html=`<!doctype html><html><head><meta charset=
 
 </style>
 
-</head><body>${$('voucherBody')?.innerHTML||''}<div id="v14BuildAudit" data-build="V15-Sales-Umrah-3Month-Audited" style="display:none"></div>
+</head><body>${$('voucherBody')?.innerHTML||''}
 
 </body></html>`;const blob=new Blob([html],{type:'text/html'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Karvan-e-Asal-Voucher-'+(q?.reference||'voucher')+'.html';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
 async function shareVoucher(){try{const html=`<!doctype html><html><body>${$('voucherBody')?.innerHTML||''}
 </body></html>`;const file=new File([html],'Karvan-e-Asal-Voucher-'+(q?.reference||'voucher')+'.html',{type:'text/html'});if(navigator.share&&(!navigator.canShare||navigator.canShare({files:[file]}))){await navigator.share({title:'Karvan e Asal Voucher',files:[file]});}else{downloadVoucher();alert('The voucher was downloaded. On iPhone, use Share → Save to Files.')}}catch(e){if(e.name!=='AbortError')downloadVoucher()}}
 function exportBackup(){let data={version:'2.0.1',user:currentUser?.username||'',fx,hotels,visaTypes,airlines,transport,extras,quotes};let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Karvan-e-Asal-Backup-'+(currentUser?.username||'user')+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
 function importBackup(ev){let f=ev.target.files?.[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let d=JSON.parse(r.result);if(d.fx)fx=d.fx;if(d.hotels)hotels=d.hotels;if(d.visaTypes)visaTypes=d.visaTypes;if(d.airlines)airlines=d.airlines;if(d.transport)transport=d.transport;if(d.extras)extras=d.extras;if(d.quotes)quotes=d.quotes;saveData();saveQuotes();dashboard();renderVisa();renderHotels();renderAirlines();alert('Backup imported successfully for '+(currentUser?.name||'this account')+'.')}catch(e){alert('Invalid backup file.')}};r.readAsText(f)}
-function renderAdmin(){if(!['admin','superadmin'].includes(currentUser?.role))return;let rows=users.map((u,i)=>{let uq=JSON.parse(localStorage.getItem('keaQuotesV10_'+u.username)||localStorage.getItem('keaQuotesV11_'+u.username)||'[]');let up=JSON.parse(localStorage.getItem('keaPackageCostsV11_'+u.username)||'[]');return `<tr><td><strong>${esc(u.username)}</strong></td><td>${esc(u.name)}</td><td>${u.role==='superadmin'?'<span class="admin-badge">Super Admin</span>':esc(u.role)}</td><td>${u.active?'<span class="admin-badge">Active</span>':'<span class="admin-badge off">Disabled</span>'}</td><td>${uq.length}</td><td>${up.length}</td><td><button class="btn outline" onclick="editUser(${i})">Edit</button> <button class="btn outline" onclick="resetUserPassword(${i})">Reset Password</button> ${u.username.toLowerCase()!=='umar'?`<button class="btn danger" onclick="deleteUser(${i})">Delete</button>`:''}</td></tr>`}).join('');let records=[];if(currentUser?.role==='superadmin'){records=users.flatMap(u=>{let uq=JSON.parse(localStorage.getItem('keaQuotesV10_'+u.username)||localStorage.getItem('keaQuotesV11_'+u.username)||'[]');let up=JSON.parse(localStorage.getItem('keaPackageCostsV11_'+u.username)||'[]');return uq.map((x,i)=>({type:'Voucher',user:u.username,index:i,ref:x.reference,date:x.savedAt||x.bookingDate,data:x})).concat(up.map((x,i)=>({type:'Package Cost Q',user:u.username,index:i,ref:x.reference,date:x.savedAt||x.date,data:x})));});window._adminRecords=records;}let all=currentUser?.role==='superadmin'?`<div class="card" style="box-shadow:none;margin-top:12px"><h3 class="section-title">All User Saved Files — Super Admin Only</h3>${records.length?`<div class="tablewrap"><table class="table"><tr><th>Type</th><th>User</th><th>Reference</th><th>Date</th><th>Actions</th></tr>${records.map((r,i)=>`<tr><td>${r.type}</td><td>${esc(r.user)}</td><td>${esc(r.ref)}</td><td>${esc(fmtDate(r.date))}</td><td><button class="btn outline" onclick="adminOpenRecord(${i})">Open</button> <button class="btn outline" onclick="adminEditRecord(${i})">Edit</button> <button class="btn outline" onclick="adminPrintRecord(${i})">Print PDF</button> <button class="btn outline" onclick="adminDownloadRecord(${i})">Download</button> <button class="btn danger" onclick="adminDeleteRecord(${i})">Delete</button></td></tr>`).join('')}</table></div>`:'<div class="muted">No saved files.</div>'}</div>`:'';$('adminUserTable').innerHTML=`<div class="tablewrap"><table class="table admin-table"><tr><th>Username</th><th>Name</th><th>Role</th><th>Status</th><th>Vouchers</th><th>Package Cost Q</th><th>Actions</th></tr>${rows}</table></div>${all}`}
+function renderAdmin(){if(!['admin','superadmin'].includes(currentUser?.role))return;let rows=users.map((u,i)=>{let uq=JSON.parse(localStorage.getItem('keaQuotesV201_'+u.username)||'[]');let up=JSON.parse(localStorage.getItem('keaPackageCostsV201_'+u.username)||'[]');return `<tr><td><strong>${esc(u.username)}</strong></td><td>${esc(u.name)}</td><td>${u.role==='superadmin'?'<span class="admin-badge">Super Admin</span>':esc(u.role)}</td><td>${u.active?'<span class="admin-badge">Active</span>':'<span class="admin-badge off">Disabled</span>'}</td><td>${uq.length}</td><td>${up.length}</td><td><button class="btn outline" onclick="editUser(${i})">Edit</button> <button class="btn outline" onclick="resetUserPassword(${i})">Reset Password</button> ${u.username.toLowerCase()!=='umar'?`<button class="btn danger" onclick="deleteUser(${i})">Delete</button>`:''}</td></tr>`}).join('');let records=[];if(currentUser?.role==='superadmin'){records=users.flatMap(u=>{let uq=JSON.parse(localStorage.getItem('keaQuotesV201_'+u.username)||'[]');let up=JSON.parse(localStorage.getItem('keaPackageCostsV201_'+u.username)||'[]');return uq.map((x,i)=>({type:'Voucher',user:u.username,index:i,ref:x.reference,date:x.savedAt||x.bookingDate,data:x})).concat(up.map((x,i)=>({type:'Package Cost Q',user:u.username,index:i,ref:x.reference,date:x.savedAt||x.date,data:x})));});window._adminRecords=records;}let all=currentUser?.role==='superadmin'?`<div class="card" style="box-shadow:none;margin-top:12px"><h3 class="section-title">All User Saved Files — Super Admin Only</h3>${records.length?`<div class="tablewrap"><table class="table"><tr><th>Type</th><th>User</th><th>Reference</th><th>Date</th><th>Actions</th></tr>${records.map((r,i)=>`<tr><td>${r.type}</td><td>${esc(r.user)}</td><td>${esc(r.ref)}</td><td>${esc(fmtDate(r.date))}</td><td><button class="btn outline" onclick="adminOpenRecord(${i})">Open</button> <button class="btn outline" onclick="adminEditRecord(${i})">Edit</button> <button class="btn outline" onclick="adminPrintRecord(${i})">Print PDF</button> <button class="btn outline" onclick="adminDownloadRecord(${i})">Download</button> <button class="btn danger" onclick="adminDeleteRecord(${i})">Delete</button></td></tr>`).join('')}</table></div>`:'<div class="muted">No saved files.</div>'}</div>`:'';$('adminUserTable').innerHTML=`<div class="tablewrap"><table class="table admin-table"><tr><th>Username</th><th>Name</th><th>Role</th><th>Status</th><th>Vouchers</th><th>Package Cost Q</th><th>Actions</th></tr>${rows}</table></div>${all}`}
 function adminOpenRecord(i){let r=window._adminRecords?.[i];if(!r)return;if(r.type==='Voucher'){q=JSON.parse(JSON.stringify(r.data));renderVoucher();showPage('voucher');}else{pc=JSON.parse(JSON.stringify(r.data));renderPackageCost();showPage('packageCost');}}
 function adminEditRecord(i){let r=window._adminRecords?.[i];if(!r||!isSuperAdmin())return;window._adminEditing={type:r.type,user:r.user,index:r.index};if(r.type==='Voucher'){q=JSON.parse(JSON.stringify(r.data));q._editIndex=r.index;step=0;showPage('calculator');renderWizard();}else{pc=JSON.parse(JSON.stringify(r.data));pc._editIndex=r.index;showPage('packageCost');renderPackageCost();}}
 function adminPrintRecord(i){let r=window._adminRecords?.[i];if(!r)return;if(r.type==='Voucher'){q=JSON.parse(JSON.stringify(r.data));renderVoucher();printVoucher();}else{pc=JSON.parse(JSON.stringify(r.data));renderPackageCost();setTimeout(()=>window.print(),50);}}
 function adminDownloadRecord(i){let r=window._adminRecords?.[i];if(!r)return;if(r.type==='Voucher'){q=JSON.parse(JSON.stringify(r.data));renderVoucher();downloadVoucher();}else{pc=JSON.parse(JSON.stringify(r.data));const html=`<!doctype html><html><head><meta charset="utf-8"><title>${esc(pc.reference||'Package Cost Q')}</title><style>body{font-family:Arial;padding:25px}h1{color:#061a3a}.box{border:1px solid #ccc;padding:12px;margin:10px 0}</style><style>
-/* STEP 5 — Single final Day/Night contrast layer. Presentation only. */
-:root[data-theme="day"]{
- --t-bg:#f4f7fb;--t-surface:#ffffff;--t-surface2:#f7f9fc;--t-text:#172033;--t-heading:#061a3a;--t-muted:#667085;
- --t-border:#d8e0ea;--t-input:#ffffff;--t-primary:#0a2d62;--t-primaryText:#ffffff;--t-gold:#c9962d;--t-goldText:#ffffff;
- --t-link:#1457a6;--t-soft:#edf4ff;--t-icon:#315d8f;--t-success:#087443;--t-danger:#b42318;
-}
-:root[data-theme="night"]{
- --t-bg:#08111f;--t-surface:#101c2d;--t-surface2:#142438;--t-text:#edf3fa;--t-heading:#ffffff;--t-muted:#b9c7d8;
- --t-border:#30445d;--t-input:#0d1928;--t-primary:#347fcf;--t-primaryText:#ffffff;--t-gold:#d8aa43;--t-goldText:#172033;
- --t-link:#8fc8ff;--t-soft:#17304b;--t-icon:#9fcfff;--t-success:#65d6a1;--t-danger:#ff8585;
-}
-:root[data-theme] body{background:var(--t-bg)!important;color:var(--t-text)!important}
-:root[data-theme] .content,:root[data-theme] .page,:root[data-theme] .page *{color:inherit}
-:root[data-theme] .page{color:var(--t-text)!important}
-/* text-bearing elements */
-:root[data-theme] .page p,:root[data-theme] .page span,:root[data-theme] .page label,:root[data-theme] .page small,
-:root[data-theme] .page td,:root[data-theme] .page th,:root[data-theme] .page li,:root[data-theme] .page .row,
-:root[data-theme] .page .field label,:root[data-theme] .page .muted,:root[data-theme] .page .rate{color:var(--t-text)!important}
-:root[data-theme] .page .muted,:root[data-theme] .page .rate,:root[data-theme] .page .pagehead p,:root[data-theme] .page small{color:var(--t-muted)!important}
-:root[data-theme] .page h1,:root[data-theme] .page h2,:root[data-theme] .page h3,:root[data-theme] .page h4,:root[data-theme] .page h5,:root[data-theme] .page h6,
-:root[data-theme] .page .section-title,:root[data-theme] .page .pagehead h1,:root[data-theme] .page .modalhead h3,
-:root[data-theme] .page .metric .v,:root[data-theme] .page .pax b,:root[data-theme] .page .row b,
-:root[data-theme] .page .choicecard h3,:root[data-theme] .page .invoice h2,:root[data-theme] .page .invoice h3{color:var(--t-heading)!important}
-:root[data-theme] .page a{color:var(--t-link)!important}
-/* surfaces */
-:root[data-theme] .page .card,:root[data-theme] .page .metric,:root[data-theme] .page .pax,:root[data-theme] .page .stay,
-:root[data-theme] .page .flight,:root[data-theme] .page .service,:root[data-theme] .page .choicecard,
-:root[data-theme] .page .invoice,:root[data-theme] .page .modalbox{background:var(--t-surface)!important;color:var(--t-text)!important;border-color:var(--t-border)!important}
-:root[data-theme] .page .pageBrand{background:var(--t-surface2)!important;border-color:var(--t-border)!important}
-/* controls */
-:root[data-theme] .page input,:root[data-theme] .page select,:root[data-theme] .page textarea{
- background:var(--t-input)!important;color:var(--t-text)!important;border-color:var(--t-border)!important
-}
-:root[data-theme] .page input::placeholder,:root[data-theme] .page textarea::placeholder{color:var(--t-muted)!important;opacity:1!important}
-:root[data-theme] .page .btn.primary{background:var(--t-primary)!important;color:var(--t-primaryText)!important;border-color:transparent!important}
-:root[data-theme] .page .btn.gold{background:var(--t-gold)!important;color:var(--t-goldText)!important;border-color:transparent!important}
-:root[data-theme] .page .btn.outline{background:var(--t-surface)!important;color:var(--t-heading)!important;border-color:var(--t-border)!important}
-:root[data-theme] .page .btn.danger{background:var(--t-surface)!important;color:var(--t-danger)!important;border-color:var(--t-border)!important}
-/* tabs, steps, tables, badges */
-:root[data-theme] .page .tabs button,:root[data-theme] .page .step{background:var(--t-surface2)!important;color:var(--t-text)!important;border-color:var(--t-border)!important}
-:root[data-theme] .page .tabs .on,:root[data-theme] .page .step.active{background:var(--t-primary)!important;color:var(--t-primaryText)!important;border-color:var(--t-primary)!important}
-:root[data-theme] .page .table th{background:var(--t-soft)!important;color:var(--t-heading)!important;border-color:var(--t-border)!important}
-:root[data-theme] .page .table td{background:var(--t-surface)!important;color:var(--t-text)!important;border-color:var(--t-border)!important}
-:root[data-theme] .page .table td strong,:root[data-theme] .page .service b{color:var(--t-heading)!important}
-:root[data-theme] .page .badge{background:var(--t-soft)!important;color:var(--t-link)!important}
-:root[data-theme] .page .notice,:root[data-theme] .page .totalbox,:root[data-theme] .page .pcresult{background:var(--t-soft)!important;color:var(--t-text)!important;border-color:var(--t-border)!important}
-:root[data-theme] .page .counter button{background:var(--t-soft)!important;color:var(--t-heading)!important;border-color:var(--t-border)!important}
-/* common inline-color remnants: preserve semantic red/green, otherwise inherit theme */
-:root[data-theme] .page .text-success,:root[data-theme] .page .success{color:var(--t-success)!important}
-:root[data-theme] .page .text-danger,:root[data-theme] .page .danger{color:var(--t-danger)!important}
-/* Navigation */
-:root[data-theme="day"] .sidebar{background:#eef2f7!important;color:#183a67!important}
-:root[data-theme="night"] .sidebar{background:#071a33!important;color:#dbe7f5!important}
-:root[data-theme="day"] .navitem{color:#183a67!important}
-:root[data-theme="night"] .navitem{color:#c5d3e3!important}
-:root[data-theme] .navitem.active{background:linear-gradient(180deg,#061a3a,#0a3268)!important;color:#f7d36b!important}
-:root[data-theme="night"] .mobileNav button{color:#142033!important}
-:root[data-theme="day"] .mobileNav button{color:#06204a!important}
-:root[data-theme] .mobileNav button.active{background:linear-gradient(180deg,#061a3a,#0a3268)!important;color:#f7d36b!important}
-:root[data-theme] .mobileNav button.active .navsvg{color:#f7d36b!important}
-/* fixed top bar is intentionally theme-independent branding */
-.topbar,.topbar .title,.topbar .sub,.logout{color:#fff!important}
-/* Settings contact/version */
-:root[data-theme] #settings [data-theme-safe],:root[data-theme] #settings .theme-safe{color:var(--t-text)!important}
-:root[data-theme] #settings a[href^="mailto:"],:root[data-theme] #settings a[href^="tel:"]{color:var(--t-link)!important}
-/* remove only background watermark layers; retain actual logo images */
-.page::before,.invoice::after,.voucher::after{content:none!important;display:none!important;background-image:none!important}
-
 </style>
 
 </head><body><h1>KARVAN E ASAL</h1><h2>Package Cost Q</h2><div class="box">Owner: ${esc(r.user||'')}<br>Reference: ${esc(pc.reference||'')}<br>Date: ${esc(pc.date||'')}<br>Adults: ${pc.adults||0}<br>Child With Bed: ${pc.childBed||0}<br>Child Without Bed: ${pc.childNoBed||0}<br>Infants: ${pc.infants||0}<br>Total: ${sar(pc.total||0)} / ${pkr((pc.total||0)*fx)}</div>
 </body></html>`;const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([html],{type:'text/html'}));a.download='Karvan-e-Asal-Package-Cost-Q-'+(pc.reference||'package')+'.html';a.click();}}
-function adminDeleteRecord(i){let r=window._adminRecords?.[i];if(!r||!isSuperAdmin())return;if(!confirm('First confirmation: Delete this '+r.type+' for '+r.user+'?'))return;if(!confirm('Second confirmation: Move this '+r.type+' to the Super Admin Recycle Bin?'))return;let key=r.type==='Voucher'?'keaQuotesV10_':'keaPackageCostsV11_';let arr=JSON.parse(localStorage.getItem(key+r.user)||'[]');let item=arr[r.index];if(!item)return;let rb=loadRecycle();(r.type==='Voucher'?rb.vouchers:rb.quotes).unshift({deletedAt:new Date().toISOString(),
+function adminDeleteRecord(i){let r=window._adminRecords?.[i];if(!r||!isSuperAdmin())return;if(!confirm('First confirmation: Delete this '+r.type+' for '+r.user+'?'))return;if(!confirm('Second confirmation: Move this '+r.type+' to the Super Admin Recycle Bin?'))return;let key=r.type==='Voucher'?'keaQuotesV201_':'keaPackageCostsV201_';let arr=JSON.parse(localStorage.getItem(key+r.user)||'[]');let item=arr[r.index];if(!item)return;let rb=loadRecycle();(r.type==='Voucher'?rb.vouchers:rb.quotes).unshift({deletedAt:new Date().toISOString(),
         originalOwner: (item.originalOwner || item.owner || currentUser?.email || currentUser?.username || "Unknown"),deletedBy:currentUser.username,owner:r.user,data:item});saveRecycle(rb);arr.splice(r.index,1);localStorage.setItem(key+r.user,JSON.stringify(arr));renderAdmin();renderRecycleBin();alert('Moved to Recycle Bin.');}
+function openUserRegistration(){
+  if(!isSuperAdmin())return;
+  $('modalbox').innerHTML=`<div class="modalhead"><h3>+ Add User</h3><button class="btn outline" onclick="closeModal()">Cancel</button></div>
+  <div class="notice" style="margin-top:10px">New online accounts must be created through the secure registration flow. This window will take you to Registration without replacing the current Super Admin session.</div>
+  <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:14px"><button class="btn outline" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="closeModal();showAuthPanel('register');$('authScreen').style.display='flex';$('appRoot').style.display='none'">Open Registration</button></div>`;
+  $('modal').classList.add('open');document.body.classList.add('modal-open');
+}
+
+function openHotelModal(index=null){
+  if(!isSuperAdmin())return;
+  const existing=index===null?null:hotels[index];
+  if(index!==null&&!existing)return;
+  const h=existing||[hotelCity,'','','',null,null,null,null,null,null];
+  const values=roomTypes.map((_,i)=>h[4+i]??'').map(v=>v===null?'':v);
+  const provider=existing?hotelProvider(existing):'Gulf';
+  $('modalbox').innerHTML=`<div class="modalhead"><h3>${index===null?'Add New Hotel':'Edit Hotel'}</h3><button class="btn outline" onclick="closeModal()">Cancel</button></div>
+  <div class="grid2" style="margin-top:12px"><div class="field"><label>City</label><select id="hmCity"><option ${h[0]==='Makkah'?'selected':''}>Makkah</option><option ${h[0]==='Madinah'?'selected':''}>Madinah</option></select></div>
+  <div class="field"><label>Hotel Name *</label><input id="hmName" value="${esc(h[1]||'')}"></div><div class="field"><label>Location</label><input id="hmLoc" value="${esc(h[2]||'')}"></div><div class="field"><label>Distance</label><input id="hmDist" value="${esc(h[3]||'')}"></div></div>
+  <div class="notice" style="margin-top:10px">Provider: ${esc(provider)}. Existing Meezab date-period data is preserved when editing this hotel.</div>
+  <h4 style="margin:14px 0 7px;color:var(--navy)">Room Rates (SAR / person)</h4>
+  <div class="grid2">${roomTypes.map((r,i)=>`<div class="field"><label>${esc(r)}</label><input id="hm${i}" type="number" min="0" value="${values[i]}"></div>`).join('')}</div>
+  <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:14px"><button class="btn outline" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveHotel(${index===null?'null':index})">Save Changes</button></div>`;
+  $('modal').classList.add('open');document.body.classList.add('modal-open');
+}
+
 async function editUser(i){openUserModal(i)}
 async function resetUserPassword(i){let p=prompt('Enter new password for '+users[i].username+' (minimum 6 characters)');if(p===null)return;if(p.length<6)return alert('Password must be at least 6 characters.');users[i].passHash=await hashText(p);localStorage.setItem(AUTH_KEY,JSON.stringify(users));alert('Password reset successfully.')}
-function deleteUser(i){if(!confirm('Delete user '+users[i].username+'? Their saved vouchers will also be deleted from this device.'))return;localStorage.removeItem('keaQuotesV10_'+users[i].username);localStorage.removeItem('keaQuotesV11_'+users[i].username);localStorage.removeItem('keaPackageCostsV11_'+users[i].username);users.splice(i,1);localStorage.setItem(AUTH_KEY,JSON.stringify(users));renderAdmin()}
-function renderAirlines(){$('airlineManager').innerHTML=`<div class="tablewrap"><table class="table"><tr><th>Airline</th><th>Code</th><th>Action</th></tr>${airlines.map((a,i)=>`<tr><td><strong>${esc(a[0])}</strong></td><td>${esc(a[2])}</td><td><button class="btn outline" onclick="editAirline(${i})">Edit</button></td></tr>`).join('')}</table></div>`}
-function addAirline(){let n=prompt('Airline name');if(!n)return;let code=prompt('IATA airline code','');airlines.push([n,n,code||'']);localStorage.setItem('keaAirlinesV10',JSON.stringify(airlines));renderAirlines()}
-function editAirline(i){airlines[i][0]=prompt('Airline name',airlines[i][0])||airlines[i][0];airlines[i][2]=prompt('IATA airline code',airlines[i][2])||airlines[i][2];localStorage.setItem('keaAirlinesV10',JSON.stringify(airlines));renderAirlines()}
-function saveData(){hotels=normalizeHotelProviders(hotels);localStorage.setItem('keaVisaV10',JSON.stringify(visaTypes));localStorage.setItem('keaHotelsV10',JSON.stringify(hotels));localStorage.setItem('keaTransportV10',JSON.stringify(transport));localStorage.setItem('keaExtrasV10',JSON.stringify(extras));localStorage.setItem('keaAirlinesV10',JSON.stringify(airlines))}
+function deleteUser(i){if(!confirm('Delete user '+users[i].username+'? Their saved vouchers will also be deleted from this device.'))return;localStorage.removeItem('keaQuotesV201_'+users[i].username);localStorage.removeItem('keaPackageCostsV201_'+users[i].username);users.splice(i,1);localStorage.setItem(AUTH_KEY,JSON.stringify(users));renderAdmin()}
+function renderAirlines(){$('airlineManager').innerHTML=`<div class="tablewrap"><table class="table"><tr><th>Airline</th><th>Code</th><th>Action</th></tr>${airlines.map((a,i)=>`<tr><td><strong>${esc(a[0])}</strong></td><td>${esc(a[2])}</td><td><button class="btn outline" onclick="editAirline(${i})">Edit</button> <button class="btn danger" onclick="deleteAirline(${i})">Delete</button></td></tr>`).join('')}</table></div>`}
+function addAirline(){if(typeof isSuperAdmin!=="function" || !isSuperAdmin()){return alert("Only Super Admin can perform this action.");}let n=prompt('Airline name');if(!n)return;let code=prompt('IATA airline code','');airlines.push([n,n,code||'']);localStorage.setItem('keaAirlinesV201',JSON.stringify(airlines));renderAirlines()}
+function deleteAirline(i){if(typeof isSuperAdmin!=="function"||!isSuperAdmin())return alert("Only Super Admin can perform this action.");if(!airlines[i])return;if(!confirm("Delete this airline?"))return;airlines.splice(i,1);localStorage.setItem("keaAirlinesV201",JSON.stringify(airlines));renderAirlines()}
+function editAirline(i){if(typeof isSuperAdmin!=="function" || !isSuperAdmin()){return alert("Only Super Admin can perform this action.");}airlines[i][0]=prompt('Airline name',airlines[i][0])||airlines[i][0];airlines[i][2]=prompt('IATA airline code',airlines[i][2])||airlines[i][2];localStorage.setItem('keaAirlinesV201',JSON.stringify(airlines));renderAirlines()}
+function saveData(){hotels=normalizeHotelProviders(hotels);localStorage.setItem('keaVisaV201',JSON.stringify(visaTypes));localStorage.setItem('keaHotelsV201',JSON.stringify(hotels));localStorage.setItem('keaTransportV201',JSON.stringify(transport));localStorage.setItem('keaExtrasV201',JSON.stringify(extras));localStorage.setItem('keaAirlinesV201',JSON.stringify(airlines))}
 function renderHotels(btn){if(btn){document.querySelectorAll('#hotels .tabs button').forEach(x=>x.classList.remove('on'));btn.classList.add('on')}const rows=hotels.filter(h=>h[0]===hotelCity&&(!hotelProviderFilter||hotelProviderFilter==='All'||hotelProvider(h)===hotelProviderFilter));const canEdit=typeof isSuperAdmin==='function'&&isSuperAdmin();$('hotelTable').innerHTML=rows.map(h=>{const p=hotelProvider(h);const periodText=p==='Meezab'?`<div class="muted" style="font-size:11px">01 Jan–30 Aug • 31 Aug–14 Nov • 15 Nov–15 Jan</div>`:'Per person';return `<tr><td class="hotel-provider-cell"><strong>${esc(h[1])}</strong><div class="badge hotel-provider-badge">${esc(p)}</div></td><td>${esc(h[2])}</td><td>${esc(h[3])}</td>${roomTypes.map((r,i)=>`<td>${p==='Meezab'?((hotelPeriods(h)[0]?.[r==='Sharing'?'sharing':'room']??'N/A')):(h[4+i]??'N/A')}</td>`).join('')}<td>${periodText}${canEdit?`<br><button class="btn outline" onclick="openHotelModal(${hotels.indexOf(h)})">Edit</button>`:''}</td></tr>`}).join('')}
-function saveHotel(index){let h=[$('hmCity').value,$('hmName').value,$('hmLoc').value,$('hmDist').value,...roomTypes.map((r,i)=>{let v=$('hm'+i).value;return v===''?null:+v})];if(!h[1])return alert('Hotel name is required.');if(index===null)hotels.push(h);else hotels[index]=h;saveData();closeModal();renderHotels()}
-function renderVisa(){$('visaTable').innerHTML=visaTypes.map((v,i)=>{const umrah=window.v14VisaIsUmrah(v);return `<tr><td><strong>${esc(v.name)}</strong></td><td colspan="5">${(v.durations||[]).map(d=>`<span class="badge" style="margin:2px;display:inline-block">${d.days===90?'3 Months':d.days+' Days'}${umrah?' — Group pricing':' — PKR '+Number(d.pkr).toLocaleString()+' / SAR '+(Number(d.pkr)/fx).toFixed(2)}</span>`).join('')}</td><td>${v.child}</td><td>${v.infant}</td><td>${v.active?'Active':'Inactive'}</td><td><button class="btn outline" onclick="openVisaModal(${i})">Edit</button> <button class="btn danger" onclick="deleteVisaType(${i})">Delete</button></td></tr>`}).join('')}
-function deleteVisaType(index){let v=visaTypes[index];if(!v)return;if(!confirm('Delete visa type “'+v.name+'”?'))return;if(!confirm('Confirm again: permanently remove this visa type and its duration/group pricing?'))return;visaTypes.splice(index,1);saveData();renderVisa();}
+function saveHotel(index){if(typeof isSuperAdmin!=="function" || !isSuperAdmin()){return alert("Only Super Admin can perform this action.");}let previous=index===null?null:hotels[index];let h=[$('hmCity').value,$('hmName').value.trim(),$('hmLoc').value.trim(),$('hmDist').value.trim(),...roomTypes.map((r,i)=>{let v=$('hm'+i).value;return v===''?null:+v})];if(!h[1])return alert('Hotel name is required.');if(previous&&previous[10])h[10]=JSON.parse(JSON.stringify(previous[10]));if(index===null)hotels.push(h);else hotels[index]=h;saveData();closeModal();renderHotels()}
+function renderVisa(){$('visaTable').innerHTML=visaTypes.map((v,i)=>{const umrah=window.appVisaIsUmrah(v);return `<tr><td><strong>${esc(v.name)}</strong></td><td colspan="5">${(v.durations||[]).map(d=>`<span class="badge" style="margin:2px;display:inline-block">${d.days===90?'3 Months':d.days+' Days'}${umrah?' — Group pricing':' — PKR '+Number(d.pkr).toLocaleString()+' / SAR '+(Number(d.pkr)/fx).toFixed(2)}</span>`).join('')}</td><td>Same as Adult</td><td>500</td><td>${v.active?'Active':'Inactive'}</td><td><button class="btn outline" onclick="openVisaModal(${i})">Edit</button> <button class="btn danger" onclick="deleteVisaType(${i})">Delete</button></td></tr>`}).join('')}
+function deleteVisaType(index){if(typeof isSuperAdmin!=="function" || !isSuperAdmin()){return alert("Only Super Admin can perform this action.");}let v=visaTypes[index];if(!v)return;if(!confirm('Delete visa type “'+v.name+'”?'))return;if(!confirm('Confirm again: permanently remove this visa type and its duration/group pricing?'))return;visaTypes.splice(index,1);saveData();renderVisa();}
 function addVisaDurationRow(){let wrap=$('vmDurations'),d=document.createElement('div');d.className='grid2';d.style.marginTop='6px';d.innerHTML=`<div class="field"><label>Duration (Days)</label><input class="vmdays" type="number" min="1" value="30"></div><div class="field"><label>Price (PKR)</label><input class="vmpkr" type="number" min="0" value="0"></div><button type="button" class="btn danger" style="grid-column:span 2" onclick="if(confirm('Remove this duration/category?'))this.parentElement.remove()">Remove</button>`;wrap.appendChild(d)}
 function addVisaGroupRow(){let wrap=$('vmGroups'),d=document.createElement('div');d.className='grid';d.style.marginTop='6px';d.innerHTML=`<div class="field"><label>Display Name</label><input class="vmglabel" value="New Group"></div><div class="field"><label>From Pax</label><input class="vmgmin" type="number" min="1" value="1"></div><div class="field"><label>To Pax</label><input class="vmgmax" type="number" min="1" value="1"></div><div class="field"><label>Price (SAR / Person)</label><input class="vmgprice" type="number" min="0" value="0"></div><button type="button" class="btn danger" style="grid-column:span 2" onclick="if(confirm('Remove this passenger group?'))this.parentElement.remove()">Remove</button>`;wrap.appendChild(d)}
-function openVisaModal(index=null){let v=index===null?{name:'',adult:[0,0,0,0,0],adultRules:[],child:0,infant:0,durations:[{days:30,pkr:0}],active:true}:visaTypes[index];const umrah=window.v14VisaIsUmrah(v);if(umrah)window.v14EnsureUmrahDurations(v);let rows=(v.durations||[]).map(d=>`<div class="grid2" style="margin-top:6px"><div class="field"><label>Duration / Category</label><input class="vmdays" type="number" min="1" value="${d.days}" ${umrah?'readonly':''}></div><div class="field">${umrah?'<label>Pricing</label><input value="Uses Passenger Group Price — No separate duration price" readonly>':'<label>Price (PKR)</label><input class="vmpkr" type="number" min="0" value="'+d.pkr+'">'}</div>${umrah?'':'<button type="button" class="btn danger" style="grid-column:span 2" onclick="if(confirm(\'Remove this duration/category?\'))this.parentElement.remove()">Remove</button>'}</div>`).join('');let rules=(v.adultRules&&v.adultRules.length?v.adultRules:[{label:'05–49',min:5,max:49,price:v.adult?.[0]||0,active:true},{label:'04',min:4,max:4,price:v.adult?.[1]||0,active:true},{label:'03',min:3,max:3,price:v.adult?.[2]||0,active:true},{label:'02',min:2,max:2,price:v.adult?.[3]||0,active:true},{label:'01',min:1,max:1,price:v.adult?.[4]||0,active:true}]);let groupRows=rules.map(r=>`<div class="grid" style="margin-top:6px"><div class="field"><label>Display Name</label><input class="vmglabel" value="${esc(r.label)}"></div><div class="field"><label>From Pax</label><input class="vmgmin" type="number" min="1" value="${r.min}"></div><div class="field"><label>To Pax</label><input class="vmgmax" type="number" min="1" value="${r.max}"></div><div class="field"><label>Price (SAR / Person)</label><input class="vmgprice" type="number" min="0" value="${r.price}"></div><button type="button" class="btn danger" style="grid-column:span 2" onclick="if(confirm('Remove this passenger group?'))this.parentElement.remove()">Remove</button></div>`).join('');$('modalbox').innerHTML=`<div class="modalhead"><h3>${index===null?'Add New Visa Type':'Edit Visa Type & Prices'}</h3><button class="btn outline" onclick="closeModal()">×</button></div><div class="grid2" style="margin-top:12px"><div class="field"><label>Visa Type Name</label><input id="vmName" value="${esc(v.name)}"></div><div class="field"><label>Status</label><select id="vmActive"><option value="1" ${v.active?'selected':''}>Active</option><option value="0" ${!v.active?'selected':''}>Inactive</option></select></div></div><h4 style="color:var(--navy);margin:14px 0 7px">Visa Duration / Category Prices</h4><div id="vmDurations">${rows}</div><button type="button" class="btn outline" style="margin-top:8px" onclick="addVisaDurationRow()">+ Add Duration / Category</button><div class="notice" style="margin-top:10px">${umrah?'Umrah Visa durations are categories only: 15 Days, 21 Days, 30 Days and 3 Months. They do not have separate prices; the selected passenger-group price applies to all durations.':'You can rename, edit, add or remove every duration/category. Prices are entered in PKR and automatically shown in SAR at 1 SAR = '+fx+' PKR.'}</div><h4 style="color:var(--navy);margin:14px 0 7px">Adult Passenger Group Rules</h4><div id="vmGroups">${groupRows}</div><button type="button" class="btn outline" style="margin-top:8px" onclick="addVisaGroupRow()">+ Add Passenger Group</button><div class="notice" style="margin-top:10px">You can rename or remove groups such as 05–49 Pax, 04 Pax, 03 Pax, 02 Pax and 01 Pax, or create your own ranges.</div><div class="grid2" style="margin-top:10px"><div class="field"><label>Child Visa (SAR)</label><input id="vchild" type="number" value="${v.child}"></div><div class="field"><label>Infant Visa (SAR)</label><input id="vinfant" type="number" value="${v.infant}"></div></div><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:13px"><button class="btn outline" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveVisa(${index===null?'null':index})">Save Changes</button></div>`;$('modal').classList.add('open');document.body.classList.add('modal-open')}
-function saveVisa(index){const name=$('vmName').value.trim();if(!name)return alert('Visa type is required.');const umrah=/^umrah(?:\s+visa)?$/i.test(name);let durations=umrah?[15,21,30,90].map(days=>({days,pkr:0})):[...document.querySelectorAll('#vmDurations .grid2')].map(r=>({days:Number(r.querySelector('.vmdays')?.value)||0,pkr:Number(r.querySelector('.vmpkr')?.value)||0})).filter(d=>d.days>0);let adultRules=[...document.querySelectorAll('#vmGroups .grid')].map(r=>({label:(r.querySelector('.vmglabel')?.value||'').trim(),min:Number(r.querySelector('.vmgmin')?.value)||0,max:Number(r.querySelector('.vmgmax')?.value)||0,price:Number(r.querySelector('.vmgprice')?.value)||0,active:true})).filter(r=>r.label&&r.min>0&&r.max>=r.min);let seen=[];for(const r of adultRules){for(const x of seen){if(r.min<=x.max&&x.min<=r.max)return alert('Passenger group ranges overlap: '+r.label+' and '+x.label+'. Please use non-overlapping ranges.')}seen.push(r);}let adult=[0,0,0,0,0];adultRules.forEach(r=>{if(r.min>=5)adult[0]=r.price;else if(r.min===4&&r.max===4)adult[1]=r.price;else if(r.min===3&&r.max===3)adult[2]=r.price;else if(r.min===2&&r.max===2)adult[3]=r.price;else if(r.min===1&&r.max===1)adult[4]=r.price;});let v={name,adult,adultRules,child:+$('vchild').value||0,infant:+$('vinfant').value||0,durations,active:$('vmActive').value==='1'};if(!durations.length)return alert('Add at least one duration/category.');if(!adultRules.length)return alert('Add at least one passenger group rule.');if(index===null)visaTypes.push(v);else visaTypes[index]=v;saveData();closeModal();renderVisa()}
+function openVisaModal(index=null){let v=index===null?{name:'',adult:[0,0,0,0,0],adultRules:[],child:0,infant:0,durations:[{days:30,pkr:0}],active:true}:visaTypes[index];const umrah=window.appVisaIsUmrah(v);if(umrah)window.appEnsureUmrahDurations(v);let rows=(v.durations||[]).map(d=>`<div class="grid2" style="margin-top:6px"><div class="field"><label>Duration / Category</label><input class="vmdays" type="number" min="1" value="${d.days}" ${umrah?'readonly':''}></div><div class="field">${umrah?'<label>Pricing</label><input value="Uses Passenger Group Price — No separate duration price" readonly>':'<label>Price (PKR)</label><input class="vmpkr" type="number" min="0" value="'+d.pkr+'">'}</div>${umrah?'':'<button type="button" class="btn danger" style="grid-column:span 2" onclick="if(confirm(\'Remove this duration/category?\'))this.parentElement.remove()">Remove</button>'}</div>`).join('');let rules=(v.adultRules&&v.adultRules.length?v.adultRules:[{label:'05–49',min:5,max:49,price:v.adult?.[0]||0,active:true},{label:'04',min:4,max:4,price:v.adult?.[1]||0,active:true},{label:'03',min:3,max:3,price:v.adult?.[2]||0,active:true},{label:'02',min:2,max:2,price:v.adult?.[3]||0,active:true},{label:'01',min:1,max:1,price:v.adult?.[4]||0,active:true}]);let groupRows=rules.map(r=>`<div class="grid" style="margin-top:6px"><div class="field"><label>Display Name</label><input class="vmglabel" value="${esc(r.label)}"></div><div class="field"><label>From Pax</label><input class="vmgmin" type="number" min="1" value="${r.min}"></div><div class="field"><label>To Pax</label><input class="vmgmax" type="number" min="1" value="${r.max}"></div><div class="field"><label>Price (SAR / Person)</label><input class="vmgprice" type="number" min="0" value="${r.price}"></div><button type="button" class="btn danger" style="grid-column:span 2" onclick="if(confirm('Remove this passenger group?'))this.parentElement.remove()">Remove</button></div>`).join('');$('modalbox').innerHTML=`<div class="modalhead"><h3>${index===null?'Add New Visa Type':'Edit Visa Type & Prices'}</h3><button class="btn outline" onclick="closeModal()">Cancel</button></div><div class="grid2" style="margin-top:12px"><div class="field"><label>Visa Type Name</label><input id="vmName" value="${esc(v.name)}"></div><div class="field"><label>Status</label><select id="vmActive"><option value="1" ${v.active?'selected':''}>Active</option><option value="0" ${!v.active?'selected':''}>Inactive</option></select></div></div><h4 style="color:var(--navy);margin:14px 0 7px">Visa Duration / Category Prices</h4><div id="vmDurations">${rows}</div><button type="button" class="btn outline" style="margin-top:8px" onclick="addVisaDurationRow()">+ Add Duration / Category</button><div class="notice" style="margin-top:10px">${umrah?'Umrah Visa durations are categories only: 15 Days, 21 Days, 30 Days and 3 Months. They do not have separate prices; the selected passenger-group price applies to all durations.':'You can rename, edit, add or remove every duration/category. Prices are entered in PKR and automatically shown in SAR at 1 SAR = '+fx+' PKR.'}</div><h4 style="color:var(--navy);margin:14px 0 7px">Adult Passenger Group Rules</h4><div id="vmGroups">${groupRows}</div><button type="button" class="btn outline" style="margin-top:8px" onclick="addVisaGroupRow()">+ Add Passenger Group</button><div class="notice" style="margin-top:10px">You can rename or remove groups such as 05–49 Pax, 04 Pax, 03 Pax, 02 Pax and 01 Pax, or create your own ranges.</div><div class="grid2" style="margin-top:10px"><div class="field"><label>Child Visa</label><input id="vchild" value="Same as Adult" readonly></div><div class="field"><label>Infant Visa (SAR)</label><input id="vinfant" type="number" value="500" min="0"></div></div><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:13px"><button class="btn outline" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveVisa(${index===null?'null':index})">Save Changes</button></div>`;$('modal').classList.add('open');document.body.classList.add('modal-open')}
+function saveVisa(index){if(typeof isSuperAdmin!=="function" || !isSuperAdmin()){return alert("Only Super Admin can perform this action.");}const name=$('vmName').value.trim();if(!name)return alert('Visa type is required.');const umrah=/^umrah(?:\s+visa)?$/i.test(name);let durations=umrah?[15,21,30,90].map(days=>({days,pkr:0})):[...document.querySelectorAll('#vmDurations .grid2')].map(r=>({days:Number(r.querySelector('.vmdays')?.value)||0,pkr:Number(r.querySelector('.vmpkr')?.value)||0})).filter(d=>d.days>0);let adultRules=[...document.querySelectorAll('#vmGroups .grid')].map(r=>({label:(r.querySelector('.vmglabel')?.value||'').trim(),min:Number(r.querySelector('.vmgmin')?.value)||0,max:Number(r.querySelector('.vmgmax')?.value)||0,price:Number(r.querySelector('.vmgprice')?.value)||0,active:true})).filter(r=>r.label&&r.min>0&&r.max>=r.min);let seen=[];for(const r of adultRules){for(const x of seen){if(r.min<=x.max&&x.min<=r.max)return alert('Passenger group ranges overlap: '+r.label+' and '+x.label+'. Please use non-overlapping ranges.')}seen.push(r);}let adult=[0,0,0,0,0];adultRules.forEach(r=>{if(r.min>=5)adult[0]=r.price;else if(r.min===4&&r.max===4)adult[1]=r.price;else if(r.min===3&&r.max===3)adult[2]=r.price;else if(r.min===2&&r.max===2)adult[3]=r.price;else if(r.min===1&&r.max===1)adult[4]=r.price;});let v={name,adult,adultRules,child:+$('vchild').value||0,infant:+$('vinfant').value||0,durations,active:$('vmActive').value==='1'};if(!durations.length)return alert('Add at least one duration/category.');if(!adultRules.length)return alert('Add at least one passenger group rule.');if(index===null)visaTypes.push(v);else visaTypes[index]=v;saveData();closeModal();renderVisa()}
 function closeModal(){$('modal').classList.remove('open');document.body.classList.remove('modal-open')}
 function renderFlightManager(){if(!$(`flightManager`))return;$(`flightManager`).innerHTML=`<div class="notice">Manage flight details used by New Booking. Airlines can be selected from the built-in list, and airports use internationally recognized IATA codes.</div><div style="margin-top:10px"><button type="button" class="btn primary" onclick="showPage('calculator');step=5;renderWizard()">Open Flight Entry</button></div>`}
 function serviceRow(x,i,kind){let arr=kind==='transport'?transport:extras;return `<div class="service"><div class="grid"><div class="field" style="grid-column:span 2"><label>Service</label><select onchange="q.${kind}[${i}].name=this.value;renderWizard()">${arr.filter(a=>a.active).map(a=>`<option ${x.name===a.name?'selected':''}>${esc(a.name)}</option>`).join('')}</select></div><div class="field"><label>Quantity</label><input type="number" value="${x.qty||1}" onchange="q.${kind}[${i}].qty=+this.value||0"></div></div></div>`}
@@ -785,7 +775,7 @@ function addSimple(kind){let n=prompt('Name');if(!n)return;let p=+prompt('Price 
 function editSimple(kind,i){let a=kind==='transport'?transport:extras,x=a[i];x.name=prompt('Name',x.name)||x.name;x.price=+prompt('Price (SAR)',x.price)||0;x.unit=prompt('Unit',x.unit)||x.unit;x.active=confirm('Keep active?');saveData();renderSimple(kind)}
 function toggleExtra(n,on){if(on&&!q.extras.includes(n))q.extras.push(n);if(!on)q.extras=q.extras.filter(x=>x!==n)}
 function isSuperAdmin(){return currentUser?.role==='superadmin'}
-function recycleKey(){return 'keaRecycleV13_'+(isSuperAdmin()?'SUPERADMIN':(currentUser?.username||'guest'))}
+function recycleKey(){return 'keaRecycleV201_'+(isSuperAdmin()?'SUPERADMIN':(currentUser?.username||'guest'))}
 function loadRecycle(){return JSON.parse(localStorage.getItem(recycleKey())||'{"vouchers":[],"quotes":[]}')}
 function saveRecycle(r){localStorage.setItem(recycleKey(),JSON.stringify(r))}
 function renderSavedFiles(type='voucher',btn){if(btn){document.querySelectorAll('#quotes .tabs button').forEach(x=>x.classList.remove('on'));btn.classList.add('on');}else{let b=type==='voucher'?$('savedVoucherTab'):$('savedQuoteTab');if(b){document.querySelectorAll('#quotes .tabs button').forEach(x=>x.classList.remove('on'));b.classList.add('on');}}
@@ -799,77 +789,9 @@ function openSavedQuote(i){pc=JSON.parse(JSON.stringify(packageCosts[i]));render
 function editSavedQuote(i){if(!isSuperAdmin())return;pc=JSON.parse(JSON.stringify(packageCosts[i]));pc._editIndex=i;window._adminEditing={type:'Package Cost Q',user:currentUser.username,index:i};renderPackageCost();showPage('packageCost')}
 function printSavedQuote(i){pc=JSON.parse(JSON.stringify(packageCosts[i]));renderPackageCost();setTimeout(()=>window.print(),50)}
 function downloadSavedQuote(i){pc=JSON.parse(JSON.stringify(packageCosts[i]));renderPackageCost();const html=`<!doctype html><html><head><meta charset="utf-8"><title>${esc(pc.reference||'Package Cost Q')}</title><style>body{font-family:Arial;padding:25px}h1{color:#061a3a}.box{border:1px solid #ccc;padding:12px;margin:10px 0}</style><style>
-/* STEP 5 — Single final Day/Night contrast layer. Presentation only. */
-:root[data-theme="day"]{
- --t-bg:#f4f7fb;--t-surface:#ffffff;--t-surface2:#f7f9fc;--t-text:#172033;--t-heading:#061a3a;--t-muted:#667085;
- --t-border:#d8e0ea;--t-input:#ffffff;--t-primary:#0a2d62;--t-primaryText:#ffffff;--t-gold:#c9962d;--t-goldText:#ffffff;
- --t-link:#1457a6;--t-soft:#edf4ff;--t-icon:#315d8f;--t-success:#087443;--t-danger:#b42318;
-}
-:root[data-theme="night"]{
- --t-bg:#08111f;--t-surface:#101c2d;--t-surface2:#142438;--t-text:#edf3fa;--t-heading:#ffffff;--t-muted:#b9c7d8;
- --t-border:#30445d;--t-input:#0d1928;--t-primary:#347fcf;--t-primaryText:#ffffff;--t-gold:#d8aa43;--t-goldText:#172033;
- --t-link:#8fc8ff;--t-soft:#17304b;--t-icon:#9fcfff;--t-success:#65d6a1;--t-danger:#ff8585;
-}
-:root[data-theme] body{background:var(--t-bg)!important;color:var(--t-text)!important}
-:root[data-theme] .content,:root[data-theme] .page,:root[data-theme] .page *{color:inherit}
-:root[data-theme] .page{color:var(--t-text)!important}
-/* text-bearing elements */
-:root[data-theme] .page p,:root[data-theme] .page span,:root[data-theme] .page label,:root[data-theme] .page small,
-:root[data-theme] .page td,:root[data-theme] .page th,:root[data-theme] .page li,:root[data-theme] .page .row,
-:root[data-theme] .page .field label,:root[data-theme] .page .muted,:root[data-theme] .page .rate{color:var(--t-text)!important}
-:root[data-theme] .page .muted,:root[data-theme] .page .rate,:root[data-theme] .page .pagehead p,:root[data-theme] .page small{color:var(--t-muted)!important}
-:root[data-theme] .page h1,:root[data-theme] .page h2,:root[data-theme] .page h3,:root[data-theme] .page h4,:root[data-theme] .page h5,:root[data-theme] .page h6,
-:root[data-theme] .page .section-title,:root[data-theme] .page .pagehead h1,:root[data-theme] .page .modalhead h3,
-:root[data-theme] .page .metric .v,:root[data-theme] .page .pax b,:root[data-theme] .page .row b,
-:root[data-theme] .page .choicecard h3,:root[data-theme] .page .invoice h2,:root[data-theme] .page .invoice h3{color:var(--t-heading)!important}
-:root[data-theme] .page a{color:var(--t-link)!important}
-/* surfaces */
-:root[data-theme] .page .card,:root[data-theme] .page .metric,:root[data-theme] .page .pax,:root[data-theme] .page .stay,
-:root[data-theme] .page .flight,:root[data-theme] .page .service,:root[data-theme] .page .choicecard,
-:root[data-theme] .page .invoice,:root[data-theme] .page .modalbox{background:var(--t-surface)!important;color:var(--t-text)!important;border-color:var(--t-border)!important}
-:root[data-theme] .page .pageBrand{background:var(--t-surface2)!important;border-color:var(--t-border)!important}
-/* controls */
-:root[data-theme] .page input,:root[data-theme] .page select,:root[data-theme] .page textarea{
- background:var(--t-input)!important;color:var(--t-text)!important;border-color:var(--t-border)!important
-}
-:root[data-theme] .page input::placeholder,:root[data-theme] .page textarea::placeholder{color:var(--t-muted)!important;opacity:1!important}
-:root[data-theme] .page .btn.primary{background:var(--t-primary)!important;color:var(--t-primaryText)!important;border-color:transparent!important}
-:root[data-theme] .page .btn.gold{background:var(--t-gold)!important;color:var(--t-goldText)!important;border-color:transparent!important}
-:root[data-theme] .page .btn.outline{background:var(--t-surface)!important;color:var(--t-heading)!important;border-color:var(--t-border)!important}
-:root[data-theme] .page .btn.danger{background:var(--t-surface)!important;color:var(--t-danger)!important;border-color:var(--t-border)!important}
-/* tabs, steps, tables, badges */
-:root[data-theme] .page .tabs button,:root[data-theme] .page .step{background:var(--t-surface2)!important;color:var(--t-text)!important;border-color:var(--t-border)!important}
-:root[data-theme] .page .tabs .on,:root[data-theme] .page .step.active{background:var(--t-primary)!important;color:var(--t-primaryText)!important;border-color:var(--t-primary)!important}
-:root[data-theme] .page .table th{background:var(--t-soft)!important;color:var(--t-heading)!important;border-color:var(--t-border)!important}
-:root[data-theme] .page .table td{background:var(--t-surface)!important;color:var(--t-text)!important;border-color:var(--t-border)!important}
-:root[data-theme] .page .table td strong,:root[data-theme] .page .service b{color:var(--t-heading)!important}
-:root[data-theme] .page .badge{background:var(--t-soft)!important;color:var(--t-link)!important}
-:root[data-theme] .page .notice,:root[data-theme] .page .totalbox,:root[data-theme] .page .pcresult{background:var(--t-soft)!important;color:var(--t-text)!important;border-color:var(--t-border)!important}
-:root[data-theme] .page .counter button{background:var(--t-soft)!important;color:var(--t-heading)!important;border-color:var(--t-border)!important}
-/* common inline-color remnants: preserve semantic red/green, otherwise inherit theme */
-:root[data-theme] .page .text-success,:root[data-theme] .page .success{color:var(--t-success)!important}
-:root[data-theme] .page .text-danger,:root[data-theme] .page .danger{color:var(--t-danger)!important}
-/* Navigation */
-:root[data-theme="day"] .sidebar{background:#eef2f7!important;color:#183a67!important}
-:root[data-theme="night"] .sidebar{background:#071a33!important;color:#dbe7f5!important}
-:root[data-theme="day"] .navitem{color:#183a67!important}
-:root[data-theme="night"] .navitem{color:#c5d3e3!important}
-:root[data-theme] .navitem.active{background:linear-gradient(180deg,#061a3a,#0a3268)!important;color:#f7d36b!important}
-:root[data-theme="night"] .mobileNav button{color:#142033!important}
-:root[data-theme="day"] .mobileNav button{color:#06204a!important}
-:root[data-theme] .mobileNav button.active{background:linear-gradient(180deg,#061a3a,#0a3268)!important;color:#f7d36b!important}
-:root[data-theme] .mobileNav button.active .navsvg{color:#f7d36b!important}
-/* fixed top bar is intentionally theme-independent branding */
-.topbar,.topbar .title,.topbar .sub,.logout{color:#fff!important}
-/* Settings contact/version */
-:root[data-theme] #settings [data-theme-safe],:root[data-theme] #settings .theme-safe{color:var(--t-text)!important}
-:root[data-theme] #settings a[href^="mailto:"],:root[data-theme] #settings a[href^="tel:"]{color:var(--t-link)!important}
-/* remove only background watermark layers; retain actual logo images */
-.page::before,.invoice::after,.voucher::after{content:none!important;display:none!important;background-image:none!important}
-
 </style>
 <style id="v2-0-1-sales-mobile-hardening">
-/* V15 Sales consolidated mobile/topbar hardening */
+/* V2.0.1 App consolidated mobile/topbar hardening */
 .topbar{background:rgba(6,26,58,.72)!important;backdrop-filter:blur(18px)!important;-webkit-backdrop-filter:blur(18px)!important}
 .topbar .title{color:#fff}.topbar .sub{color:#e6b84f}
 .user-chip{max-width:42vw;overflow:hidden}.user-chip>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -884,6 +806,122 @@ function downloadSavedQuote(i){pc=JSON.parse(JSON.stringify(packageCosts[i]));re
 }
 .modal{overflow:hidden!important;touch-action:none}
 .modalbox{touch-action:pan-y!important;overscroll-behavior:contain!important}
+
+/* V2.0.1 FINAL DAY/NIGHT THEME NORMALIZATION */
+:root{
+  --ui-bg:#f5f7fb;
+  --ui-surface:#ffffff;
+  --ui-surface-2:#eef2f7;
+  --ui-text:#172033;
+  --ui-text-2:#526079;
+  --ui-border:#d7deea;
+  --ui-accent:#1769e0;
+  --ui-accent-contrast:#ffffff;
+  --ui-gold:#c99a2e;
+  --ui-danger:#c93636;
+  --ui-shadow:0 8px 24px rgba(23,32,51,.10);
+}
+body.day{
+  --ui-bg:#f5f7fb; --ui-surface:#ffffff; --ui-surface-2:#eef2f7;
+  --ui-text:#172033; --ui-text-2:#526079; --ui-border:#d7deea;
+  --ui-accent:#1769e0; --ui-accent-contrast:#ffffff;
+}
+body.night{
+  --ui-bg:#0e1420; --ui-surface:#171f2e; --ui-surface-2:#202b3d;
+  --ui-text:#f3f6fb; --ui-text-2:#c2ccda; --ui-border:#344158;
+  --ui-accent:#65a8ff; --ui-accent-contrast:#08111e;
+}
+body, .app, .page, main, section{
+  color:var(--ui-text);
+  background-color:var(--ui-bg);
+}
+.card,.panel,.modal,.modal-content,.dropdown-menu,.menu,.settings-card,
+.table-wrap,.form-card,.quote-card,.summary-card{
+  color:var(--ui-text);
+  background-color:var(--ui-surface);
+  border-color:var(--ui-border);
+}
+h1,h2,h3,h4,h5,h6,p,label,span,small,legend,td,th,li{
+  color:var(--ui-text);
+}
+.muted,.subtle,.hint,.help-text,.secondary-text{
+  color:var(--ui-text-2) !important;
+}
+input,select,textarea{
+  color:var(--ui-text) !important;
+  background-color:var(--ui-surface) !important;
+  border-color:var(--ui-border) !important;
+}
+input::placeholder,textarea::placeholder{
+  color:var(--ui-text-2) !important;
+  opacity:1;
+}
+button,.btn{
+  color:var(--ui-accent-contrast);
+  border-color:transparent;
+}
+button svg,.btn svg,.nav-item svg,.mobile-nav-item svg,
+button i,.btn i,.nav-item i,.mobile-nav-item i{
+  color:currentColor !important;
+  fill:currentColor;
+  stroke:currentColor;
+}
+.nav-item,.mobile-nav-item{
+  color:var(--ui-text-2) !important;
+}
+.nav-item.active,.mobile-nav-item.active{
+  color:var(--ui-accent-contrast) !important;
+  background:linear-gradient(135deg,var(--ui-accent),var(--ui-accent));
+}
+body.night .mobile-nav-item.active,
+body.night .nav-item.active{
+  color:#ffffff !important;
+}
+body.day .mobile-nav-item.active,
+body.day .nav-item.active{
+  color:#ffffff !important;
+}
+.table,.table thead,.table tbody,.table tr{
+  background-color:var(--ui-surface);
+  color:var(--ui-text);
+}
+.table th{
+  color:var(--ui-text) !important;
+  background-color:var(--ui-surface-2);
+}
+.table td{
+  color:var(--ui-text) !important;
+  border-color:var(--ui-border);
+}
+hr{border-color:var(--ui-border);}
+.icon-btn,.close-btn{
+  color:var(--ui-text) !important;
+}
+body.night .icon-btn,body.night .close-btn{
+  color:#f3f6fb !important;
+}
+body.night .package-cost-q,
+body.night [data-action="package-cost-q"],
+body.night #packageCostQ{
+  background:linear-gradient(135deg,#c99a2e,#a87916) !important;
+  color:#ffffff !important;
+}
+body.day .package-cost-q,
+body.day [data-action="package-cost-q"],
+body.day #packageCostQ{
+  color:#ffffff !important;
+}
+
+
+/* V2.0.1 canonical theme safety */
+html[data-theme="day"] body{color:#172033;background:#f5f7fb}
+html[data-theme="night"] body{color:#f3f6fb;background:#0e1420}
+html[data-theme="night"] .field label,html[data-theme="night"] .muted,html[data-theme="night"] .pagehead p,html[data-theme="night"] .rate{color:#c2ccda!important}
+html[data-theme="night"] input,html[data-theme="night"] select,html[data-theme="night"] textarea{color:#f3f6fb!important;background:#171f2e!important;border-color:#344158!important}
+html[data-theme="night"] .nav-item,html[data-theme="night"] .mobile-nav-item{color:#c2ccda!important}
+html[data-theme="day"] .nav-item.active,html[data-theme="day"] .mobile-nav-item.active,html[data-theme="night"] .nav-item.active,html[data-theme="night"] .mobile-nav-item.active{color:#fff!important}
+html[data-theme="night"] .nav-item svg,html[data-theme="night"] .mobile-nav-item svg,html[data-theme="night"] button svg,html[data-theme="night"] .btn svg{color:currentColor!important;fill:currentColor;stroke:currentColor}
+html[data-theme="night"] #packageCalcBtn{background:linear-gradient(135deg,#b57e19,#d7a63b)!important;color:#fff!important}
 </style>
 </head><body><h1>KARVAN E ASAL</h1><h2>Package Cost Q</h2><div class="box">Reference: ${esc(pc.reference||'')}<br>Date: ${esc(pc.date||'')}<br>Adults: ${pc.adults||0}<br>Child With Bed: ${pc.childBed||0}<br>Child Without Bed: ${pc.childNoBed||0}<br>Infants: ${pc.infants||0}<br>Total: ${sar(pc.total||0)} / ${pkr((pc.total||0)*fx)}</div>
 </body></html>`;const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([html],{type:'text/html'}));a.download='Karvan-e-Asal-Package-Cost-Q-'+(pc.reference||'package')+'.html';a.click();}
@@ -895,7 +933,7 @@ function permanentDelete(type,i){if(!isSuperAdmin())return;if(!confirm('First co
 function salesRecords(){
   if(isSuperAdmin()){
     return users.flatMap(u=>{
-      let arr=JSON.parse(localStorage.getItem('keaQuotesV10_'+u.username)||localStorage.getItem('keaQuotesV11_'+u.username)||'[]');
+      let arr=JSON.parse(localStorage.getItem('keaQuotesV201_'+u.username)||'[]');
       return arr.map((x,i)=>Object.assign({},x,{_owner:u.username,_ownerName:u.name||u.username,_ownerIndex:i}));
     });
   }
@@ -932,7 +970,7 @@ function renderSales(){
 function openSaleVoucher(i){const x=window._salesRecords?.[i];if(!x)return;q=JSON.parse(JSON.stringify(x));delete q._owner;delete q._ownerName;delete q._ownerIndex;renderVoucher();showPage('voucher');}
 function renderQuotes(){$('quoteList').innerHTML=quotes.length?quotes.map((x,i)=>`<div class="service" style="display:flex;justify-content:space-between;align-items:center"><div><b style="color:var(--navy)">${esc(x.reference)}</b><div class="muted">${esc(x.customer)||'No customer'} • ${x.adults} adults • ${x.childBed+x.childNoBed} children • ${x.infants} infants • Saved ${fmtDate(x.savedAt||x.bookingDate)}</div></div><button class="btn outline" onclick="q=JSON.parse(JSON.stringify(quotes[${i}]));renderInvoice();showPage('invoicePage')">Open Voucher</button></div>`).join(''):'<div class="muted">No saved vouchers yet.</div>'}
 function dashboard(){$('mQuotes').textContent=quotes.length;$('mHotels').textContent=hotels.length;$('mVisa').textContent=visaTypes.length;$('mFx').textContent=fx}
-function saveFx(){fx=Number($('fxInput').value)||75;localStorage.setItem('keaFxV15',fx);dashboard();alert('Exchange rate saved.')}
+function saveFx(){fx=Number($('fxInput').value)||75;localStorage.setItem('keaFxV201',fx);dashboard();alert('Exchange rate saved.')}
 function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();renderVisa();renderSimple('transport');renderSimple('extras');$('fxInput').value=fx;renderAirlines();if(!q){q={bookingDate:new Date().toISOString().slice(0,10),customer:'',contact:'',whatsapp:'',reference:'KEA-'+Date.now().toString().slice(-6),package:'Umrah 1448-H',visaShirka:'',reservationNo:'',transportCompany:'',transportType:'Company Transport',transportDescription:'',departureCity:'ISB',adults:1,childBed:0,childNoBed:0,infants:0,passengers:[],departure:'',arrival:'',returnDate:'',visa:'Umrah Visa',visaDuration:30,stays:[{city:'Makkah',hotel:'',room:'Sharing',rooms:0,in:'',out:'',meal:'RO',conf:''},{city:'Madinah',hotel:'',room:'Sharing',rooms:0,in:'',out:'',meal:'RO',conf:''},{city:'Makkah',hotel:'',room:'Sharing',rooms:0,in:'',out:'',meal:'RO',conf:''},{city:'Madinah',hotel:'',room:'Sharing',rooms:0,in:'',out:'',meal:'RO',conf:''}],flights:[{type:'Outbound',from:'ISB',to:'JED',date:'',timeOut:'',timeIn:'',flight:'',airline:'Pakistan International Airlines',via:'Direct'},{type:'Return',from:'JED',to:'ISB',date:'',timeOut:'',timeIn:'',flight:'',airline:'Pakistan International Airlines',via:'Direct'}],tickets:{adult:0,childBed:0,childNoBed:0,infant:0},transport:[],extras:[]};step=-1;}renderWizard()}
 
 </script>
@@ -944,10 +982,10 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
   const cfg=window.KARVAN_SUPABASE||{};
   function onlineError(msg){
     try{ showAuthError(msg); }catch(e){ const el=document.getElementById('authError'); if(el){el.textContent=msg;el.style.display='block';} }
-    console.error('[V15 Sales]',msg);
+    console.error('[V2.0.1 App]',msg);
   }
   if(!cfg.url || !cfg.publishableKey || !window.supabase){
-    console.error('[V15 Sales] Supabase configuration/library unavailable.');
+    console.error('[V2.0.1 App] Supabase configuration/library unavailable.');
     return;
   }
   const sb=window.supabase.createClient(cfg.url,cfg.publishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
@@ -980,26 +1018,26 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
     if(vq.data){
       const by={};
       vq.data.forEach(r=>{const k=r.owner_username||currentUser.username;(by[k]??=[]).push({...r.payload,_onlineId:r.id});});
-      if(superA) Object.entries(by).forEach(([k,a])=>originalSet('keaQuotesV10_'+k,JSON.stringify(a)));
-      else originalSet('keaQuotesV10_'+currentUser.username,JSON.stringify(by[currentUser.username]||[]));
+      if(superA) Object.entries(by).forEach(([k,a])=>originalSet('keaQuotesV201_'+k,JSON.stringify(a)));
+      else originalSet('keaQuotesV201_'+currentUser.username,JSON.stringify(by[currentUser.username]||[]));
     }
     if(pq.data){
       const by={};
       pq.data.forEach(r=>{const k=r.owner_username||currentUser.username;(by[k]??=[]).push({...r.payload,_onlineId:r.id});});
-      if(superA) Object.entries(by).forEach(([k,a])=>originalSet('keaPackageCostsV11_'+k,JSON.stringify(a)));
-      else originalSet('keaPackageCostsV11_'+currentUser.username,JSON.stringify(by[currentUser.username]||[]));
+      if(superA) Object.entries(by).forEach(([k,a])=>originalSet('keaPackageCostsV201_'+k,JSON.stringify(a)));
+      else originalSet('keaPackageCostsV201_'+currentUser.username,JSON.stringify(by[currentUser.username]||[]));
     }
     return currentUser;
   }
   window.loadServerData=loadServer;
   async function syncKey(key){
-    if(!key.startsWith('keaQuotesV10_')&&!key.startsWith('keaPackageCostsV11_')) return;
-    const username=key.replace(/^kea(QuotesV10_|PackageCostsV11_)/,'');
+    if(!key.startsWith('keaQuotesV201_')&&!key.startsWith('keaPackageCostsV201_')) return;
+    const username=key.replace(/^kea(QuotesV201_|PackageCostsV201_)/,'');
     if(!username) return;
     const {data:{user}}=await sb.auth.getUser(); if(!user) return;
     const {data:prof}=await sb.from('profiles').select('id,username').ilike('username',username).maybeSingle(); if(!prof) return;
     let arr=[]; try{arr=JSON.parse(localStorage.getItem(key)||'[]')}catch{}
-    const table=key.startsWith('keaQuotesV10_')?'vouchers':'package_costs';
+    const table=key.startsWith('keaQuotesV201_')?'vouchers':'package_costs';
     const existing=await sb.from(table).select('id,payload').eq('owner_id',prof.id);
     const keep=new Set();
     for(const item of arr){
@@ -1010,7 +1048,7 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
     }
     if(existing.data){for(const row of existing.data){if(!keep.has(row.id))await sb.from(table).delete().eq('id',row.id);}}
   }
-  localStorage.setItem=function(k,v){originalSet(k,v);if(window.KARVAN_ONLINE?.enabled&&(k.startsWith('keaQuotesV10_')||k.startsWith('keaPackageCostsV11_'))){clearTimeout(pending.get(k));pending.set(k,setTimeout(()=>syncKey(k).catch(console.error),500));}};
+  localStorage.setItem=function(k,v){originalSet(k,v);if(window.KARVAN_ONLINE?.enabled&&(k.startsWith('keaQuotesV201_')||k.startsWith('keaPackageCostsV201_'))){clearTimeout(pending.get(k));pending.set(k,setTimeout(()=>syncKey(k).catch(console.error),500));}};
   window.initAuthOnline=async function(){
     try{
       const {data:{session},error}=await sb.auth.getSession();
@@ -1032,7 +1070,7 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
       let email=raw;
       if(!raw.includes('@')){
         const {data,error}=await sb.rpc('get_login_email_by_username',{p_username:raw});
-        if(error){console.error('Username RPC failed',error);throw new Error('Username login service is not configured. Please run the V15 username-login SQL in Supabase.');}
+        if(error){console.error('Username RPC failed',error);throw new Error('Username login service is not configured. Please run the current username-login SQL in Supabase.');}
         email=typeof data==='string'?data:(Array.isArray(data)?(data[0]?.email||data[0]):data?.email||'');
       }
       email=String(email||'').trim();
@@ -1066,8 +1104,9 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
 
 
 
-<script>
-/* ================= V15 SALES CONSOLIDATED ONLINE HARDENING ================= */
+<script id="v201-application-layer">
+
+/* ================= V2.0.1 ONLINE DATA LAYER ================= */
 (function(){
   'use strict';
   const KEYMAP={
@@ -1075,8 +1114,8 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
     transport:'transport', extras:'extras'
   };
   const LOCAL_KEYS={
-    fx:'keaFxV15',hotels:'keaHotelsV10',visaTypes:'keaVisaV10',
-    airlines:'keaAirlinesV10',transport:'keaTransportV10',extras:'keaExtrasV10'
+    fx:'keaFxV201',hotels:'keaHotelsV201',visaTypes:'keaVisaV201',
+    airlines:'keaAirlinesV201',transport:'keaTransportV201',extras:'keaExtrasV201'
   };
   let hydrating=false, installed=false;
 
@@ -1090,7 +1129,7 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
     if(!online()||!admin()||hydrating)return;
     const {data:{user}}=await sb().auth.getUser(); if(!user)return;
     const {error}=await sb().from('app_config').upsert({key,value,updated_by:user.id,updated_at:new Date().toISOString()});
-    if(error)console.error('[V15 config]',key,error);
+    if(error)console.error('[V2.0.1 config]',key,error);
   }
 
   const HOTEL_CATALOG_VERSION='2.0.1';
@@ -1111,7 +1150,7 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
     if(!online())return;
     const {data:{user}}=await sb().auth.getUser(); if(!user)return;
     const r=await sb().from('app_config').select('key,value').in('key',Object.values(KEYMAP));
-    if(r.error){console.error('[V15 config load]',r.error);return}
+    if(r.error){console.error('[V2.0.1 config load]',r.error);return}
     const rows=Object.fromEntries((r.data||[]).map(x=>[x.key,x.value]));
     hydrating=true;
     try{
@@ -1132,14 +1171,14 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
             const current=hotelCatalogIsCurrent(remoteHotels,remoteVersion);
             hotels=normalizeHotelProviders(current?remoteHotels:JSON.parse(JSON.stringify(defaultHotels)));
             window.hotels=hotels;
-            localStorage.setItem('keaHotelsV10',JSON.stringify(hotels));
+            localStorage.setItem('keaHotelsV201',JSON.stringify(hotels));
             if(!current && admin()) await publishCanonicalHotels();
           } else if(localName==='hotelCatalogVersion') {
             window.hotelCatalogVersion=String(remote||'');
           } else window[localName]=Array.isArray(remote)?remote:local;
           if(localName==='visaTypes' && Array.isArray(window.visaTypes)){
             let changed=false;
-            window.visaTypes.forEach(v=>{if(window.v14EnsureUmrahDurations(v))changed=true});
+            window.visaTypes.forEach(v=>{if(window.appEnsureUmrahDurations(v))changed=true});
             if(changed && admin()) await upsertConfig('visaTypes',window.visaTypes);
           }
         }
@@ -1169,7 +1208,7 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
   window.saveData=function(){
     if(online()&&!admin())return;
     if(typeof baseSaveData==='function')baseSaveData();
-    syncAllConfig().catch(e=>console.error('[V15 config sync]',e));
+    syncAllConfig().catch(e=>console.error('[V2.0.1 config sync]',e));
   };
 
   const baseSet=localStorage.setItem.bind(localStorage);
@@ -1177,8 +1216,8 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
     baseSet(k,v);
     if(!hydrating&&online()&&admin()){
       const map={
-        keaFxV15:'fx',keaHotelsV10:'hotels',keaVisaV10:'visaTypes',
-        keaAirlinesV10:'airlines',keaTransportV10:'transport',keaExtrasV10:'extras'
+        keaFxV201:'fx',keaHotelsV201:'hotels',keaVisaV201:'visaTypes',
+        keaAirlinesV201:'airlines',keaTransportV201:'transport',keaExtrasV201:'extras'
       };
       if(map[k])upsertConfig(map[k],map[k]==='fx'?Number(v):json(v)).catch(console.error);
     }
@@ -1190,7 +1229,7 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
     const value=Number(document.getElementById('fxInput')?.value);
     if(!value||value<=0)return msg('Enter a valid SAR to PKR exchange rate.');
     window.fx=value;
-    baseSet('keaFxV15',String(value));
+    baseSet('keaFxV201',String(value));
     await upsertConfig('fx',value);
     if(typeof renderVisa==='function')renderVisa();
     if(typeof renderWizard==='function')renderWizard();
@@ -1200,54 +1239,54 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
 
   /* Visa: duration and passenger-group pricing are deliberately separate.
      Only Visa uses duration price per person and never uses hotel/group pricing. */
-  window.v14VisaIsOnly=function(v){return String(v?.name||'').trim().toLowerCase()==='only visa'};
-  window.v14VisaIsUmrah=function(v){return /^umrah(?:\s+visa)?$/i.test(String(v?.name||'').trim())};
-  window.v14EnsureUmrahDurations=function(v){
-    if(!window.v14VisaIsUmrah(v))return false;
+  window.appVisaIsOnly=function(v){return String(v?.name||'').trim().toLowerCase()==='only visa'};
+  window.appVisaIsUmrah=function(v){return /^umrah(?:\s+visa)?$/i.test(String(v?.name||'').trim())};
+  window.appEnsureUmrahDurations=function(v){
+    if(!window.appVisaIsUmrah(v))return false;
     const wanted=[15,21,30,90];
     const current=Array.isArray(v.durations)?v.durations:[];
     v.durations=wanted.map(days=>({days,pkr:0}));
     return current.length!==4 || wanted.some((d,i)=>Number(current[i]?.days)!==d || Number(current[i]?.pkr||0)!==0);
   }
-  window.v14FindGroup=function(v,n){
+  window.appFindGroup=function(v,n){
     const rules=(v?.adultRules||[]).filter(r=>r.active!==false&&Number(r.min)>0&&Number(r.max)>=Number(r.min));
     return rules.find(r=>n>=Number(r.min)&&n<=Number(r.max))||null;
   };
   window.visaForGroup=function(){
     const v=visaTypes.find(x=>x.name===q.visa)||visaTypes[0]; if(!v)return 0;
-    if(v14VisaIsOnly(v)){const d=selectedVisaRule(v,q.visaDuration);return d&&Number(d.pkr)>0?Number(d.pkr)/fx:0}
+    if(appVisaIsOnly(v)){const d=selectedVisaRule(v,q.visaDuration);return d&&Number(d.pkr)>0?Number(d.pkr)/fx:0}
     const n=Number(q.adults||0)+Number(q.childBed||0)+Number(q.childNoBed||0);
-    const r=v14FindGroup(v,n);return r?Number(r.price||0):0;
+    const r=appFindGroup(v,n);return r?Number(r.price||0):0;
   };
   window.pcVisaPerAdult=function(){
     const v=visaTypes.find(x=>x.name===pc.visa)||visaTypes[0]; if(!v)return 0;
-    if(v14VisaIsOnly(v)){const d=selectedVisaRule(v,pc.visaDuration);return d&&Number(d.pkr)>0?Number(d.pkr)/fx:0}
+    if(appVisaIsOnly(v)){const d=selectedVisaRule(v,pc.visaDuration);return d&&Number(d.pkr)>0?Number(d.pkr)/fx:0}
     const n=Number(pc.adults||0)+Number(pc.childBed||0)+Number(pc.childNoBed||0);
-    const r=v14FindGroup(v,n);return r?Number(r.price||0):0;
+    const r=appFindGroup(v,n);return r?Number(r.price||0):0;
   };
 
   /* Replace totals so Only Visa duration price is per person for adult/child/infant.
-     Umrah Visa keeps generic passenger-group adult pricing and child/infant pricing. */
+     Visa child (with/without bed) uses the adult visa rate; infant uses 500 SAR unless an explicitly configured Only Visa duration rate applies. */
   window.totals=function(){
-    const v=visaTypes.find(x=>x.name===q.visa)||visaTypes[0], only=v14VisaIsOnly(v);
+    const v=visaTypes.find(x=>x.name===q.visa)||visaTypes[0], only=appVisaIsOnly(v);
     const groupVisa=visaForGroup(), hotel=q.stays.reduce((a,s)=>a+hotelCost(s),0);
     const eligible=q.adults+q.childBed,adultHotel=eligible?hotel*q.adults/eligible:0,childHotel=eligible?hotel*q.childBed/eligible:0;
     const onlySar=only?groupVisa:0;
     const av=only?q.adults*onlySar:q.adults*groupVisa;
-    const cv=only?(q.childBed+q.childNoBed)*onlySar:(q.childBed+q.childNoBed)*(v?.child||0);
-    const iv=only?q.infants*onlySar:q.infants*(v?.infant||0);
+    const cv=(q.childBed+q.childNoBed)*groupVisa;
+    const iv=q.infants*(only?onlySar:Number(v?.infant||500));
     const at=q.adults*q.tickets.adult/fx,ct=(q.childBed*q.tickets.childBed+q.childNoBed*q.tickets.childNoBed)/fx,it=q.infants*q.tickets.infant/fx;
     const trans=q.transport.reduce((a,x)=>a+(transport.find(t=>t.name===x.name)?.price||0)*(x.qty||1),0);
     const ex=q.extras.reduce((a,n)=>{const e=extras.find(x=>x.name===n);return a+(e?.price||0)*(e?.unit?.includes('person')?(q.adults+q.childBed+q.childNoBed+q.infants):1)},0);
     return{av,cv,iv,adultHotel,childHotel,at,ct,it,trans,ex,adult:av+adultHotel+at,child:cv+childHotel+ct,infant:iv+it,hotel,grand:av+cv+iv+hotel+at+ct+it+trans+ex}
   };
   window.pcTotals=function(){
-    const v=visaTypes.find(x=>x.name===pc.visa)||visaTypes[0],only=v14VisaIsOnly(v),per=pcVisaPerAdult();
-    const av=pc.adults*per,cv=only?pc.childBed*per:(pc.childBed+pc.childNoBed)*(v?.child||0),iv=only?pc.infants*per:pc.infants*(v?.infant||0);
+    const v=visaTypes.find(x=>x.name===pc.visa)||visaTypes[0],only=appVisaIsOnly(v),per=pcVisaPerAdult();
+    const av=pc.adults*per,cv=(pc.childBed+pc.childNoBed)*per,iv=pc.infants*(only?per:Number(v?.infant||500));
     const mc=pcHotelCost('Makkah',pc.makkahHotel,pc.makkahRoom,pc.makkahRooms,pc.makkahNights,pc.makkahCheckin),dc=pcHotelCost('Madinah',pc.madinahHotel,pc.madinahRoom,pc.madinahRooms,pc.madinahNights,pc.madinahCheckin);
     const hotel=mc+dc,eligible=pc.adults+pc.childBed,adultHotel=eligible?hotel*pc.adults/eligible:0,childBedHotel=eligible?hotel*pc.childBed/eligible:0;
     const at=pc.adults*pc.tickets.adult/fx,ctb=pc.childBed*pc.tickets.childBed/fx,ctn=pc.childNoBed*pc.tickets.childNoBed/fx,it=pc.infants*pc.tickets.infant/fx;
-    return{av,cv,iv,mc,dc,hotel,adultHotel,childBedHotel,at,ctb,ctn,it,adult:av+adultHotel+at,childBed:(only?pc.childBed*per:pc.childBed*(v?.child||0))+childBedHotel+ctb,childNoBed:(only?pc.childNoBed*per:pc.childNoBed*(v?.child||0))+ctn,infant:iv+it,grand:av+cv+iv+hotel+at+ctb+ctn+it}
+    return{av,cv,iv,mc,dc,hotel,adultHotel,childBedHotel,at,ctb,ctn,it,adult:av+adultHotel+at,childBed:pc.childBed*per+childBedHotel+ctb,childNoBed:pc.childNoBed*per+ctn,infant:iv+it,grand:av+cv+iv+hotel+at+ctb+ctn+it}
   };
 
   const baseSaveVisa=window.saveVisa;
@@ -1304,8 +1343,8 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
     const id=kind==='transport'?'transportManager':'extrasManager',el=$(id);if(!el)return;
     const arr=kind==='transport'?transport:extras;
     el.querySelectorAll('.service').forEach((row,i)=>{
-      if(row.querySelector('.v14-delete-config'))return;
-      const b=document.createElement('button');b.className='btn danger v14-delete-config';b.textContent='Delete';b.onclick=()=>deleteSimple(kind,i);row.appendChild(b);
+      if(row.querySelector('.v201-delete-config'))return;
+      const b=document.createElement('button');b.className='btn danger v201-delete-config';b.textContent='Delete';b.onclick=()=>deleteSimple(kind,i);row.appendChild(b);
     });
   };
 
@@ -1441,7 +1480,7 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
     if(!online())return;
     const {data:{user}}=await sb().auth.getUser();if(!user)return;
     const r=await sb().from('sales').select('*').order('booking_date',{ascending:false});
-    if(r.error){console.error('[V15 sales]',r.error);return}
+    if(r.error){console.error('[V2.0.1 sales]',r.error);return}
     const rows=r.data||[];
     window._onlineSalesRows=rows;
     window.salesRecords=function(){
@@ -1477,16 +1516,16 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
   setTimeout(()=>clearInterval(timer),15000);
 
 })();
-</script>
 
-<script>
+
+
 (function(){
   function onReady(){
     const online=window.KARVAN_ONLINE?.enabled, sb=window.KARVAN_ONLINE?.sb;
     if(!online||!sb)return;
     const emailEl=document.getElementById('resetEmail'), qEl=document.getElementById('resetQuestion');
-    if(emailEl&&qEl&&!emailEl.dataset.v14Bound){
-      emailEl.dataset.v14Bound='1';
+    if(emailEl&&qEl&&!emailEl.dataset.appBound){
+      emailEl.dataset.appBound='1';
       emailEl.addEventListener('blur',async function(){
         const email=this.value.trim().toLowerCase();
         if(!email){qEl.innerHTML='<option value="">Enter your email first</option>';return;}
@@ -1505,13 +1544,13 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
     }
     sb.auth.onAuthStateChange(async (event)=>{
       if(event!=='PASSWORD_RECOVERY')return;
-      let panel=document.getElementById('v14RecoveryPanel');
+      let panel=document.getElementById('appRecoveryPanel');
       if(!panel){
-        panel=document.createElement('div');panel.id='v14RecoveryPanel';panel.className='modal open';
-        panel.innerHTML='<div class="modalbox"><div class="modalhead"><h3>Set New Password</h3></div><div class="field" style="margin-top:12px"><label>New Password</label><input id="v14NewPw" type="password" minlength="8"></div><div class="field" style="margin-top:10px"><label>Confirm Password</label><input id="v14NewPw2" type="password" minlength="8"></div><button id="v14SetPw" class="btn gold" style="width:100%;margin-top:12px">Update Password</button></div>';
+        panel=document.createElement('div');panel.id='appRecoveryPanel';panel.className='modal open';
+        panel.innerHTML='<div class="modalbox"><div class="modalhead"><h3>Set New Password</h3></div><div class="field" style="margin-top:12px"><label>New Password</label><input id="appNewPw" type="password" minlength="8"></div><div class="field" style="margin-top:10px"><label>Confirm Password</label><input id="appNewPw2" type="password" minlength="8"></div><button id="appSetPw" class="btn gold" style="width:100%;margin-top:12px">Update Password</button></div>';
         document.body.appendChild(panel);
-        document.getElementById('v14SetPw').onclick=async()=>{
-          const a=document.getElementById('v14NewPw').value,b=document.getElementById('v14NewPw2').value;
+        document.getElementById('appSetPw').onclick=async()=>{
+          const a=document.getElementById('appNewPw').value,b=document.getElementById('appNewPw2').value;
           if(a.length<8||a!==b)return alert('Password must be at least 8 characters and both entries must match.');
           const r=await sb.auth.updateUser({password:a});
           if(r.error)return alert(r.error.message);
@@ -1522,151 +1561,37 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();renderHotels();r
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',onReady);else setTimeout(onReady,300);
 })();
+
+
+
+
+
+
+
+
+
+
 </script>
 
-<script>
+
+
+
+<script id="v201-form-exit-cleanup">
 (function(){
-  const admin=()=>typeof isSuperAdmin==='function'&&isSuperAdmin();
-  const deny=()=>alert('Only Super Admin can edit shared configuration.');
-  window.addAirline=function(){if(!admin())return deny();let n=prompt('Airline name');if(!n)return;let code=prompt('IATA airline code','');airlines.push([n,n,code||'']);saveData();renderAirlines()};
-  window.editAirline=function(i){if(!admin())return deny();if(!airlines[i])return;airlines[i][0]=prompt('Airline name',airlines[i][0])||airlines[i][0];airlines[i][2]=prompt('IATA airline code',airlines[i][2])||airlines[i][2];saveData();renderAirlines()};
-  window.addSimple=function(kind){if(!admin())return deny();let n=prompt('Name');if(!n)return;let p=Number(prompt('Price (SAR)','0'))||0,u=prompt('Unit','per person')||'per person',a=kind==='transport'?transport:extras;a.push({name:n,price:p,unit:u,active:true});saveData();renderSimple(kind)};
-  window.editSimple=function(kind,i){if(!admin())return deny();let a=kind==='transport'?transport:extras,x=a[i];if(!x)return;x.name=prompt('Name',x.name)||x.name;x.price=Number(prompt('Price (SAR)',x.price))||0;x.unit=prompt('Unit',x.unit)||x.unit;x.active=confirm('Keep active?');saveData();renderSimple(kind)};
-  let editingHotelIndex=null;
-  window.saveHotel=function(index){
-    if(!admin())return deny();
-    const provider=$('hmProvider').value;
-    let h=[$('hmCity').value,$('hmName').value,$('hmLoc').value,$('hmDist').value,...roomTypes.map((r,i)=>{let v=$('hm'+i)?.value;return v===''?null:+v})];
-    if(!h[1])return alert('Hotel name is required.');
-    if(provider==='Meezab'){
-      h[10]={provider:'Meezab',checkin:'',periods:[
-        {start:'2026-01-01',end:'2026-08-30',sharing:Number($('hmS1').value)||null,room:Number($('hmR1').value)||null},
-        {start:'2026-08-31',end:'2026-11-14',sharing:Number($('hmS2').value)||null,room:Number($('hmR2').value)||null},
-        {start:'2026-11-15',end:'2027-01-15',sharing:Number($('hmS3').value)||null,room:Number($('hmR3').value)||null}
-      ]};
-    }else{
-      h[10]={provider:'Gulf',rate_mode:'per_person'};
-    }
-    if(index===null)hotels.push(h);else hotels[index]=h;
-    saveData();
-    window.hotels=hotels;
-    if(online()&&admin()&&!hydrating){
-      upsertConfig('hotels',hotels);
-      upsertConfig('hotel_catalog_version',HOTEL_CATALOG_VERSION);
-    }
-    closeModal();renderHotels()
-  };
-  window.openHotelModal=function(index=null){
-    if(!admin())return deny();
-    editingHotelIndex=index;
-    let h=index===null?null:hotels[index];if(!h&&index!==null)return;
-    $('modalbox').innerHTML=`<div class="modalhead"><h3>${h?'Edit Hotel':'Add New Hotel'}</h3></div>
-    <div class="hotel-modal-actions-top"><button type="button" class="btn outline" onclick="closeModal()">Cancel</button><button type="button" class="btn primary" onclick="saveHotel(${index===null?'null':index})">Save Hotel</button></div>
-    <div class="grid" style="margin-top:8px">
-      <div class="field"><label>Provider</label><select id="hmProvider" onchange="renderHotelRateEditor()"><option value="Gulf" ${hotelProvider(h)==='Gulf'?'selected':''}>Gulf</option><option value="Meezab" ${hotelProvider(h)==='Meezab'?'selected':''}>Meezab</option></select></div>
-      <div class="field"><label>City</label><select id="hmCity"><option ${h?.[0]==='Makkah'?'selected':''}>Makkah</option><option ${h?.[0]==='Madinah'?'selected':''}>Madinah</option></select></div>
-      <div class="field"><label>Hotel Name</label><input id="hmName" value="${esc(h?.[1]||'')}"></div>
-      <div class="field"><label>Location</label><input id="hmLoc" value="${esc(h?.[2]||'')}"></div>
-      <div class="field"><label>Distance</label><input id="hmDist" value="${esc(h?.[3]||'')}"></div>
-      <div id="hmRateEditor" style="grid-column:1/-1"></div>
-    </div>`;
-    $('modal').classList.add('open');document.body.classList.add('modal-open');renderHotelRateEditor()
-  };
-  window.renderHotelRateEditor=function(){
-    const h=editingHotelIndex===null?null:hotels[editingHotelIndex],provider=$('hmProvider').value;
-    if(provider==='Meezab'){
-      const ps=hotelPeriods(h);
-      $('hmRateEditor').innerHTML=`<div class="grid2" style="margin-top:8px">
-      <div class="field"><label>01 Jan–30 Aug 2026 • Sharing</label><input id="hmS1" type="number" value="${ps[0]?.sharing??''}"></div><div class="field"><label>01 Jan–30 Aug 2026 • DBL/TPL/QD Room</label><input id="hmR1" type="number" value="${ps[0]?.room??''}"></div>
-      <div class="field"><label>31 Aug–14 Nov 2026 • Sharing</label><input id="hmS2" type="number" value="${ps[1]?.sharing??''}"></div><div class="field"><label>31 Aug–14 Nov 2026 • DBL/TPL/QD Room</label><input id="hmR2" type="number" value="${ps[1]?.room??''}"></div>
-      <div class="field"><label>15 Nov 2026–15 Jan 2027 • Sharing</label><input id="hmS3" type="number" value="${ps[2]?.sharing??''}"></div><div class="field"><label>15 Nov 2026–15 Jan 2027 • DBL/TPL/QD Room</label><input id="hmR3" type="number" value="${ps[2]?.room??''}"></div></div>`;
-    }else{
-      $('hmRateEditor').innerHTML=`<div class="grid">${roomTypes.map((r,i)=>`<div class="field"><label>${r} Rate (SAR)</label><input id="hm${i}" type="number" value="${h?.[4+i]??''}"></div>`).join('')}</div>`;
-    }
-  };
+ function cleanFormExit(){
+  document.querySelectorAll('.modal,[role="dialog"],.dialog,.popup').forEach(function(box){
+   var hasCancel=Array.from(box.querySelectorAll('button,a')).some(function(el){return /^cancel$/i.test((el.textContent||'').trim())});
+   if(!hasCancel)return;
+   Array.from(box.querySelectorAll('button,a')).forEach(function(el){
+    var t=(el.textContent||'').trim();
+    var meta=((el.getAttribute('aria-label')||'')+' '+(el.getAttribute('title')||'')+' '+(el.className||'')).toLowerCase();
+    if(!/^cancel$/i.test(t)&&(/^(x|×|✕|✖|close|exit)$/i.test(t)||/modal-close|close-btn/.test(meta)))el.remove();
+   });
+  });
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',cleanFormExit);else cleanFormExit();
+ new MutationObserver(cleanFormExit).observe(document.documentElement,{childList:true,subtree:true});
 })();
 </script>
-
-<script>
-(function(){
- const admin=()=>typeof isSuperAdmin==='function'&&isSuperAdmin();
- const deny=()=>alert('Only Super Admin can edit shared configuration.');
- const oldOpenVisa=window.openVisaModal;
- window.openVisaModal=function(i){if(!admin())return deny();return oldOpenVisa(i)};
- const oldDeleteVisa=window.deleteVisaType;
- window.deleteVisaType=function(i){if(!admin())return deny();return oldDeleteVisa(i)};
- const oldAddDur=window.addVisaDurationRow,oldAddGroup=window.addVisaGroupRow;
- window.addVisaDurationRow=function(){if(!admin())return deny();return oldAddDur()};
- window.addVisaGroupRow=function(){if(!admin())return deny();return oldAddGroup()};
- const oldSaveVisa=window.saveVisa;
- window.saveVisa=function(i){if(!admin())return deny();return oldSaveVisa(i)};
-})();
-</script>
-
-<script>
-(function(){
- const admin=()=>typeof isSuperAdmin==='function'&&isSuperAdmin();
- window.openUserModal=function(){if(!admin())return;alert('For secure online accounts, new users register from the Login → Register New User screen. Super Admin can then manage, edit, disable and reset accounts here.');};
- const oldNormalize=window.normalizeBooking;
- window.normalizeBooking=function(){
-   if(typeof oldNormalize==='function')oldNormalize();
-   if(typeof q!=='undefined'&&q&&String(q.visa||'').toLowerCase()==='only visa')q.stays=[];
- };
- const oldRenderWizard=window.renderWizard;
- window.renderWizard=function(){
-   if(typeof q!=='undefined'&&q&&step===3&&String(q.visa||'').toLowerCase()==='only visa'){
-     const w=$('wizard');if(!w)return;
-     w.innerHTML='<h3 class="section-title">Hotel Selection</h3><div class="notice"><b>Hotels are not included with Only Visa.</b><br>Only Visa is priced only by the selected 15, 21, 28 or 75-day duration and has no hotel or accommodation charges. To add hotels, go back to Visa and select <b>Umrah Visa</b>.</div><div style="display:flex;justify-content:space-between;gap:8px;margin-top:14px"><button type="button" class="btn outline" onclick="goBookingStep(2)">← Previous</button><button type="button" class="btn primary" onclick="goBookingStep(4)">Next → Visa</button></div>';
-     return;
-   }
-   return oldRenderWizard();
- };
- window.visaStep=function(){
-   let v=visaTypes.find(x=>x.name===q.visa)||visaTypes[0];if(!v)return '<div class="notice">No active visa type is configured.</div>';
-   const only=window.v14VisaIsOnly(v);const umrah=window.v14VisaIsUmrah(v);
-   if(umrah)window.v14EnsureUmrahDurations(v);
-   const dur=v.durations||[];
-   if(only&&!dur.some(d=>Number(d.days)===Number(q.visaDuration)))q.visaDuration=dur[0]?.days||15;
-   const d=selectedVisaRule(v,q.visaDuration),price=only&&d?Number(d.pkr)/fx:visaForGroup();
-   const typeOptions=visaTypes.filter(x=>x.active).map(x=>'<option '+(q.visa===x.name?'selected':'')+'>'+esc(x.name)+'</option>').join('');
-   const durationHtml='<div class="field"><label>'+ (umrah?'Visa Duration / Category':'Visa Duration / Category') +'</label><select onchange="q.visaDuration=+this.value;renderWizard()">'+dur.map(x=>'<option value="'+x.days+'" '+(Number(q.visaDuration)===Number(x.days)?'selected':'')+'>'+ (x.days===90?'3 Months':x.days+' Days') + (only?' — PKR '+Number(x.pkr).toLocaleString()+' / SAR '+(Number(x.pkr)/fx).toFixed(2):' — Same Passenger-Group Price') +'</option>').join('')+'</select></div>';
-   const groups=(v.adultRules||[]).filter(r=>r.active!==false).sort((a,b)=>a.min-b.min).map(r=>'<tr><td>'+esc(r.label)+'</td><td>'+r.min+'–'+r.max+'</td><td>'+Number(r.price||0).toFixed(2)+'</td><td>'+Math.round(Number(r.price||0)*fx).toLocaleString()+'</td></tr>').join('');
-   return '<h3 class="section-title">Visa Selection</h3><div class="grid2"><div class="field"><label>Visa Type</label><select onchange="q.visa=this.value;q.visaDuration=(visaTypes.find(x=>x.name===this.value)?.durations?.[0]?.days||15);if(this.value!==\'Umrah Visa\')q.stays=[];renderWizard()">'+typeOptions+'</select></div>'+durationHtml+'</div>'+
-     '<div class="notice" style="margin-top:8px"><b>Selected:</b> '+esc(v.name)+' • <b>'+(Number(q.visaDuration)===90?'3 Months':q.visaDuration+' Days')+'</b> '+(only?'• <b>'+sar(price)+' per person</b>':'• <b>Passenger-group pricing — duration does not change the price</b>')+' • 1 SAR = '+fx+' PKR</div>'+
-     (only?'':'<div class="tablewrap" style="margin-top:10px"><table class="table"><tr><th>Passenger Group</th><th>Range</th><th>SAR / Person</th><th>PKR / Person</th></tr>'+groups+'</table></div><div class="grid2" style="margin-top:10px"><div class="field"><label>Child Visa (SAR)</label><input type="number" value="'+v.child+'" onchange="v.child=+this.value||0;saveData();renderWizard()"></div><div class="field"><label>Infant Visa (SAR)</label><input type="number" value="'+v.infant+'" onchange="v.infant=+this.value||0;saveData();renderWizard()"></div></div>');
- };
-})();
-</script>
-
-<script>
-(function(){
- const onlyVisa=v=>String(v?.name||'').toLowerCase()==='only visa';
- const oldTotals=window.totals;
- window.totals=function(){
-   const t=oldTotals();
-   const v=visaTypes.find(x=>x.name===q.visa)||visaTypes[0];
-   if(!v||onlyVisa(v)){
-     t.hotel=0;t.adultHotel=0;t.childHotel=0;
-     t.adult=(t.av);t.child=t.cv;t.grand=t.av+t.cv+t.iv+t.at+t.ct+t.it+t.trans+t.ex;
-   }
-   return t;
- };
- const oldPcTotals=window.pcTotals;
- window.pcTotals=function(){
-   const t=oldPcTotals(),v=visaTypes.find(x=>x.name===pc.visa)||visaTypes[0];
-   if(!v||onlyVisa(v)){
-     t.mc=0;t.dc=0;t.hotel=0;t.adultHotel=0;t.childBedHotel=0;
-     t.adult=t.av+t.at;t.childBed=(onlyVisa(v)?pc.childBed*pcVisaPerAdult():t.childBed)+t.ctb;
-     t.childNoBed=(onlyVisa(v)?pc.childNoBed*pcVisaPerAdult():t.childNoBed)+t.ctn;t.infant=t.iv+t.it;
-     t.grand=t.adult+t.childBed+t.childNoBed+t.infant;
-   }
-   return t;
- };
-})();
-</script>
-
-
-
-
 </body>
 </html>

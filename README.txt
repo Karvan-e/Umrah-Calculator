@@ -1,14 +1,9 @@
-Karvan e Asal Umrah Manager — V15.7
-Baseline: V15 Professional Icons Audited & Fixed.
+Karvan e Asal Umrah Manager V2.0.1 — Step 18 stabilized build.
 
-Hotel providers:
-1. Gulf — existing 12 hotels retained as a separate category.
-2. Meezab — 40? hotels from the two latest supplied sheets, retained separately.
-Meezab rates are date-bound:
-- 01 Jan 2026 through 30 Aug 2026
-- 31 Aug 2026 through 14 Nov 2026
-- 15 Nov 2026 through 15 Jan 2027
+Deployment package includes index.html, manifest.json, supabase-config.js, and the supplied original assets/logo.png. PWA icons are generated copies of the supplied logo for manifest installation sizes.
 
-For Meezab, the source sheet provides Sharing and one combined DBL/TPL/QD room rate. The app uses Sharing as per-person and the combined room rate as a per-room rate for non-sharing room selections; Quint is N/A because no separate Quint rate was supplied.
 
-V15.7 fix: canonical 52-hotel catalog migration prevents an old 13-hotel local/Supabase catalog from masking the Gulf + Meezab list.
+Step 20 note: legacy V15 Sales mobile/topbar CSS was moved into the document head; application logic and calculations were not changed.
+
+
+Step 27: Recycle Bin entries now preserve originalOwner metadata when records are deleted, preventing the current Super Admin from being shown as the original owner.
