@@ -1,7 +1,0 @@
-STEP 12 FIX — Backup / Restore
-
-Backup now uses a structured Karvan e Asal backup format and, when online, exports the signed-in user's vouchers and Package Cost Q records directly from Supabase. Shared configuration is included as reference data.
-
-Online restore replaces only the signed-in user's vouchers and Package Cost Q records and never reuses database row IDs. Shared configuration is never imported for ordinary users; Super Admin receives a separate confirmation before shared settings are applied.
-
-The backup includes version/export metadata and validates the backup format before import.
