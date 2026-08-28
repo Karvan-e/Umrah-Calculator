@@ -1,7 +1,0 @@
-STEP 4 FIX — SALES SOURCE OF TRUTH
-
-The Sales page now derives sales directly from the canonical Supabase `vouchers` table. A saved voucher is treated as a sale, so the app no longer depends on a separate `sales` table being populated by an unseen trigger or duplicate write path.
-
-Normal users query only their own vouchers. Admin/Super Admin query all vouchers subject to Supabase RLS. Sales display fields are mapped from the voucher payload and server metadata.
-
-No other issue was intentionally changed in this step.
