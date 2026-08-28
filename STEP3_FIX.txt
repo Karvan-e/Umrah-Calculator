@@ -1,0 +1,5 @@
+STEP 3 FIX — ADMIN SERVER REFRESH
+
+The Admin render path now explicitly refreshes profiles, vouchers, and package-cost data from Supabase before rendering the Admin screen. This prevents stale localStorage data from being used when the Admin page is opened on another device/browser or after server-side changes.
+
+No other issue was intentionally changed in this step.

@@ -1,0 +1,7 @@
+V2.0.1 STEP 2 FIX — Registration security answer consistency
+
+Fixed the earlier online registerUser implementation so securityAnswer is included in Supabase Auth user metadata during sign-up.
+
+The final online registration implementation already contained this field; this step also fixes the earlier duplicate implementation so both layers remain consistent and cannot silently lose the answer if function override order changes.
+
+No other application functionality was changed in this step.

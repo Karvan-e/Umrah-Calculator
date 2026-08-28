@@ -1,0 +1,11 @@
+STEP 1 FIX — Canonical shared configuration state
+
+Fixed the V2.0.1 Supabase hydration mismatch where the online loader updated
+window.fx/window.visaTypes/window.airlines/window.transport/window.extras while
+application calculations read separate top-level lexical variables.
+
+A small compatibility layer now binds window.* to the live application state
+for fx, hotels, visaTypes, airlines, transport and extras. Existing code can
+continue using either form without creating stale duplicate state.
+
+No database schema or RLS changes were made in this step.

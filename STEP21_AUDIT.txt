@@ -1,0 +1,22 @@
+STEP 21 — LEGACY WRAPPER AUDIT
+
+renderHotels: definitions=1, assignments=2, references=16
+renderSimple: definitions=1, assignments=1, references=12
+renderWizard: definitions=1, assignments=2, references=34
+normalizeBooking: definitions=1, assignments=1, references=4
+totals: definitions=1, assignments=2, references=9
+pcTotals: definitions=1, assignments=2, references=6
+saveData: definitions=1, assignments=1, references=22
+renderVisa: definitions=1, assignments=2, references=11
+loadServer: definitions=1, assignments=0, references=4
+loadServerData: definitions=0, assignments=1, references=2
+openHotelModal: definitions=0, assignments=1, references=5
+setTheme: definitions=1, assignments=0, references=5
+showPage: definitions=1, assignments=0, references=46
+
+Destructive purge/clear references: 0
+Required files missing: []
+Style tags inside body: 2
+Content after </html>: 0 characters
+
+No application source was changed during this audit.

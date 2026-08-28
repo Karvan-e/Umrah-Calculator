@@ -1,0 +1,5 @@
+STEP 9 FIX — Authentication implementation cleanup
+- Renamed legacy local login/register/security-reset/init functions so they no longer compete with the Supabase online authentication functions.
+- The active UI authentication entry points remain the Supabase-backed window.loginUser, window.registerUser, and window.resetPasswordBySecurity implementations.
+- No authentication behavior was otherwise changed.
+- JavaScript syntax checked: 0 errors.

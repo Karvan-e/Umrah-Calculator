@@ -1,0 +1,6 @@
+STEP 25 — Confirmed calculation/display fixes
+
+1. Package Cost Q Only Visa grand total now sums adult + child-with-bed + child-without-bed + infant totals, ensuring Child Without Bed is included.
+2. Booking Summary Infant Hotel column now displays SAR 0 instead of the infant ticket amount.
+
+No other calculation formulas were changed.
