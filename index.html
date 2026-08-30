@@ -254,7 +254,7 @@ html[data-theme="night"] .icon-btn,html[data-theme="night"] .close-btn{color:var
 
 <script id="v2-0-1-central-ui-controller">
 (function(){
-  const labels={dashboard:'Dashboard',calculator:'Calculator',packageCost:'Calculator',summary:'Summary',quotes:'Bookings',sales:'Sales',settings:'Settings',admin:'User'};
+  const labels={dashboard:'Dashboard',bookingWizard:'Bookings',calculator:'Calculator',packageCost:'Calculator',summary:'Records',quotes:'Records',sales:'Sales',settings:'Settings',admin:'User'};
   function sync(){
     const active=document.querySelector('.page.active');
     const id=active?active.id:'';
@@ -278,7 +278,20 @@ html[data-theme="night"] .icon-btn,html[data-theme="night"] .close-btn{color:var
   window.syncV201UI=sync;
   window.setMobileNavActive=function(btn){sync();if(btn){document.querySelectorAll('.mobileNav button').forEach(function(x){x.classList.remove('active')});btn.classList.add('active')}};
   document.addEventListener('DOMContentLoaded',sync);
-  if(window.MutationObserver){new MutationObserver(function(){sync()}).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['class','data-page','aria-label']});}
+  /* IMPORTANT: do not observe class/aria-label mutations here. sync() itself changes
+     those attributes, which previously caused an endless MutationObserver feedback
+     loop and could freeze the app when opening User Management. Navigation is already
+     synchronized explicitly by showPage(); a lightweight childList observer is enough
+     for dynamically-rendered navigation. */
+  if(window.MutationObserver){
+    var syncQueued=false;
+    var queueSync=function(){
+      if(syncQueued)return;
+      syncQueued=true;
+      requestAnimationFrame(function(){syncQueued=false;sync();});
+    };
+    new MutationObserver(queueSync).observe(document.body,{childList:true,subtree:true});
+  }
   setTimeout(sync,100);
 })();
 </script>
@@ -447,7 +460,7 @@ body{background:var(--ui-bg)!important;color:var(--ui-text)!important}
 <div class="app" id="appRoot" style="display:none">
 <header class="topbar"><img src="assets/logo.png" onerror="this.style.display='none'"><div><div class="title">KARVAN E ASAL</div><div class="sub">UMRAH PACKAGE MANAGER</div></div><div class="user-chip"><span><b id="topUserName">User</b><span class="user-role" id="topUserRole"></span></span><button class="themeToggle" id="themeToggle" type="button" onclick="toggleTheme()" aria-label="Switch between day and night mode" title="Day / Night mode"><span id="themeToggleIcon" aria-hidden="true"></span></button><button class="logout" onclick="logoutUser()">Logout</button></div></header>
 <div class="layout">
-<aside class="sidebar"><button class="navitem active" onclick="showPage('dashboard',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.5 10.5 12 3l8.5 7.5v9a1 1 0 0 1-1 1H4.5a1 1 0 0 1-1-1z"/><path d="M9 20.5v-6h6v6"/></svg></span><span>Dashboard</span></button><button class="navitem" onclick="showPage('quotes',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4.5h11a3 3 0 0 1 3 3v12H8a3 3 0 0 1-3-3z"/><path d="M8 4.5v15M11 9h5M11 13h5M11 17h4"/></svg></span><span>Bookings</span></button><button class="navitem" onclick="showPage('sales',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V6M16 20v-9M22 20V3"/><path d="M2.5 20.5h20"/></svg></span><span>Sales</span></button><button class="navitem" onclick="showPage('packageCost',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M7 7h2M13 7h2M7 11h2M13 11h2M7 15h2M13 15h2M7 19h8"/></svg></span><span>Calculator</span></button><button class="navitem" onclick="showPage('records',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4.5h11a3 3 0 0 1 3 3v12H8a3 3 0 0 1-3-3z"/><path d="M8 4.5v15M11 9h5M11 13h5M11 17h4"/></svg></span><span>Records</span></button><button class="navitem" onclick="showPage('settings',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9.7 3.7h4.6l.7 2.2 2 .9 2.1-1 3.2 3.2-1 2.1.9 2 .8.8v4.6l-2.2.7-.9 2-2.1-1-2 .9-.7 2.2H9.7L9 20.1l-2-.9-2.1 1-3.2-3.2 1-2.1-.9-2-.8-.7V7.6l2.2-.7.9-2 2.1 1 2-.9z"/><circle cx="12" cy="12" r="3.2"/></svg></span><span>Settings</span></button><button class="navitem" id="adminNav" onclick="showPage('admin',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 20 6v5.5c0 4.8-3.2 7.8-8 9.5-4.8-1.7-8-4.7-8-9.5V6z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg></span><span>User</span></button></aside>
+<aside class="sidebar"><button class="navitem active" onclick="showPage('dashboard',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.5 10.5 12 3l8.5 7.5v9a1 1 0 0 1-1 1H4.5a1 1 0 0 1-1-1z"/><path d="M9 20.5v-6h6v6"/></svg></span><span>Dashboard</span></button><button class="navitem" onclick="newBooking(this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 5v3M16 5v3M3 10h18M8 14h3"/></svg></span><span>Bookings</span></button><button class="navitem" onclick="showPage('sales',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V6M16 20v-9M22 20V3"/><path d="M2.5 20.5h20"/></svg></span><span>Sales</span></button><button class="navitem" onclick="showPage('packageCost',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M7 7h2M13 7h2M7 11h2M13 11h2M7 15h2M13 15h2M7 19h8"/></svg></span><span>Calculator</span></button><button class="navitem" onclick="showPage('records',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4.5h11a3 3 0 0 1 3 3v12H8a3 3 0 0 1-3-3z"/><path d="M8 4.5v15M11 9h5M11 13h5M11 17h4"/></svg></span><span>Records</span></button><button class="navitem" onclick="showPage('settings',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9.7 3.7h4.6l.7 2.2 2 .9 2.1-1 3.2 3.2-1 2.1.9 2 .8.8v4.6l-2.2.7-.9 2-2.1-1-2 .9-.7 2.2H9.7L9 20.1l-2-.9-2.1 1-3.2-3.2 1-2.1-.9-2-.8-.7V7.6l2.2-.7.9-2 2.1 1 2-.9z"/><circle cx="12" cy="12" r="3.2"/></svg></span><span>Settings</span></button><button class="navitem" id="adminNav" onclick="showPage('admin',this)"><span class="navicon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 20 6v5.5c0 4.8-3.2 7.8-8 9.5-4.8-1.7-8-4.7-8-9.5V6z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg></span><span>User</span></button></aside>
 <main class="content">
 <section id="dashboard" class="page active"><div class="pagehead"><div><h1>Dashboard</h1><p>Umrah package management at a glance.</p></div></div><div class="metrics"><div class="metric"><div class="k">Saved Vouchers</div><div class="v" id="mQuotes">0</div></div><div class="metric"><div class="k">Hotels</div><div class="v" id="mHotels">0</div></div><div class="metric"><div class="k">Visa Types</div><div class="v" id="mVisa">0</div></div><div class="metric"><div class="k">PKR / SAR</div><div class="v" id="mFx">75</div></div></div><div class="card" style="margin-top:13px"><h3 class="section-title">Quick Actions</h3><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn outline" onclick="showPage('settings')">Settings</button></div></div></section>
 <section id="bookingWizard" class="page"><div class="pagehead"><div><h1>New Booking</h1><p>Create and save a customer booking.</p></div></div><div class="steps" id="steps"></div><div class="card" id="wizard"></div></section>
@@ -468,7 +481,7 @@ body{background:var(--ui-bg)!important;color:var(--ui-text)!important}
 </main></div>
 <nav class="mobileNav" aria-label="Main navigation">
 <button class="active" onclick="showPage('dashboard',this)" aria-label="Home"><span class="navsvg homeIcon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.5 10.5 12 3l8.5 7.5v9a1 1 0 0 1-1 1H4.5a1 1 0 0 1-1-1z"/><path d="M9 20.5v-6h6v6"/></svg></span><b>Home</b></button>
-<button data-page="quotes" onclick="showPage('quotes',this);setMobileNavActive(this)" aria-label="Bookings"><span class="navsvg" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 5v3M16 5v3M3 10h18M8 14h3"/></svg></span><b>Bookings</b></button>
+<button data-page="bookingWizard" onclick="newBooking(this)" aria-label="Bookings"><span class="navsvg" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 5v3M16 5v3M3 10h18M8 14h3"/></svg></span><b>Bookings</b></button>
 <button data-page="packageCost" onclick="showPage('packageCost',this);newPackageCost();setMobileNavActive(this)" aria-label="Calculator"><span class="navsvg" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M7 7h2M13 7h2M7 11h2M13 11h2M7 15h2M13 15h2M7 19h8"/></svg></span><b>Calculator</b></button>
 <button onclick="showPage('records',this)" aria-label="Records"><span class="navsvg" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4.5h11a3 3 0 0 1 3 3v12H8a3 3 0 0 1-3-3z"/><path d="M8 4.5v15M11 9h5M11 13h5M11 17h4"/></svg></span><b>Records</b></button>
 <button onclick="showPage('sales',this)" aria-label="Sales"><span class="navsvg" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V6M16 20v-9M22 20V3"/><path d="M2.5 20.5h20"/></svg></span><b>Sales</b></button>
@@ -569,7 +582,7 @@ function passengerRows(){
   syncPassengers();
   return q.passengers.map((p,i)=>`<div class="card" style="box-shadow:none;padding:10px;margin:7px 0;background:#fafbfc"><div style="display:flex;justify-content:space-between"><b>Passenger ${i+1} — ${esc(p.type)}</b><span class="badge">${p.bed==='Yes'?'Bed: Yes':'Bed: No'}</span></div><div class="grid" style="margin-top:8px"><div class="field"><label>Mutamer Name</label><input value="${esc(p.name)}" oninput="q.passengers[${i}].name=this.value"></div><div class="field"><label>Gender</label><select onchange="q.passengers[${i}].gender=this.value"><option value="" ${!p.gender?'selected':''}>Select Gender</option><option value="Male" ${p.gender==='Male'?'selected':''}>Male</option><option value="Female" ${p.gender==='Female'?'selected':''}>Female</option><option value="Other" ${p.gender==='Other'?'selected':''}>Other</option></select></div><div class="field"><label>Passport #</label><input value="${esc(p.passport)}" oninput="q.passengers[${i}].passport=this.value"></div><div class="field"><label>MOFA #</label><input value="${esc(p.mofa)}" oninput="q.passengers[${i}].mofa=this.value"></div><div class="field"><label>GRP #</label><input value="${esc(p.grp)}" oninput="q.passengers[${i}].grp=this.value"></div><div class="field"><label>Visa #</label><input value="${esc(p.visaNo)}" oninput="q.passengers[${i}].visaNo=this.value"></div><div class="field"><label>PNR</label><input value="${esc(p.pnr)}" oninput="q.passengers[${i}].pnr=this.value"></div></div></div>`).join('');
 }
-function newBooking(){q={bookingDate:new Date().toISOString().slice(0,10),customer:'',contact:'',whatsapp:'',reference:'KEA-'+Date.now().toString().slice(-6),package:'Umrah 1448-H',visaShirka:'',reservationNo:'',transportCompany:'',transportType:'Company Transport',transportDescription:'',departureCity:'ISB',adults:1,childBed:0,childNoBed:0,infants:0,passengers:[],departure:'',arrival:'',returnDate:'',visa:'Umrah Visa',visaDuration:30,stays:[{city:'Makkah',hotel:'',room:'Sharing',rooms:0,allocationMode:'notAssigned',roomAllocations:[],in:'',out:''},{city:'Madinah',hotel:'',room:'Sharing',rooms:0,allocationMode:'notAssigned',roomAllocations:[],in:'',out:''},{city:'Makkah',hotel:'',room:'Sharing',rooms:0,allocationMode:'notAssigned',roomAllocations:[],in:'',out:''},{city:'Madinah',hotel:'',room:'Sharing',rooms:0,allocationMode:'notAssigned',roomAllocations:[],in:'',out:''}],flights:[{type:'Outbound',from:'ISB',to:'JED',date:'',timeOut:'',timeIn:'',flight:'',airline:'Pakistan International Airlines',via:'Direct'},{type:'Return',from:'JED',to:'ISB',date:'',timeOut:'',timeIn:'',flight:'',airline:'Pakistan International Airlines',via:'Direct'}],tickets:{adult:0,childBed:0,childNoBed:0,infant:0},transport:[],extras:[]};step=-1;const b=document.querySelector('.mobileNav button[aria-label="New Booking"]');showPage('bookingWizard',b);renderWizard()}
+function newBooking(btn){q={bookingDate:new Date().toISOString().slice(0,10),customer:'',contact:'',whatsapp:'',reference:'KEA-'+Date.now().toString().slice(-6),package:'Umrah 1448-H',visaShirka:'',reservationNo:'',transportCompany:'',transportType:'Company Transport',transportDescription:'',departureCity:'ISB',adults:1,childBed:0,childNoBed:0,infants:0,passengers:[],departure:'',arrival:'',returnDate:'',visa:'Umrah Visa',visaDuration:30,stays:[{city:'Makkah',hotel:'',room:'Sharing',rooms:0,allocationMode:'notAssigned',roomAllocations:[],in:'',out:''},{city:'Madinah',hotel:'',room:'Sharing',rooms:0,allocationMode:'notAssigned',roomAllocations:[],in:'',out:''},{city:'Makkah',hotel:'',room:'Sharing',rooms:0,allocationMode:'notAssigned',roomAllocations:[],in:'',out:''},{city:'Madinah',hotel:'',room:'Sharing',rooms:0,allocationMode:'notAssigned',roomAllocations:[],in:'',out:''}],flights:[{type:'Outbound',from:'ISB',to:'JED',date:'',timeOut:'',timeIn:'',flight:'',airline:'Pakistan International Airlines',via:'Direct'},{type:'Return',from:'JED',to:'ISB',date:'',timeOut:'',timeIn:'',flight:'',airline:'Pakistan International Airlines',via:'Direct'}],tickets:{adult:0,childBed:0,childNoBed:0,infant:0},transport:[],extras:[]};step=-1;const b=btn||document.querySelector('.mobileNav button[aria-label="Bookings"]');showPage('bookingWizard',b);renderWizard()}
 function startFullBooking(){step=0;showPage('bookingWizard');renderWizard()}
 function appIcon(name){const p={customer:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20c.7-3.5 3-5.5 6.5-5.5s5.8 2 6.5 5.5"/></svg>',passengers:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="16.5" cy="9" r="2.5"/><path d="M3.8 20c.6-3.5 2.5-5.4 5.2-5.4s4.6 1.9 5.2 5.4"/><path d="M14 15.5c2.9-.2 4.9 1.3 5.8 4.5"/></svg>',journey:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5"/><path d="M8 5h11v11"/><circle cx="5" cy="19" r="2"/></svg>',hotel:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V6l8-3 8 3v14"/><path d="M7 20v-7h10v7M7 9h2M15 9h2M7 12h2M15 12h2"/></svg>',visa:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M13 8h4M13 11h4M7 15h10M7 18h7"/></svg>',flight:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h7l3-8 2 .8-1.2 7.2H21l-2 2h-6.2l1.2 5.2-2 .8-3-6H3z"/></svg>',transport:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16V9l2-3h10l2 3v7"/><path d="M5 11h14M7 18h3M14 18h3"/><circle cx="7.5" cy="16.5" r="1.5"/><circle cx="16.5" cy="16.5" r="1.5"/></svg>',extras:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14v14H5z"/><path d="M8 7V5h8v2M9 11h6M9 15h6"/></svg>',sun:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',moon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.5A8 8 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5z"/></svg>',ticket:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7a2 2 0 0 0 0 4v2a2 2 0 0 0 0 4h16v-4a2 2 0 0 0 0-4V7z"/><path d="M12 8v8"/></svg>',calculator:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M14 11h2M8 15h2M14 15h2M8 18h8"/></svg>'};return p[name]||p.ticket}
 function renderSteps(){const icons=['customer','passengers','journey','hotel','visa','flight','transport','extras']; $('steps').innerHTML=stepNames.map((x,i)=>`<button type="button" class="step ${i===step?'active':''}" onclick="goBookingStep(${i})"><span class="stepicon">${appIcon(icons[i])}</span><span>${i+1}. ${x}</span></button>`).join('') }
@@ -1185,7 +1198,7 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();if(isSuperAdmin(
     if(!online()||!admin()||hydrating)return false;
     const {data:{user}}=await sb().auth.getUser(); if(!user)return;
     const {error}=await sb().from('app_config').upsert({key,value,updated_by:user.id,updated_at:new Date().toISOString()});
-    if(error)console.error('[V2.0.1 config]',key,error);
+    if(error)console.warn('[Karvan config] Remote save unavailable; local data remains active.',error);
   }
 
   const HOTEL_CATALOG_VERSION='2.0.1';
@@ -1208,7 +1221,10 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();if(isSuperAdmin(
     if(!online())return;
     const {data:{user}}=await sb().auth.getUser(); if(!user)return;
     const r=await sb().from('app_config').select('key,value').in('key',Object.values(KEYMAP));
-    if(r.error){console.error('[V2.0.1 config load]',r.error);return}
+    if(r.error){
+      console.warn('[Karvan config] Remote app_config unavailable; continuing with local data.',r.error);
+      return;
+    }
     const rows=Object.fromEntries((r.data||[]).map(x=>[x.key,x.value]));
     hydrating=true;
     try{
@@ -1477,16 +1493,31 @@ function init(){loadUserQuotes();loadPackageCosts();dashboard();if(isSuperAdmin(
       localStorage.removeItem('keaQuotesV201_'+u.username);localStorage.removeItem('keaPackageCostsV201_'+u.username);users.splice(i,1);userMgmtLocalSave();await renderUserManagement();msg('User deleted.');
     }catch(e){msg(e?.message||'Unable to delete user.');}
   };
-  window.renderUserManagement=async function(){
-    if(!currentUser)return;const body=$('userManagementBody');if(!body)return;const idx=userMgmtCurrentIndex();const me=users[idx]||currentUser;
+  window.renderUserManagement=function(){
+    if(!currentUser)return;
+    const body=$('userManagementBody');if(!body)return;
+    const idx=userMgmtCurrentIndex();const me=users[idx]||currentUser;
     let html=`<div class="card"><div class="pagehead" style="margin-bottom:10px"><div><h3 class="section-title" style="margin:0">My Account</h3><div class="muted">You can change your name and password. Username and email cannot be changed by a normal user.</div></div><button class="btn outline" onclick="openMyUserSettings()">Edit My Account</button></div><div class="grid2"><div><div class="muted">Name</div><strong>${esc(me.name||me.username||'User')}</strong></div><div><div class="muted">Username</div><strong>${esc(me.username||'')}</strong></div><div><div class="muted">Email</div><strong>${esc(me.email||'')}</strong></div><div><div class="muted">Role</div><strong>${esc(me.role==='superadmin'?'Super Admin':me.role==='admin'?'Administrator':'User')}</strong></div></div></div>`;
-    if(isSuperAdmin()){
+    const superAdmin=isSuperAdmin();
+    if(superAdmin){
       $('addUserMgmtBtn').style.display='';
-      if(window.KARVAN_ONLINE?.enabled && navigator.onLine){try{const {data:profiles}=await sb().from('profiles').select('*').order('created_at',{ascending:true});if(Array.isArray(profiles)&&profiles.length){users=profiles.map(p=>({id:p.id,username:p.username||p.email?.split('@')[0],email:p.email||'',firstName:p.first_name||'',lastName:p.last_name||'',name:[p.first_name,p.last_name].filter(Boolean).join(' ')||p.username||'',contact:p.contact||'',agency:p.agency||'',address:p.address||'',role:p.role||'user',active:p.active!==false}));userMgmtLocalSave();}}
-        catch(e){console.warn('[User Management] profile refresh failed',e)}}
       html+=`<div class="card"><div class="pagehead" style="margin-bottom:10px"><div><h3 class="section-title" style="margin:0">All Users</h3><div class="muted">Super Admin can create, edit, password-change, and delete user accounts.</div></div><button class="btn gold" onclick="openManagedUserCreate()">+ Create User</button></div><div class="tablewrap"><table class="table admin-table"><tr><th>Name</th><th>Username</th><th>Email</th><th>Role</th><th>Status</th><th>Actions</th></tr>${users.map((u,i)=>`<tr><td>${esc(u.name)}</td><td><strong>${esc(u.username)}</strong></td><td>${esc(u.email)}</td><td>${u.role==='superadmin'?'<span class="admin-badge">Super Admin</span>':esc(u.role||'user')}</td><td>${u.active?'<span class="admin-badge">Active</span>':'<span class="admin-badge off">Disabled</span>'}</td><td><button class="btn outline" onclick="openManagedUserEdit(${i})">Edit</button> ${String(u.username||'').toLowerCase()!=='umar'?`<button class="btn danger" onclick="deleteManagedUser(${i})">Delete</button>`:''}</td></tr>`).join('')}</table></div></div>`;
     } else $('addUserMgmtBtn').style.display='none';
     body.innerHTML=html;
+
+    // Never make navigation wait on Supabase. Refresh the user list in the background only.
+    if(superAdmin && window.KARVAN_ONLINE?.enabled && navigator.onLine){
+      const refresh=sb().from('profiles').select('*').order('created_at',{ascending:true});
+      Promise.race([
+        refresh,
+        new Promise(resolve=>setTimeout(()=>resolve({data:null,error:new Error('User list refresh timeout')}),3500))
+      ]).then(r=>{
+        if(!r || r.error || !Array.isArray(r.data) || !r.data.length)return;
+        users=r.data.map(p=>({id:p.id,username:p.username||p.email?.split('@')[0],email:p.email||'',firstName:p.first_name||'',lastName:p.last_name||'',name:[p.first_name,p.last_name].filter(Boolean).join(' ')||p.username||'',contact:p.contact||'',agency:p.agency||'',address:p.address||'',role:p.role||'user',active:p.active!==false}));
+        userMgmtLocalSave();
+        if(document.getElementById('admin')?.classList.contains('active')) renderUserManagement();
+      }).catch(e=>console.warn('[User Management] background profile refresh failed',e));
+    }
   };
 
   /* Online profiles/admin. Password changes use Supabase reset email; account disable is online. */
@@ -2376,9 +2407,25 @@ html[data-theme] .navitem .navicon,html[data-theme] .navitem .navicon svg{color:
   }
   document.addEventListener('DOMContentLoaded',run);
   window.addEventListener('load',run);
-  var mo=new MutationObserver(function(){run();});
-  if(document.body)mo.observe(document.body,{subtree:true,childList:true});
-  setTimeout(run,50);setTimeout(run,300);setTimeout(run,1000);
+  var running=false;
+  var mo=new MutationObserver(function(){
+    if(running)return;
+    running=true;
+    mo.disconnect();
+    try{run();}finally{
+      running=false;
+      if(document.body)mo.observe(document.body,{subtree:true,childList:true});
+    }
+  });
+  function startObserver(){
+    if(!document.body)return;
+    mo.observe(document.body,{subtree:true,childList:true});
+    run();
+  }
+  document.addEventListener('DOMContentLoaded',startObserver,{once:true});
+  setTimeout(function(){if(document.body&&!running)run();},50);
+  setTimeout(function(){if(document.body&&!running)run();},300);
+  setTimeout(function(){if(document.body&&!running)run();},1000);
 })();
 </script>
 </body>
