@@ -2323,7 +2323,7 @@ html[data-theme] .navitem .navicon,html[data-theme] .navitem .navicon svg{color:
   function run(){setThemeIcon();cleanBottomNav();cleanBooking();cleanDashboard();}
   var oldSet=window.setTheme;
   if(typeof oldSet==='function'){
-    window.keaV201ThemeCleanup=function(){setThemeIcon();cleanBottomNav();cleanBooking();cleanDashboard();};window.setTheme=coreSetTheme;
+    window.keaV201ThemeCleanup=function(){setThemeIcon();cleanBottomNav();cleanBooking();cleanDashboard();};
   }
   document.addEventListener('DOMContentLoaded',run);
   window.addEventListener('load',run);
