@@ -525,6 +525,30 @@ html[data-theme="night"] .page [style*="background:#fff"],html[data-theme="night
 </style>
 
 
+
+<style id="runtime-contrast-and-navigation-fix">
+/* Runtime fix: the previous theme bootstrap referenced window.setTheme before it was assigned,
+   aborting the startup script. Keep the theme API available immediately and force readable controls. */
+html[data-theme] .topbar{background:var(--ui-nav-bg,#0b2347)!important;color:#fff!important}
+html[data-theme] .topbar .logout{display:inline-flex!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;color:#fff!important;background:transparent!important;border:1px solid rgba(255,255,255,.45)!important;padding:6px 10px!important;min-width:62px!important;min-height:34px!important}
+html[data-theme] .themeToggle{display:inline-flex!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;color:#fff!important;background:transparent!important}
+html[data-theme] .themeToggle svg{visibility:visible!important;opacity:1!important;stroke:currentColor!important;fill:none!important}
+html[data-theme] .modal{display:none}
+html[data-theme] .modal.open{display:flex!important;visibility:visible!important;opacity:1!important}
+html[data-theme] .modalbox{visibility:visible!important;opacity:1!important;color:var(--ui-text,#172033)!important;background:var(--ui-surface,#fff)!important}
+html[data-theme] .modalbox .modalhead{display:flex!important;align-items:center!important;justify-content:space-between!important;color:var(--ui-heading,#061a3a)!important}
+html[data-theme] .modalbox .modalhead h3{color:var(--ui-heading,#061a3a)!important}
+html[data-theme="night"] .modalbox .modalhead h3{color:#f7f9fc!important}
+html[data-theme] .modalbox .field label{color:var(--ui-muted,#667085)!important}
+html[data-theme] .modalbox input,html[data-theme] .modalbox select,html[data-theme] .modalbox textarea{color:var(--ui-text,#172033)!important;background:var(--ui-input,#fff)!important;border-color:var(--ui-border,#d9e0e8)!important}
+html[data-theme="night"] .modalbox input,html[data-theme="night"] .modalbox select,html[data-theme="night"] .modalbox textarea{color:#e8eef6!important;background:#0d1928!important;border-color:#2a3b52!important}
+html[data-theme="night"] .modalbox .field label{color:#aebdd0!important}
+html[data-theme] .modalbox .btn{visibility:visible!important;opacity:1!important}
+/* Navigation buttons must remain clickable and readable in both modes. */
+html[data-theme] .navitem,html[data-theme] .mobileNav button{visibility:visible!important;opacity:1!important}
+html[data-theme="day"] .navitem{color:#dce7f5!important}
+html[data-theme="night"] .navitem{color:#dce7f5!important}
+</style>
 </head>
 <body class="v201-professional-icon-overrides">
 <div class="auth-screen" id="authScreen">
@@ -669,8 +693,9 @@ function usernameFromEmail(email){let base=email.split('@')[0].toLowerCase().rep
 function logoutUser(){sessionStorage.removeItem(SESSION_KEY);currentUser=null;quotes=[];q=null;$('appRoot').style.display='none';$('authScreen').style.display='flex';$('loginPass').value='';$('authError').style.display='none';}
 function coreApplyUserUI(){ $('topUserName').textContent=currentUser?.name||currentUser?.username||'User';$('topUserRole').textContent=' • '+(currentUser?.role==='superadmin'?'Super Admin':currentUser?.role==='admin'?'Administrator':'User');let admin=isSuperAdmin();document.querySelectorAll('.adminOnly').forEach(x=>x.style.display=admin?'':'none');var un=document.getElementById('adminNav'),um=document.getElementById('adminMobileNav');if(un)un.style.display='';if(um)um.style.display='';if(typeof window.keaV201ApplyFinalPermissions==='function')window.keaV201ApplyFinalPermissions();}
 function coreSetTheme(mode){const m=mode==='night'?'night':'day';document.documentElement.setAttribute('data-theme',m);localStorage.setItem('keaTheme',m);const icon=document.getElementById('themeToggleIcon');if(icon)icon.innerHTML=m==='night'?'<svg viewBox="0 0 24 24"><path d="M20 15.5A8.5 8.5 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5z"/></svg>':'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>';const db=document.getElementById('dayModeBtn'),nb=document.getElementById('nightModeBtn');if(db)db.classList.toggle('primary',m==='day');if(nb)nb.classList.toggle('primary',m==='night');const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.setAttribute('content',m==='night'?'#07111f':'#061a3a');if(typeof window.syncV201UI==='function')window.syncV201UI();if(typeof window.keaV201ThemeCleanup==='function')window.keaV201ThemeCleanup();}
-function toggleTheme(){window.setTheme(document.documentElement.getAttribute('data-theme')==='night'?'day':'night')}
-(function(){window.setTheme(localStorage.getItem('keaTheme')==='night'?'night':'day')})();
+window.setTheme=coreSetTheme;
+function toggleTheme(){coreSetTheme(document.documentElement.getAttribute('data-theme')==='night'?'day':'night')}
+(function(){coreSetTheme(localStorage.getItem('keaTheme')==='night'?'night':'day')})();
 
 
 const airports=[['Islamabad','ISB','Pakistan','PK'],['Lahore','LHE','Pakistan','PK'],['Rawalpindi','RWP','Pakistan','PK'],['Sialkot','SKT','Pakistan','PK'],['Karachi','KHI','Pakistan','PK'],['Multan','MUX','Pakistan','PK'],['Jeddah','JED','Saudi Arabia','SA'],['Madinah','MED','Saudi Arabia','SA'],['Riyadh','RUH','Saudi Arabia','SA'],['Dubai','DXB','United Arab Emirates','AE'],['Istanbul','IST','Türkiye','TR'],['Doha','DOH','Qatar','QA'],['Abu Dhabi','AUH','United Arab Emirates','AE'],['Muscat','MCT','Oman','OM'],['Bahrain','BAH','Bahrain','BH']];
