@@ -1,7 +1,11 @@
 const CACHE_NAME = 'karvan-e-asal-v1';
 const APP_SHELL = [
   './', './index.html', './manifest.json', './assets/logo.png',
-  './assets/icons/icon-192.png', './assets/icons/icon-512.png'
+  './assets/icons/icon-192.png', './assets/icons/icon-512.png',
+  "./assets/icons/icon-192.png",
+  "./assets/icons/icon-512.png",
+  "./assets/icons/apple-touch-icon.png",
+  "./assets/icons/favicon.png",
 ];
 
 self.addEventListener('install', event => {
