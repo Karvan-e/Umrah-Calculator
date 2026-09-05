@@ -2,9 +2,6 @@
 <!doctype html>
 <html lang="en">
 <head>
-<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
-
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0B1F3A"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Karvan e Asal">
 <link rel="manifest" href="manifest.json"><title>Karvan e Asal — Umrah Manager</title>
@@ -353,7 +350,7 @@ let visaTypes=JSON.parse(localStorage.getItem('keaVisaV201')||'null')||JSON.pars
 
 let transport=JSON.parse(localStorage.getItem('keaTransportV201')||'null')||[{name:'Airport Transfer — Private Sedan',price:0,unit:'per vehicle',active:true},{name:'Makkah ↔ Madinah — Bus',price:0,unit:'per vehicle',active:true}];
 let extras=JSON.parse(localStorage.getItem('keaExtrasV201')||'null')||[{name:'Ziyarah (Makkah)',price:0,unit:'per person',active:true},{name:'Ziyarah (Madinah)',price:0,unit:'per person',active:true},{name:'SIM Card',price:0,unit:'per SIM',active:true}];
-let fx=Number(localStorage.getItem('keaFxV201')||75),quotes=[],q=null,step=0,hotelCity='Makkah';
+var fx=Number(localStorage.getItem('keaFxV201')||75),quotes=[],q=null,step=0,hotelCity='Makkah';
 const AUTH_KEY='keaUsersV201',SESSION_KEY='keaSessionV201';
 const SECURITY_QUESTIONS=[
   'What city were you born in?',
@@ -384,7 +381,7 @@ function fillSecurityQuestions(){let opts=SECURITY_QUESTIONS.map(x=>`<option val
 function showAuthPanel(panel){['login','register','forgot'].forEach(x=>$(x+'Panel').style.display=x===panel?'block':'none');showAuthError('');if(panel==='register'||panel==='forgot')fillSecurityQuestions();}
 async function loadResetQuestionFromEmail(){try{const email=$('resetEmail').value.trim().toLowerCase();if(!email)return;const r=await sb().rpc('get_password_reset_question',{p_email:email});if(r?.error||!r?.data)return;const q=String(r.data);const sel=$('resetQuestion');if([...sel.options].some(o=>o.value===q))sel.value=q;}catch(e){}}
 function usernameFromEmail(email){let base=email.split('@')[0].toLowerCase().replace(/[^a-z0-9._-]/g,'');if(base.length<3)base='user'+base;let u=base,i=2;while(users.some(x=>x.username.toLowerCase()===u.toLowerCase()))u=base+(i++);return u;}
-function logoutUser(){sessionStorage.removeItem(SESSION_KEY);currentUser=null;quotes=[];q=null;$('appRoot').style.display='none';$('authScreen').style.display='flex';$('loginPass').value='';$('authError').style.display='none';}
+function logoutUser(){try{if(window.KARVAN_ONLINE?.enabled)window.KARVAN_ONLINE.sb.auth.signOut().catch(e=>console.warn('[Karvan] Online sign-out failed',e));}catch(e){}sessionStorage.removeItem(SESSION_KEY);currentUser=null;quotes=[];q=null;$('appRoot').style.display='none';$('authScreen').style.display='flex';$('loginPass').value='';$('authError').style.display='none';}
 function coreApplyUserUI(){ $('topUserName').textContent=currentUser?.name||currentUser?.username||'User';$('topUserRole').textContent=' • '+(currentUser?.role==='superadmin'?'Super Admin':currentUser?.role==='admin'?'Administrator':'User');let admin=isSuperAdmin();document.querySelectorAll('.adminOnly').forEach(x=>x.style.display=admin?'':'none');var un=document.getElementById('adminNav'),um=document.getElementById('adminMobileNav');if(un)un.style.display='';if(um)um.style.display='';if(typeof window.keaV201ApplyFinalPermissions==='function')window.keaV201ApplyFinalPermissions();}
 const airports=[['Islamabad','ISB','Pakistan','PK'],['Lahore','LHE','Pakistan','PK'],['Rawalpindi','RWP','Pakistan','PK'],['Sialkot','SKT','Pakistan','PK'],['Karachi','KHI','Pakistan','PK'],['Multan','MUX','Pakistan','PK'],['Jeddah','JED','Saudi Arabia','SA'],['Madinah','MED','Saudi Arabia','SA'],['Riyadh','RUH','Saudi Arabia','SA'],['Dubai','DXB','United Arab Emirates','AE'],['Istanbul','IST','Türkiye','TR'],['Doha','DOH','Qatar','QA'],['Abu Dhabi','AUH','United Arab Emirates','AE'],['Muscat','MCT','Oman','OM'],['Bahrain','BAH','Bahrain','BH']];
 let airlines=JSON.parse(localStorage.getItem('keaAirlinesV201')||'null')||[
@@ -418,7 +415,7 @@ function syncPassengers(){
 }
 function passengerRows(){
   syncPassengers();
-  return q.passengers.map((p,i)=>`<div class="card" style="box-shadow:none;padding:10px;margin:7px 0;background:#fafbfc"><div style="display:flex;justify-content:space-between"><b>Passenger ${i+1} — ${esc(p.type)}</b><span class="badge">${p.bed==='Yes'?'Bed: Yes':'Bed: No'}</span></div><div class="grid" style="margin-top:8px"><div class="field"><label>Mutamer Name</label><input value="${esc(p.name)}" oninput="q.passengers[${i}].name=this.value"></div><div class="field"><label>Gender</label><select onchange="q.passengers[${i}].gender=this.value"><option value="" ${!p.gender?'selected':''}>Select Gender</option><option value="Male" ${p.gender==='Male'?'selected':''}>Male</option><option value="Female" ${p.gender==='Female'?'selected':''}>Female</option><option value="Other" ${p.gender==='Other'?'selected':''}>Other</option></select></div><div class="field"><label>Passport #</label><input value="${esc(p.passport)}" oninput="q.passengers[${i}].passport=this.value"></div><div class="field"><label>MOFA #</label><input value="${esc(p.mofa)}" oninput="q.passengers[${i}].mofa=this.value"></div><div class="field"><label>GRP #</label><input value="${esc(p.grp)}" oninput="q.passengers[${i}].grp=this.value"></div><div class="field"><label>Visa #</label><input value="${esc(p.visaNo)}" oninput="q.passengers[${i}].visaNo=this.value"></div><div class="field"><label>PNR</label><input value="${esc(p.pnr)}" oninput="q.passengers[${i}].pnr=this.value"></div></div></div>`).join('');
+  return q.passengers.map((p,i)=>`<div class="card" style="box-shadow:none;padding:10px;margin:7px 0;background:var(--surface-2)"><div style="display:flex;justify-content:space-between"><b>Passenger ${i+1} — ${esc(p.type)}</b><span class="badge">${p.bed==='Yes'?'Bed: Yes':'Bed: No'}</span></div><div class="grid" style="margin-top:8px"><div class="field"><label>Mutamer Name</label><input value="${esc(p.name)}" oninput="q.passengers[${i}].name=this.value"></div><div class="field"><label>Gender</label><select onchange="q.passengers[${i}].gender=this.value"><option value="" ${!p.gender?'selected':''}>Select Gender</option><option value="Male" ${p.gender==='Male'?'selected':''}>Male</option><option value="Female" ${p.gender==='Female'?'selected':''}>Female</option><option value="Other" ${p.gender==='Other'?'selected':''}>Other</option></select></div><div class="field"><label>Passport #</label><input value="${esc(p.passport)}" oninput="q.passengers[${i}].passport=this.value"></div><div class="field"><label>MOFA #</label><input value="${esc(p.mofa)}" oninput="q.passengers[${i}].mofa=this.value"></div><div class="field"><label>GRP #</label><input value="${esc(p.grp)}" oninput="q.passengers[${i}].grp=this.value"></div><div class="field"><label>Visa #</label><input value="${esc(p.visaNo)}" oninput="q.passengers[${i}].visaNo=this.value"></div><div class="field"><label>PNR</label><input value="${esc(p.pnr)}" oninput="q.passengers[${i}].pnr=this.value"></div></div></div>`).join('');
 }
 function coreNewBooking(btn){q={bookingDate:new Date().toISOString().slice(0,10),customer:'',contact:'',whatsapp:'',customerProfile:{name:'',phone:'',passportNumber:'',passportExpiry:'',address:''},reference:uniqueRef('KEA'),package:'Umrah 1448-H',visaShirka:'',reservationNo:'',transportCompany:'',transportType:'Company Transport',transportDescription:'',departureCity:'ISB',adults:1,childBed:0,childNoBed:0,infants:0,passengers:[],departure:'',arrival:'',returnDate:'',visa:'Umrah Visa',visaDuration:30,stays:[{city:'Makkah',hotel:'',room:'Sharing',rooms:0,allocationMode:'notAssigned',roomAllocations:[],in:'',out:''},{city:'Madinah',hotel:'',room:'Sharing',rooms:0,allocationMode:'notAssigned',roomAllocations:[],in:'',out:''},{city:'Makkah',hotel:'',room:'Sharing',rooms:0,allocationMode:'notAssigned',roomAllocations:[],in:'',out:''},{city:'Madinah',hotel:'',room:'Sharing',rooms:0,allocationMode:'notAssigned',roomAllocations:[],in:'',out:''}],flights:[{type:'Outbound',from:'ISB',to:'JED',date:'',timeOut:'',timeIn:'',flight:'',airline:'Pakistan International Airlines',via:'Direct'},{type:'Return',from:'JED',to:'ISB',date:'',timeOut:'',timeIn:'',flight:'',airline:'Pakistan International Airlines',via:'Direct'}],tickets:{adult:0,childBed:0,childNoBed:0,infant:0},transport:[],extras:[]};step=-1;const b=btn||document.querySelector('.mobileNav button[aria-label="Bookings"]');showPage('bookingWizard',b);renderWizard()}
 function startFullBooking(){step=0;showPage('bookingWizard');renderWizard()}
@@ -446,7 +443,7 @@ else if(step===1)w.innerHTML=adminBar+`<h3 class="section-title">Passengers & Vo
 else if(step===2)w.innerHTML=adminBar+`<h3 class="section-title">Journey Dates</h3><div class="grid"><div class="field"><label>Departure from Pakistan</label><input type="date" value="${q.departure}" onchange="q.departure=this.value"></div><div class="field"><label>Arrival in KSA</label><input type="date" value="${q.arrival}" onchange="q.arrival=this.value"></div><div class="field"><label>Return from KSA</label><input type="date" value="${q.returnDate}" onchange="q.returnDate=this.value"></div></div><div class="metrics" style="margin-top:12px"><div class="metric"><div class="k">Makkah Nights</div><div class="v">${cityNights('Makkah')}</div></div><div class="metric"><div class="k">Madinah Nights</div><div class="v">${cityNights('Madinah')}</div></div></div>${nav()}`;
 else if(step===3)w.innerHTML=adminBar+`<h3 class="section-title">Hotel Selection</h3><div class="muted">Four stays are supported: Makkah → Madinah → Makkah → Madinah.</div>${q.stays.map((s,i)=>stayHTML(s,i)).join('')}${nav()}`;
 else if(step===4)w.innerHTML=adminBar+visaStep()+nav();
-else if(step===5)w.innerHTML=adminBar+`<h3 class="section-title">Flight Details</h3>${q.flights.map((f,i)=>flightHTML(f,i)).join('')}<button class="btn outline" onclick="q.flights.push({type:'Transit',from:'DXB',to:'JED',date:'',timeOut:'',timeIn:'',flight:'',airline:'',via:'Other'});renderWizard()">+ Add Flight Leg</button><div class="card" style="box-shadow:none;padding:10px;margin-top:10px;background:#f9fafb"><div class="grid"><div class="field"><label>Adult Ticket PKR</label><input type="number" value="${q.tickets.adult}" oninput="q.tickets.adult=+this.value||0"></div><div class="field"><label>Child With Bed PKR</label><input type="number" value="${q.tickets.childBed}" oninput="q.tickets.childBed=+this.value||0"></div><div class="field"><label>Child Without Bed PKR</label><input type="number" value="${q.tickets.childNoBed}" oninput="q.tickets.childNoBed=+this.value||0"></div><div class="field"><label>Infant Ticket PKR</label><input type="number" value="${q.tickets.infant}" oninput="q.tickets.infant=+this.value||0"></div></div></div>${nav()}`;
+else if(step===5)w.innerHTML=adminBar+`<h3 class="section-title">Flight Details</h3>${q.flights.map((f,i)=>flightHTML(f,i)).join('')}<button class="btn outline" onclick="q.flights.push({type:'Transit',from:'DXB',to:'JED',date:'',timeOut:'',timeIn:'',flight:'',airline:'',via:'Other'});renderWizard()">+ Add Flight Leg</button><div class="card" style="box-shadow:none;padding:10px;margin-top:10px;background:var(--surface-2)"><div class="grid"><div class="field"><label>Adult Ticket PKR</label><input type="number" value="${q.tickets.adult}" oninput="q.tickets.adult=+this.value||0"></div><div class="field"><label>Child With Bed PKR</label><input type="number" value="${q.tickets.childBed}" oninput="q.tickets.childBed=+this.value||0"></div><div class="field"><label>Child Without Bed PKR</label><input type="number" value="${q.tickets.childNoBed}" oninput="q.tickets.childNoBed=+this.value||0"></div><div class="field"><label>Infant Ticket PKR</label><input type="number" value="${q.tickets.infant}" oninput="q.tickets.infant=+this.value||0"></div></div></div>${nav()}`;
 else if(step===6)w.innerHTML=adminBar+`<h3 class="section-title">Transportation & Voucher Details</h3><div class="grid"><div class="field"><label>Transport Company</label><input value="${esc(q.transportCompany)}" oninput="q.transportCompany=this.value"></div><div class="field"><label>Transport Type</label><select onchange="q.transportType=this.value"><option ${q.transportType==='Company Transport'?'selected':''}>Company Transport</option><option ${q.transportType==='Self Transport'?'selected':''}>Self Transport</option><option ${q.transportType==='Private Transport'?'selected':''}>Private Transport</option></select></div><div class="field" style="grid-column:span 2"><label>Description</label><input value="${esc(q.transportDescription)}" oninput="q.transportDescription=this.value"></div></div>${q.transport.map((x,i)=>serviceRow(x,i,'transport')).join('')}<button class="btn outline" onclick="q.transport.push({name:transport[0]?.name||'',qty:1});renderWizard()">+ Add Transport</button>${nav()}`;
 else if(step===7)w.innerHTML=adminBar+`<h3 class="section-title">Extras / Services</h3>${extras.map(x=>`<label style="display:block;padding:9px;border:1px solid var(--border);border-radius:9px;margin:7px 0;font-size:11px"><input type="checkbox" style="width:auto;min-height:0" ${q.extras.includes(x.name)?'checked':''} onchange="toggleExtra('${esc(x.name)}',this.checked)"> ${esc(x.name)} <span class="muted">(${sar(x.price)} ${esc(x.unit)})</span></label>`).join('')}<h3 class="section-title" style="margin-top:14px">Payment & Booking Status</h3><div class="grid2"><div class="field"><label>Amount Paid (SAR)</label><input id="paymentAmountPaid" type="number" min="0" step="0.01" value="${Number(q.amount_paid||0)}" oninput="q.amount_paid=Math.max(0,Number(this.value)||0);normalizePayment(q)" onchange="normalizePayment(q);renderWizard()"></div><div class="field"><label>Payment Status</label><select id="paymentStatus" disabled><option>${esc(q.payment_status||'unpaid')}</option></select></div><div class="field"><label>Amount Due (SAR)</label><input value="${Number(q.amount_due||0).toFixed(2)}" readonly></div><div class="field"><label>Booking Status</label><select onchange="try{setQuoteStatus(q,this.value);renderWizard()}catch(e){alert(e.message);renderWizard()}"><option value="draft" ${q.status==='draft'?'selected':''}>Draft</option><option value="confirmed" ${q.status==='confirmed'?'selected':''}>Confirmed</option><option value="ongoing" ${q.status==='ongoing'?'selected':''}>Ongoing</option><option value="completed" ${q.status==='completed'?'selected':''}>Completed</option><option value="cancelled" ${q.status==='cancelled'?'selected':''}>Cancelled</option></select></div></div><div class="notice" style="margin-top:10px">Payment status is derived from Amount Paid and the calculated total. Booking status follows the controlled lifecycle.</div>${nav()}`;}
 function visaStep(){
@@ -502,7 +499,7 @@ function hotelPeriodForDate(h,date){const d=String(date||'').slice(0,10);if(!d)r
 
 function normalizeHotelPeriods(h){h[10]=h[10]&&typeof h[10]==='object'?h[10]:{};h[10].provider=h[10].provider||'Gulf';if(!Array.isArray(h[10].periods)||!h[10].periods.length){const v=roomTypes.map((_,i)=>h[4+i]);h[10].periods=[{start:'2026-01-01',end:'2027-12-31',sharing:v[0],quint:v[1],quad:v[2],triple:v[3],double:v[4],fullRoom:v[5]}]}else h[10].periods=h[10].periods.slice(0,10).map(x=>({start:x.start||'',end:x.end||'',sharing:x.sharing??null,quint:x.quint??null,quad:x.quad??null,triple:x.triple??null,double:x.double??null,fullRoom:x.fullRoom??x.room??null}));if(h[10].maxOccupancy!==4&&h[10].maxOccupancy!==5)delete h[10].maxOccupancy;return h}
 function hotelObj(s){if(!s)return null;let exact=hotels.find(h=>Array.isArray(h)&&h[0]===s.city&&h[1]===s.hotel&&(!s.provider||hotelProvider(h)===s.provider));return exact||hotels.find(h=>Array.isArray(h)&&h[0]===s.city&&h[1]===s.hotel)||null}
-function stayHTML(s,i){let hs=hotels.filter(h=>h[0]===s.city),h=hotelObj(s),mode=s.allocationMode==='assigned'?'assigned':'notAssigned',rooms=Math.max(0,Number(s.rooms)||0),maxOcc=Number(h?.[10]?.maxOccupancy)===4?4:5,alloc=Array.isArray(s.roomAllocations)?s.roomAllocations:[],eligible=Number(q.adults||0)+Number(q.childBed||0);syncPassengers();const occupantOptions=Array.isArray(q.passengers)?q.passengers:[];const fixedType=['Double','Triple','Quad','Quint'].includes(s.room);const roomRows=rooms>0&&s.room!=='Sharing'&&mode==='assigned'?Array.from({length:rooms},(_,ri)=>{const a=alloc[ri]||{},ids=Array.isArray(a.occupantIds)?a.occupantIds:[];return `<div class="card" style="box-shadow:none;padding:9px;margin:6px 0;background:#f7f9fc"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>Room ${ri+1}</b><span class="badge">${ids.length||Number(a.adults||0)+Number(a.childBed||0)} occupants</span></div><div class="grid" style="margin-top:7px">${occupantOptions.filter(p=>p.type==='Adult'||p.type==='Child - With Bed').map((p,pi)=>`<label class="field" style="display:flex;align-items:center;gap:7px"><input type="checkbox" ${ids.includes(pi)?'checked':''} onchange="setStayRoomPerson(${i},${ri},${pi},this.checked)"><span>${esc(p.name||('Passenger '+(pi+1)))} — ${esc(p.type==='Adult'?'Adult':'Child With Bed')}</span></label>`).join('')}</div></div>`}).join(''):'';const allocationUI=rooms>1&&s.room==='Full Room'?`<div class="field" style="grid-column:span 2"><label>Room Allocation</label><select onchange="setStayAllocationMode(${i},this.value)"><option value="notAssigned" ${mode==='notAssigned'?'selected':''}>Not Assigned — customer decides at hotel</option><option value="assigned" ${mode==='assigned'?'selected':''}>Assigned — specify occupants in each room</option></select></div>${mode==='assigned'?`<div style="grid-column:1/-1"><div class="notice" style="margin-top:2px">Select the named Adults and Children With Bed for each room. Child Without Bed and infants do not occupy a room. Required hotel occupants: <b>${eligible}</b>.</div>${roomRows}<div id="stayAllocStatus${i}" class="muted" style="margin-top:6px">${stayAllocationStatus(s,i)}</div></div>`:''}`:'';const quintDisabled=maxOcc<5?'disabled':'';const roomsUI=s.room==='Sharing'?'':`<div class="field"><label>Rooms</label><input type="number" min="1" step="1" value="${Math.max(1,rooms)}" onchange="setStayRooms(${i},this.value)"></div>`;return `<div class="stay"><div class="stayhead"><b>${i+1}. ${s.city}</b><span class="badge">${stayNights(s)} nights</span></div><div class="grid" style="margin-top:8px"><div class="field"><label>Check-in</label><input type="date" value="${s.in||''}" onchange="q.stays[${i}].in=this.value;renderWizard()"></div><div class="field"><label>Check-out</label><input type="date" value="${s.out||''}" onchange="q.stays[${i}].out=this.value;renderWizard()"></div><div class="field"><label>Provider</label><select onchange="q.stays[${i}].provider=this.value;q.stays[${i}].hotel='';renderWizard()"><option value="">All Providers</option><option value="Gulf" ${s.provider==='Gulf'?'selected':''}>Gulf</option><option value="Meezab" ${s.provider==='Meezab'?'selected':''}>Meezab</option></select></div><div class="field"><label>Hotel</label><select onchange="q.stays[${i}].hotel=this.value;renderWizard()"><option value="">Select hotel</option>${hs.filter(x=>!s.provider||hotelProvider(x)===s.provider).map(x=>{const ready=x[10]&&[4,5].includes(Number(x[10].maxOccupancy));return `<option value="${esc(x[1])}" ${s.hotel===x[1]?'selected':''} ${ready?'':'disabled'}>${esc(x[1])}${ready?'':' — Max occupancy not set'}</option>`}).join('')}</select></div><div class="field"><label>Accommodation</label><select onchange="setStayAccommodation(${i},this.value)"><option value="Sharing" ${s.room==='Sharing'?'selected':''}>Sharing</option><option value="Double" ${s.room==='Double'?'selected':''}>Double</option><option value="Triple" ${s.room==='Triple'?'selected':''}>Triple</option><option value="Quad" ${s.room==='Quad'?'selected':''}>Quad</option><option value="Quint" ${s.room==='Quint'?'selected':''} ${quintDisabled}>Quint${quintDisabled?' — N/A':''}</option><option value="Full Room" ${s.room==='Full Room'?'selected':''}>Full Room</option></select></div>${roomsUI}${allocationUI}</div><div class="rate">Distance: <b>${esc(h?.[3]||'—')}</b> • Location: <b>${esc(h?.[2]||'—')}</b> • Max occupancy: <b>${maxOcc}</b> • Cost: <b>${sar(hotelCost(s))}</b></div></div>`}
+function stayHTML(s,i){let hs=hotels.filter(h=>h[0]===s.city),h=hotelObj(s),mode=s.allocationMode==='assigned'?'assigned':'notAssigned',rooms=Math.max(0,Number(s.rooms)||0),maxOcc=Number(h?.[10]?.maxOccupancy)===4?4:5,alloc=Array.isArray(s.roomAllocations)?s.roomAllocations:[],eligible=Number(q.adults||0)+Number(q.childBed||0);syncPassengers();const occupantOptions=Array.isArray(q.passengers)?q.passengers:[];const fixedType=['Double','Triple','Quad','Quint'].includes(s.room);const roomRows=rooms>0&&s.room!=='Sharing'&&mode==='assigned'?Array.from({length:rooms},(_,ri)=>{const a=alloc[ri]||{},ids=Array.isArray(a.occupantIds)?a.occupantIds:[];return `<div class="card" style="box-shadow:none;padding:9px;margin:6px 0;background:var(--surface-2)"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>Room ${ri+1}</b><span class="badge">${ids.length||Number(a.adults||0)+Number(a.childBed||0)} occupants</span></div><div class="grid" style="margin-top:7px">${occupantOptions.filter(p=>p.type==='Adult'||p.type==='Child - With Bed').map((p,pi)=>`<label class="field" style="display:flex;align-items:center;gap:7px"><input type="checkbox" ${ids.includes(pi)?'checked':''} onchange="setStayRoomPerson(${i},${ri},${pi},this.checked)"><span>${esc(p.name||('Passenger '+(pi+1)))} — ${esc(p.type==='Adult'?'Adult':'Child With Bed')}</span></label>`).join('')}</div></div>`}).join(''):'';const allocationUI=rooms>1&&s.room==='Full Room'?`<div class="field" style="grid-column:span 2"><label>Room Allocation</label><select onchange="setStayAllocationMode(${i},this.value)"><option value="notAssigned" ${mode==='notAssigned'?'selected':''}>Not Assigned — customer decides at hotel</option><option value="assigned" ${mode==='assigned'?'selected':''}>Assigned — specify occupants in each room</option></select></div>${mode==='assigned'?`<div style="grid-column:1/-1"><div class="notice" style="margin-top:2px">Select the named Adults and Children With Bed for each room. Child Without Bed and infants do not occupy a room. Required hotel occupants: <b>${eligible}</b>.</div>${roomRows}<div id="stayAllocStatus${i}" class="muted" style="margin-top:6px">${stayAllocationStatus(s,i)}</div></div>`:''}`:'';const quintDisabled=maxOcc<5?'disabled':'';const roomsUI=s.room==='Sharing'?'':`<div class="field"><label>Rooms</label><input type="number" min="1" step="1" value="${Math.max(1,rooms)}" onchange="setStayRooms(${i},this.value)"></div>`;return `<div class="stay"><div class="stayhead"><b>${i+1}. ${s.city}</b><span class="badge">${stayNights(s)} nights</span></div><div class="grid" style="margin-top:8px"><div class="field"><label>Check-in</label><input type="date" value="${s.in||''}" onchange="q.stays[${i}].in=this.value;renderWizard()"></div><div class="field"><label>Check-out</label><input type="date" value="${s.out||''}" onchange="q.stays[${i}].out=this.value;renderWizard()"></div><div class="field"><label>Provider</label><select onchange="q.stays[${i}].provider=this.value;q.stays[${i}].hotel='';renderWizard()"><option value="">All Providers</option><option value="Gulf" ${s.provider==='Gulf'?'selected':''}>Gulf</option><option value="Meezab" ${s.provider==='Meezab'?'selected':''}>Meezab</option></select></div><div class="field"><label>Hotel</label><select onchange="q.stays[${i}].hotel=this.value;renderWizard()"><option value="">Select hotel</option>${hs.filter(x=>!s.provider||hotelProvider(x)===s.provider).map(x=>{const ready=x[10]&&[4,5].includes(Number(x[10].maxOccupancy));return `<option value="${esc(x[1])}" ${s.hotel===x[1]?'selected':''} ${ready?'':'disabled'}>${esc(x[1])}${ready?'':' — Max occupancy not set'}</option>`}).join('')}</select></div><div class="field"><label>Accommodation</label><select onchange="setStayAccommodation(${i},this.value)"><option value="Sharing" ${s.room==='Sharing'?'selected':''}>Sharing</option><option value="Double" ${s.room==='Double'?'selected':''}>Double</option><option value="Triple" ${s.room==='Triple'?'selected':''}>Triple</option><option value="Quad" ${s.room==='Quad'?'selected':''}>Quad</option><option value="Quint" ${s.room==='Quint'?'selected':''} ${quintDisabled}>Quint${quintDisabled?' — N/A':''}</option><option value="Full Room" ${s.room==='Full Room'?'selected':''}>Full Room</option></select></div>${roomsUI}${allocationUI}</div><div class="rate">Distance: <b>${esc(h?.[3]||'—')}</b> • Location: <b>${esc(h?.[2]||'—')}</b> • Max occupancy: <b>${maxOcc}</b> • Cost: <b>${sar(hotelCost(s))}</b></div></div>`}
 function ensureStayAllocations(i){const s=q?.stays?.[i];if(!s)return;s.rooms=Math.max(0,Number(s.rooms)||0);s.allocationMode=s.allocationMode==='assigned'?'assigned':'notAssigned';s.roomAllocations=Array.isArray(s.roomAllocations)?s.roomAllocations:[];while(s.roomAllocations.length<s.rooms)s.roomAllocations.push({adults:0,childBed:0,occupantIds:[]});if(s.roomAllocations.length>s.rooms)s.roomAllocations=s.roomAllocations.slice(0,s.rooms);s.roomAllocations.forEach(r=>{r.occupantIds=Array.isArray(r.occupantIds)?r.occupantIds:[]})}
 function setStayAccommodation(i,v){const s=q?.stays?.[i];if(!s)return;const h=hotelObj(s),maxOcc=Number(h?.[10]?.maxOccupancy)===4?4:5;if(v==='Quint'&&maxOcc<5){alert('Quint is not available for this hotel.');return}if(v==='Sharing'){s.room='Sharing';s.rooms=0;s.allocationMode='notAssigned';s.roomAllocations=[]}else if(['Double','Triple','Quad','Quint'].includes(v)){s.room=v;s.rooms=Math.max(1,Math.floor(Number(s.rooms)||1));s.allocationMode='notAssigned';s.roomAllocations=[]}else{s.room='Full Room';s.rooms=Math.max(1,Math.floor(Number(s.rooms)||1));s.allocationMode=s.rooms>1?(s.allocationMode==='assigned'?'assigned':'notAssigned'):'notAssigned';ensureStayAllocations(i)}renderWizard()}
 function setStayRooms(i,v){const s=q?.stays?.[i];if(!s)return;if(s.room==='Sharing'){s.rooms=0;s.allocationMode='notAssigned';s.roomAllocations=[];renderWizard();return}s.rooms=Math.max(1,Math.floor(Number(v)||1));if(s.rooms<=1)s.allocationMode='notAssigned';ensureStayAllocations(i);renderWizard()}
@@ -527,12 +524,12 @@ function stayAllocationStatus(s,i){
 function renderSummary(){
   if(!q){$('summaryBody').innerHTML='<div class="muted">No current quotation.</div>';return;}
   syncPassengers();
-  const t=totals(),ps=Array.isArray(q.passengers)?q.passengers:[],rows=[],eligible=q.adults+q.childBed;
+  const t=window.quoteDisplayTotals(q),ps=Array.isArray(q.passengers)?q.passengers:[],rows=[],eligible=q.adults+q.childBed;
   const visaPer={adult:q.adults?t.av/q.adults:0,childBed:(q.childBed+q.childNoBed)?t.cv/(q.childBed+q.childNoBed):0,infant:q.infants?t.iv/q.infants:0};
   const summaryFx=Number(q.exchange_rate);const conversionFx=Number.isFinite(summaryFx)&&summaryFx>0?summaryFx:fx;
   const ticketPer={adult:q.adults?t.at/q.adults:0,childBed:q.childBed?ticketsafe(q.tickets.childBed)/conversionFx:0,childNoBed:q.childNoBed?ticketsafe(q.tickets.childNoBed)/conversionFx:0,infant:q.infants?t.it/q.infants:0};
   function add(label,count,city,hotelPer,visa,ticket){if(count>0||hotelPer>0)rows.push({label,count,visa,ticket,hotelM:city==='Makkah'?hotelPer:0,hotelD:city==='Madinah'?hotelPer:0});}
-  q.stays.forEach(s=>{const hc=hotelCost(s);if(!hc)return;const city=s.city==='Madinah'?'Madinah':'Makkah';
+  q.stays.forEach((s,si)=>{const snapStay=Array.isArray(t.stays)&&t.stays[si];const hc=snapStay&&Number.isFinite(Number(snapStay.cost))?Number(snapStay.cost):hotelCost(s);if(!hc)return;const city=s.city==='Madinah'?'Madinah':'Makkah';
     if(s.room==='Sharing'||Number(s.rooms||0)<=0||s.allocationMode!=='assigned'){const per=eligible?hc/eligible:0;if(q.adults)add('Adult',q.adults,city,per,visaPer.adult,ticketPer.adult);if(q.childBed)add('Child With Bed',q.childBed,city,per,visaPer.childBed,ticketPer.childBed);}
     else{const groups=[];(s.roomAllocations||[]).forEach((r,ri)=>{const ids=Array.isArray(r.occupantIds)?r.occupantIds:[],rc=hotelRoomCostForSummary(s,ri),per=ids.length?rc/ids.length:0,ad=ids.filter(i=>ps[i]?.type==='Adult').length,cb=ids.filter(i=>ps[i]?.type==='Child - With Bed').length;if(ad)groups.push({cat:'Adult',room:ri+1,count:ad,per});if(cb)groups.push({cat:'Child With Bed',room:ri+1,count:cb,per});});
       ['Adult','Child With Bed'].forEach(cat=>{const g=groups.filter(x=>x.cat===cat);if(!g.length)return;const distinct=[...new Set(g.map(x=>Number(x.per.toFixed(6))))];if(distinct.length===1)add(cat,g.reduce((n,x)=>n+x.count,0),city,g[0].per,cat==='Adult'?visaPer.adult:visaPer.childBed,cat==='Adult'?ticketPer.adult:ticketPer.childBed);else g.forEach(x=>add(`${cat} — Room ${x.room}`,x.count,city,x.per,cat==='Adult'?visaPer.adult:visaPer.childBed,cat==='Adult'?ticketPer.adult:ticketPer.childBed));});}
@@ -541,7 +538,7 @@ function renderSummary(){
   if(q.infants)add('Infant',q.infants,'',0,visaPer.infant,ticketPer.infant);
   const transportTotal=q.transport.reduce((a,x)=>a+(transport.find(tn=>tn.name===x.name)?.price||0)*(x.qty||1),0);
   const otherTotal=q.extras.reduce((a,n)=>{const e=extras.find(x=>x.name===n);return a+(e?.price||0)*(e?.unit?.includes('person')?(q.adults+q.childBed+q.childNoBed+q.infants):1)},0);
-  const hotelM=q.stays.filter(s=>s.city==='Makkah').reduce((a,s)=>a+hotelCost(s),0),hotelD=q.stays.filter(s=>s.city==='Madinah').reduce((a,s)=>a+hotelCost(s),0),values={Visa:t.av+t.cv+t.iv,Ticket:t.at+t.ct+t.it,'Hotel Makkah':hotelM,'Hotel Madinah':hotelD,Transport:transportTotal,'Other Charges':otherTotal};
+  const hotelM=q.stays.reduce((a,s,i)=>{const ss=Array.isArray(t.stays)&&t.stays[i];const c=ss&&Number.isFinite(Number(ss.cost))?Number(ss.cost):hotelCost(s);return a+(s.city==='Makkah'?c:0)},0),hotelD=q.stays.reduce((a,s,i)=>{const ss=Array.isArray(t.stays)&&t.stays[i];const c=ss&&Number.isFinite(Number(ss.cost))?Number(ss.cost):hotelCost(s);return a+(s.city==='Madinah'?c:0)},0),values={Visa:t.av+t.cv+t.iv,Ticket:t.at+t.ct+t.it,'Hotel Makkah':hotelM,'Hotel Madinah':hotelD,Transport:transportTotal,'Other Charges':otherTotal};
   const cols=Object.keys(values).filter(k=>values[k]>0),field=k=>k==='Hotel Makkah'?'hotelM':k==='Hotel Madinah'?'hotelD':k.toLowerCase();
   let body=rows.map(r=>`<tr><td>${r.label}</td>${cols.map(c=>`<td>${sar(r[field(c)]||0)}</td>`).join('')}</tr>`).join('');
   if(transportTotal||otherTotal)body+=`<tr><td>Group Charges</td>${cols.map(c=>`<td>${c==='Transport'?sar(transportTotal):c==='Other Charges'?sar(otherTotal):''}</td>`).join('')}</tr>`;
@@ -550,7 +547,8 @@ function renderSummary(){
 }
 function ticketsafe(v){const n=Number(v);return Number.isFinite(n)?n:0;}
 
-function renderInvoice(){if(!q)return;let t=totals();const storedFx=Number(q.exchange_rate);const invoiceFx=Number.isFinite(storedFx)&&storedFx>0?storedFx:fx;$('invoice').innerHTML=`<div class="invoicehead"><div class="invoiceBrand"><img class="invoiceLogo" src="assets/logo.png" alt="Karvan e Asal logo"><div><h2>KARVAN E ASAL</h2><div class="muted">UMRAH PACKAGE QUOTATION</div><div class="brandSub">TRAVEL & TOURS • UMRAH • TICKETS • HOTELS • TRANSPORT</div></div></div><div><b>Reference</b><div class="muted">${esc(q.reference)}</div><b>Customer</b><div class="muted">${esc(q.customer)||'—'}</div></div><div><b>Contact</b><div class="muted">${esc(q.contact)||'—'}</div><b>Group</b><div class="muted">${q.adults+q.childBed+q.childNoBed+q.infants} persons</div></div></div><h3>Passenger Cost Breakdown</h3><div class="tablewrap"><table class="table"><tr><th>Passenger</th><th>Visa</th><th>Hotel</th><th>Ticket</th><th>Total</th></tr><tr><td>Adults (${q.adults})</td><td>${sar(t.av)}</td><td>${sar(t.adultHotel)}</td><td>${sar(t.at)}</td><td><b>${sar(t.adult)}</b></td></tr><tr><td>Children (${q.childBed+q.childNoBed})</td><td>${sar(t.cv)}</td><td>${sar(t.childHotel)}</td><td>${sar(t.ct)}</td><td><b>${sar(t.child)}</b></td></tr><tr><td>Infants (${q.infants})</td><td>${sar(t.iv)}</td><td>SAR 0</td><td>${sar(t.it)}</td><td><b>${sar(t.infant)}</b></td></tr></table></div><h3>Hotel Details</h3>${q.stays.map((s,i)=>`<div class="row"><span><b>${i+1}. ${esc(s.city)} — ${esc(s.hotel)||'Not selected'}</b><br><span class="muted">${esc(hotelObj(s)?.[2]||'—')} • Distance ${esc(hotelObj(s)?.[3]||'—')} • ${stayNights(s)} nights • ${esc(s.room)}</span></span><b>${sar(hotelCost(s))}</b></div>`).join('')}<h3>Flight Summary</h3>${q.flights.map(f=>`<div class="row"><span>${esc(f.type)}: ${f.from} → ${f.to}<br><span class="muted">${esc(f.date)||'—'} • ${esc(f.flight)||'Flight —'} • ${esc(f.airline)||'Airline —'} • ${esc(f.via)}</span></span></div>`).join('')}<h3>Grand Total</h3><div class="totalbox"><div class="row grand"><span>${sar(t.grand)}</span><b>${pkr(t.grand*invoiceFx)}</b></div><div class="muted">Exchange Rate: 1 SAR = ${invoiceFx} PKR</div></div>`}
+function historicalStayMeta(qx,s,i){const snap=qx?.costSnapshot?.stays?.[i];const h=hotelObj(s)||null;return {city:String(snap?.city||s?.city||''),hotel:String(snap?.hotel||s?.hotel||''),location:String(snap?.location||h?.[2]||'—'),distance:String(snap?.distance||h?.[3]||'—'),provider:String(snap?.provider||s?.provider||'')};}
+function renderInvoice(){if(!q)return;let t=window.quoteDisplayTotals(q);const storedFx=Number(q.exchange_rate);const invoiceFx=Number.isFinite(storedFx)&&storedFx>0?storedFx:fx;$('invoice').innerHTML=`<div class="invoicehead"><div class="invoiceBrand"><img class="invoiceLogo" src="assets/logo.png" alt="Karvan e Asal logo"><div><h2>KARVAN E ASAL</h2><div class="muted">UMRAH PACKAGE QUOTATION</div><div class="brandSub">TRAVEL & TOURS • UMRAH • TICKETS • HOTELS • TRANSPORT</div></div></div><div><b>Reference</b><div class="muted">${esc(q.reference)}</div><b>Customer</b><div class="muted">${esc(q.customer)||'—'}</div></div><div><b>Contact</b><div class="muted">${esc(q.contact)||'—'}</div><b>Group</b><div class="muted">${q.adults+q.childBed+q.childNoBed+q.infants} persons</div></div></div><h3>Passenger Cost Breakdown</h3><div class="tablewrap"><table class="table"><tr><th>Passenger</th><th>Visa</th><th>Hotel</th><th>Ticket</th><th>Total</th></tr><tr><td>Adults (${q.adults})</td><td>${sar(t.av)}</td><td>${sar(t.adultHotel)}</td><td>${sar(t.at)}</td><td><b>${sar(t.adult)}</b></td></tr><tr><td>Children (${q.childBed+q.childNoBed})</td><td>${sar(t.cv)}</td><td>${sar(t.childHotel)}</td><td>${sar(t.ct)}</td><td><b>${sar(t.child)}</b></td></tr><tr><td>Infants (${q.infants})</td><td>${sar(t.iv)}</td><td>SAR 0</td><td>${sar(t.it)}</td><td><b>${sar(t.infant)}</b></td></tr></table></div><h3>Hotel Details</h3>${q.stays.map((s,i)=>{const snapStay=Array.isArray(t.stays)&&t.stays[i];const stayCost=snapStay&&Number.isFinite(Number(snapStay.cost))?Number(snapStay.cost):hotelCost(s);const meta=historicalStayMeta(q,s,i);return `<div class="row"><span><b>${i+1}. ${esc(meta.city)} — ${esc(meta.hotel)||'Not selected'}</b><br><span class="muted">${esc(meta.location)} • Distance ${esc(meta.distance)} • ${stayNights(s)} nights • ${esc(s.room)}</span></span><b>${sar(stayCost)}</b></div>`}).join('')}<h3>Flight Summary</h3>${q.flights.map(f=>`<div class="row"><span>${esc(f.type)}: ${f.from} → ${f.to}<br><span class="muted">${esc(f.date)||'—'} • ${esc(f.flight)||'Flight —'} • ${esc(f.airline)||'Airline —'} • ${esc(f.via)}</span></span></div>`).join('')}<h3>Grand Total</h3><div class="totalbox"><div class="row grand"><span>${sar(t.grand)}</span><b>${pkr(t.grand*invoiceFx)}</b></div><div class="muted">Exchange Rate: 1 SAR = ${invoiceFx} PKR</div></div>`}
 function fmtDate(d){if(!d)return '';let x=new Date(d+'T00:00:00');return isNaN(x)?d:x.toLocaleDateString('en-GB',{day:'2-digit',month:'2-digit',year:'2-digit'});}
 
 function renderVoucher(){
@@ -562,10 +560,10 @@ function renderVoucher(){
   const outbound=q.flights.filter(f=>f.type==='Outbound'||f.type==='Transit');
   const ret=q.flights.filter(f=>f.type==='Return'||f.type==='Transit Return');
   const rows=q.passengers.map((p,i)=>`<tr><td>${i+1}</td><td>${esc(p.passport)||'—'}</td><td>${esc(p.name)||'—'}</td><td>${p.type==='Infant'?'Infant':p.type.startsWith('Child')?'Child':'Adult'}</td><td>${paxTotal}</td><td>${p.bed}</td><td>${esc(p.mofa)||'—'}</td><td>${esc(p.grp)||'—'}</td><td>${esc(p.visaNo)||'—'}</td><td>${esc(p.pnr)||'—'}</td></tr>`).join('');
-  const hotelRows=q.stays.filter(s=>s.hotel||s.in||s.out).map(s=>{let h=hotelObj(s);return `<tr><td>${esc(s.city)}</td><td>${esc(s.hotel)||'—'}</td><td>${esc(h?.[3]||'—')}</td><td>${esc(s.room||'Sharing')}</td><td>${fmtDate(s.in)||'—'}</td><td>${fmtDate(s.out)||'—'}</td><td>${stayNights(s)}</td></tr>`}).join('');
+  const hotelRows=q.stays.map((s,i)=>{const meta=historicalStayMeta(q,s,i);return `<tr><td>${esc(meta.city)}</td><td>${esc(meta.hotel)||'—'}</td><td>${esc(meta.distance)||'—'}</td><td>${esc(s.room||'Sharing')}</td><td>${fmtDate(s.in)||'—'}</td><td>${fmtDate(s.out)||'—'}</td><td>${stayNights(s)}</td></tr>`}).join('');
   const flightTable=(list)=>list.map(f=>`<tr><td>${esc(f.flight)||'—'}</td><td>${esc(f.from)||'—'}-${esc(f.to)||'—'}</td><td>${esc(f.date)||'—'}</td><td>${esc(f.timeOut)||'—'}</td><td>${esc(f.timeIn)||'—'}</td><td>${esc(f.airline)||'—'}</td></tr>`).join('');
   $('voucherBody').innerHTML=`
-  <div class="voucherNoPrint no-print">${isSuperAdmin() && (Number.isInteger(q._editIndex) || window._adminEditing?.type==='Voucher') ? `<div class="card" style="padding:10px;margin:0 0 10px;background:#f7fbff;border:1px solid #cbd8ea"><div style="font-weight:900;color:var(--color-navy);font-size:11px;margin-bottom:7px">Super Admin Edit Mode — choose any section to edit</div><div style="display:flex;gap:6px;flex-wrap:wrap">${stepNames.map((n,i)=>`<button type="button" class="btn outline" onclick="adminEditVoucherSection(${i})">${i+1}. ${n}</button>`).join('')}</div></div>` : ''}</div>
+  <div class="voucherNoPrint no-print">${isSuperAdmin() && (Number.isInteger(q._editIndex) || window._adminEditing?.type==='Voucher') ? `<div class="card" style="padding:10px;margin:0 0 10px;background:var(--surface-2);border:1px solid var(--border)"><div style="font-weight:900;color:var(--color-navy);font-size:11px;margin-bottom:7px">Super Admin Edit Mode — choose any section to edit</div><div style="display:flex;gap:6px;flex-wrap:wrap">${stepNames.map((n,i)=>`<button type="button" class="btn outline" onclick="adminEditVoucherSection(${i})">${i+1}. ${n}</button>`).join('')}</div></div>` : ''}</div>
   <div class="voucherHead">
     <div class="voucherBrand"><img class="voucherLogo" src="assets/logo.png" alt="Karvan e Asal logo"><div><div class="voucherTitle">KARVAN E ASAL</div><div class="voucherSub">TRAVEL & TOURS</div><div class="vsmall">Umrah • Tickets • Hotels • Transport</div></div></div>
     <div class="voucherSampleTitle">Hotel Voucher</div>
@@ -613,7 +611,7 @@ function addHotelPeriodRow(){const wrap=$('hmPeriods');if(!wrap)return;if(wrap.q
 function renumberHotelPeriods(){document.querySelectorAll('#hmPeriods [data-period-row]').forEach((r,i)=>{const b=r.querySelector('b');if(b)b.textContent='Date Range '+(i+1)})}
 function collectHotelPeriods(){const rows=[...document.querySelectorAll('#hmPeriods [data-period-row]')];if(!rows.length)return alert('Add at least one date range.'),null;if(rows.length>10)return alert('Maximum 10 date ranges are allowed per hotel.'),null;const periods=rows.map(r=>{const p={start:r.querySelector('.hmPeriodStart')?.value||'',end:r.querySelector('.hmPeriodEnd')?.value||''};r.querySelectorAll('.hmPeriodRate').forEach(x=>{const na=r.querySelector(`.hmPeriodNA[data-rate-key="${x.dataset.rateKey}"]`)?.checked;p[x.dataset.rateKey]=na?null:(x.value===''?null:Number(x.value))});return p});for(let i=0;i<periods.length;i++){const p=periods[i];if(!p.start||!p.end)return alert('Date Range '+(i+1)+': Date From and Date To are required.'),null;if(p.start>p.end)return alert('Date Range '+(i+1)+': Date To must be on or after Date From.'),null;for(let j=i+1;j<periods.length;j++)if(p.start<=periods[j].end&&periods[j].start<=p.end)return alert('Date ranges '+(i+1)+' and '+(j+1)+' overlap.'),null;for(const r of Object.keys({sharing:1,double:1,triple:1,quad:1,quint:1,fullRoom:1})){const v=p[r];if(v!==null&&(!Number.isFinite(v)||v<0))return alert('Date Range '+(i+1)+': '+r+' rate is invalid.'),null}if(p.fullRoom===null&&p.sharing===null)return alert('Date Range '+(i+1)+': Full and Sharing cannot both be N/A.'),null}return periods}
 function openHotelModal(index=null){if(!isSuperAdmin())return;const existing=index===null?null:hotels[index];if(index!==null&&!existing)return;const h=existing?normalizeHotelPeriods(JSON.parse(JSON.stringify(existing))):normalizeHotelPeriods([hotelCity,'','','',null,null,null,null,null,null,{provider:'Gulf',periods:[{start:'',end:'',sharing:'',quint:'',quad:'',triple:'',double:'',fullRoom:''}]}]);$('modalbox').innerHTML=`<div class="modalhead"><h3>${index===null?'Add New Hotel':'Edit Hotel & Date Ranges'}</h3><button class="btn outline" onclick="closeModal()">Cancel</button></div><div class="grid2" style="margin-top:12px"><div class="field"><label>City</label><select id="hmCity"><option ${h[0]==='Makkah'?'selected':''}>Makkah</option><option ${h[0]==='Madinah'?'selected':''}>Madinah</option></select></div><div class="field"><label>Hotel Name *</label><input id="hmName" value="${esc(h[1]||'')}"></div><div class="field"><label>Location</label><input id="hmLoc" value="${esc(h[2]||'')}"></div><div class="field"><label>Distance</label><input id="hmDist" value="${esc(h[3]||'')}"></div><div class="field"><label>Max Occupancy</label><select id="hmMaxOccupancy"><option value="4" ${Number(h?.[10]?.maxOccupancy)===4?'selected':''}>4 (Quad-max)</option><option value="5" ${Number(h?.[10]?.maxOccupancy)!==4?'selected':''}>5 (Quint-max)</option></select></div><div class="field"><label>Provider</label><select id="hmProvider"><option ${hotelProvider(h)==='Gulf'?'selected':''}>Gulf</option><option ${hotelProvider(h)==='Meezab'?'selected':''}>Meezab</option></select></div></div><div class="notice" style="margin-top:10px"><b>Hotel date ranges:</b> Gulf and Meezab hotels are managed separately. Each hotel has its own Date From, Date To and room rates.</div><h4 style="margin:14px 0 7px;color:var(--color-navy)">Hotel Date Ranges</h4>${hotelPeriodEditor(hotelPeriods(h))}<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:14px"><button class="btn outline" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveHotel(${index===null?'null':index})">Save Changes</button></div>`;$('modal').classList.add('open');document.body.classList.add('modal-open')}
-function saveHotel(index){if(typeof isSuperAdmin!=='function'||!isSuperAdmin())return alert('Only Super Admin can perform this action.');const periods=collectHotelPeriods();if(!periods)return;const name=$('hmName').value.trim();if(!name)return alert('Hotel name is required.');const h=[$('hmCity').value,name,$('hmLoc').value.trim(),$('hmDist').value.trim(),null,null,null,null,null,null,{provider:$('hmProvider').value,maxOccupancy:Number($('hmMaxOccupancy').value)===4?4:5,periods}];const first=periods[0];[first.sharing,first.quint,first.quad,first.triple,first.double,first.fullRoom].forEach((v,i)=>h[4+i]=v);if(index===null)hotels.push(h);else hotels[index]=h;saveData();closeModal();renderHotels()}
+function saveHotel(index){if(typeof isSuperAdmin!=='function'||!isSuperAdmin())return alert('Only Super Admin can perform this action.');const before=captureSharedConfig();const periods=collectHotelPeriods();if(!periods)return;const city=$('hmCity').value,name=$('hmName').value.trim(),provider=$('hmProvider').value;if(!name)return alert('Hotel name is required.');if(name.length>120)return alert('Hotel name is too long.');const duplicate=hotels.findIndex((x,i)=>i!==index&&String(x?.[0]||'').trim().toLowerCase()===city.toLowerCase()&&String(x?.[1]||'').trim().toLowerCase()===name.toLowerCase()&&hotelProvider(x)===provider);if(duplicate!==-1)return alert('A hotel with the same name, city and provider already exists.');const h=[city,name,$('hmLoc').value.trim(),$('hmDist').value.trim(),null,null,null,null,null,null,{provider,maxOccupancy:Number($('hmMaxOccupancy').value)===4?4:5,periods}];const first=periods[0];[first.sharing,first.quint,first.quad,first.triple,first.double,first.fullRoom].forEach((v,i)=>h[4+i]=v);if(index===null)hotels.push(h);else hotels[index]=h;if(!commitSharedConfig(before))return alert('Changes could not be saved. Nothing was changed.');closeModal();renderHotels()}
 function renderHotels(btn){
   if(btn){document.querySelectorAll('#hotels .tabs button').forEach(x=>x.classList.remove('on'));btn.classList.add('on')}
   const cityRows=hotels.filter(h=>h[0]===hotelCity);
@@ -632,16 +630,16 @@ function renderHotels(btn){
   }).join('');
 }
 function renderVisa(){$('visaTable').innerHTML=visaTypes.map((v,i)=>{const umrah=window.appVisaIsUmrah(v);return `<tr><td><strong>${esc(v.name)}</strong></td><td colspan="5">${(v.durations||[]).map(d=>`<span class="badge" style="margin:2px;display:inline-block">${d.days===90?'3 Months':d.days+' Days'}${umrah?' — Group pricing':' — PKR '+Number(d.pkr).toLocaleString()+' / SAR '+(Number(d.pkr)/fx).toFixed(2)}</span>`).join('')}</td><td>Same as Adult</td><td>500</td><td>${v.active?'Active':'Inactive'}</td><td><button class="btn outline" onclick="openVisaModal(${i})">Edit</button> <button class="btn danger" onclick="deleteVisaType(${i})">Delete</button></td></tr>`}).join('')}
-function deleteVisaType(index){if(typeof isSuperAdmin!=="function" || !isSuperAdmin()){return alert("Only Super Admin can perform this action.");}let v=visaTypes[index];if(!v)return;if(!confirm('Delete visa type “'+v.name+'”?'))return;if(!confirm('Confirm again: permanently remove this visa type and its duration/group pricing?'))return;visaTypes.splice(index,1);saveData();renderVisa();}
+function deleteVisaType(index){if(typeof isSuperAdmin!=="function" || !isSuperAdmin()){return alert("Only Super Admin can perform this action.");}let v=visaTypes[index];if(!v)return;if(!confirm('Delete visa type “'+v.name+'”?'))return;if(!confirm('Confirm again: permanently remove this visa type and its duration/group pricing?'))return;const before=captureSharedConfig();visaTypes.splice(index,1);if(!commitSharedConfig(before))return alert('Changes could not be saved. Nothing was changed.');renderVisa();}
 function addVisaDurationRow(){let wrap=$('vmDurations'),d=document.createElement('div');d.className='grid2';d.style.marginTop='6px';d.innerHTML=`<div class="field"><label>Duration (Days)</label><input class="vmdays" type="number" min="1" value="30"></div><div class="field"><label>Price (PKR)</label><input class="vmpkr" type="number" min="0" value="0"></div><button type="button" class="btn danger" style="grid-column:span 2" onclick="if(confirm('Remove this duration/category?'))this.parentElement.remove()">Remove</button>`;wrap.appendChild(d)}
 function addVisaGroupRow(){let wrap=$('vmGroups'),d=document.createElement('div');d.className='grid';d.style.marginTop='6px';d.innerHTML=`<div class="field"><label>Display Name</label><input class="vmglabel" value="New Group"></div><div class="field"><label>From Pax</label><input class="vmgmin" type="number" min="1" value="1"></div><div class="field"><label>To Pax</label><input class="vmgmax" type="number" min="1" value="1"></div><div class="field"><label>Price (SAR / Person)</label><input class="vmgprice" type="number" min="0" value="0"></div><button type="button" class="btn danger" style="grid-column:span 2" onclick="if(confirm('Remove this passenger group?'))this.parentElement.remove()">Remove</button>`;wrap.appendChild(d)}
-function openVisaModal(index=null){let v=index===null?{name:'',adult:[0,0,0,0,0],adultRules:[],child:0,infant:0,durations:[{days:30,pkr:0}],active:true}:visaTypes[index];const umrah=window.appVisaIsUmrah(v);if(umrah)window.appEnsureUmrahDurations(v);let rows=(v.durations||[]).map(d=>`<div class="grid2" style="margin-top:6px"><div class="field"><label>Duration / Category</label><input class="vmdays" type="number" min="1" value="${d.days}" ${umrah?'readonly':''}></div><div class="field">${umrah?'<label>Pricing</label><input value="Uses Passenger Group Price — No separate duration price" readonly>':'<label>Price (PKR)</label><input class="vmpkr" type="number" min="0" value="'+d.pkr+'">'}</div>${umrah?'':'<button type="button" class="btn danger" style="grid-column:span 2" onclick="if(confirm(\'Remove this duration/category?\'))this.parentElement.remove()">Remove</button>'}</div>`).join('');let rules=(v.adultRules&&v.adultRules.length?v.adultRules:[{label:'05–49',min:5,max:49,price:v.adult?.[0]||0,active:true},{label:'04',min:4,max:4,price:v.adult?.[1]||0,active:true},{label:'03',min:3,max:3,price:v.adult?.[2]||0,active:true},{label:'02',min:2,max:2,price:v.adult?.[3]||0,active:true},{label:'01',min:1,max:1,price:v.adult?.[4]||0,active:true}]);let groupRows=rules.map(r=>`<div class="grid" style="margin-top:6px"><div class="field"><label>Display Name</label><input class="vmglabel" value="${esc(r.label)}"></div><div class="field"><label>From Pax</label><input class="vmgmin" type="number" min="1" value="${r.min}"></div><div class="field"><label>To Pax</label><input class="vmgmax" type="number" min="1" value="${r.max}"></div><div class="field"><label>Price (SAR / Person)</label><input class="vmgprice" type="number" min="0" value="${r.price}"></div><button type="button" class="btn danger" style="grid-column:span 2" onclick="if(confirm('Remove this passenger group?'))this.parentElement.remove()">Remove</button></div>`).join('');$('modalbox').innerHTML=`<div class="modalhead"><h3>${index===null?'Add New Visa Type':'Edit Visa Type & Prices'}</h3><button class="btn outline" onclick="closeModal()">Cancel</button></div><div class="grid2" style="margin-top:12px"><div class="field"><label>Visa Type Name</label><input id="vmName" value="${esc(v.name)}"></div><div class="field"><label>Status</label><select id="vmActive"><option value="1" ${v.active?'selected':''}>Active</option><option value="0" ${!v.active?'selected':''}>Inactive</option></select></div></div><h4 style="color:var(--color-navy);margin:14px 0 7px">Visa Duration / Category Prices</h4><div id="vmDurations">${rows}</div><button type="button" class="btn outline" style="margin-top:8px" onclick="addVisaDurationRow()">+ Add Duration / Category</button><div class="notice" style="margin-top:10px">${umrah?'Umrah Visa durations are categories only: 15 Days, 21 Days, 30 Days and 3 Months. They do not have separate prices; the selected passenger-group price applies to all durations.':'You can rename, edit, add or remove every duration/category. Prices are entered in PKR and automatically shown in SAR at 1 SAR = '+fx+' PKR.'}</div><h4 style="color:var(--color-navy);margin:14px 0 7px">Adult Passenger Group Rules</h4><div id="vmGroups">${groupRows}</div><button type="button" class="btn outline" style="margin-top:8px" onclick="addVisaGroupRow()">+ Add Passenger Group</button><div class="notice" style="margin-top:10px">You can rename or remove groups such as 05–49 Pax, 04 Pax, 03 Pax, 02 Pax and 01 Pax, or create your own ranges.</div><div class="grid2" style="margin-top:10px"><div class="field"><label>Child Visa</label><input id="vchild" value="Same as Adult" readonly></div><div class="field"><label>Infant Visa (SAR)</label><input id="vinfant" value="500" readonly></div></div><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:13px"><button class="btn outline" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveVisa(${index===null?'null':index})">Save Changes</button></div>`;$('modal').classList.add('open');document.body.classList.add('modal-open')}
+function openVisaModal(index=null){let v=index===null?{name:'',adult:[0,0,0,0,0],adultRules:[],child:0,infant:0,durations:[{days:30,pkr:0}],active:true}:visaTypes[index];const umrah=window.appVisaIsUmrah(v);if(umrah)window.appEnsureUmrahDurations(v);let rows=(v.durations||[]).map(d=>`<div class="grid2" style="margin-top:6px"><div class="field"><label>Duration / Category</label><input class="vmdays" type="number" min="1" value="${d.days}"></div><div class="field">${umrah?'<label>Pricing Reference (PKR)</label><input class="vmpkr" type="number" min="0" value="'+(d.pkr||0)+'">':'<label>Price (PKR)</label><input class="vmpkr" type="number" min="0" value="'+d.pkr+'">'}</div><button type="button" class="btn danger" style="grid-column:span 2" onclick="if(confirm('Remove this duration/category?'))this.parentElement.remove()">Remove</button></div>`).join('');let rules=(v.adultRules&&v.adultRules.length?v.adultRules:[{label:'05–49',min:5,max:49,price:v.adult?.[0]||0,active:true},{label:'04',min:4,max:4,price:v.adult?.[1]||0,active:true},{label:'03',min:3,max:3,price:v.adult?.[2]||0,active:true},{label:'02',min:2,max:2,price:v.adult?.[3]||0,active:true},{label:'01',min:1,max:1,price:v.adult?.[4]||0,active:true}]);let groupRows=rules.map(r=>`<div class="grid" style="margin-top:6px"><div class="field"><label>Display Name</label><input class="vmglabel" value="${esc(r.label)}"></div><div class="field"><label>From Pax</label><input class="vmgmin" type="number" min="1" value="${r.min}"></div><div class="field"><label>To Pax</label><input class="vmgmax" type="number" min="1" value="${r.max}"></div><div class="field"><label>Price (SAR / Person)</label><input class="vmgprice" type="number" min="0" value="${r.price}"></div><button type="button" class="btn danger" style="grid-column:span 2" onclick="if(confirm('Remove this passenger group?'))this.parentElement.remove()">Remove</button></div>`).join('');$('modalbox').innerHTML=`<div class="modalhead"><h3>${index===null?'Add New Visa Type':'Edit Visa Type & Prices'}</h3><button class="btn outline" onclick="closeModal()">Cancel</button></div><div class="grid2" style="margin-top:12px"><div class="field"><label>Visa Type Name</label><input id="vmName" value="${esc(v.name)}"></div><div class="field"><label>Status</label><select id="vmActive"><option value="1" ${v.active?'selected':''}>Active</option><option value="0" ${!v.active?'selected':''}>Inactive</option></select></div></div><h4 style="color:var(--color-navy);margin:14px 0 7px">Visa Duration / Category Prices</h4><div id="vmDurations">${rows}</div><button type="button" class="btn outline" style="margin-top:8px" onclick="addVisaDurationRow()">+ Add Duration / Category</button><div class="notice" style="margin-top:10px">${umrah?'Umrah Visa duration/category entries are editable. The passenger-group SAR price is used for Umrah Visa calculation; the duration PKR field is retained for catalog/reference purposes.':'You can rename, edit, add or remove every duration/category. Prices are entered in PKR and automatically shown in SAR at 1 SAR = '+fx+' PKR.'}</div><h4 style="color:var(--color-navy);margin:14px 0 7px">Adult Passenger Group Rules</h4><div id="vmGroups">${groupRows}</div><button type="button" class="btn outline" style="margin-top:8px" onclick="addVisaGroupRow()">+ Add Passenger Group</button><div class="notice" style="margin-top:10px">You can rename or remove groups such as 05–49 Pax, 04 Pax, 03 Pax, 02 Pax and 01 Pax, or create your own ranges.</div><div class="grid2" style="margin-top:10px"><div class="field"><label>Child Visa</label><input id="vchild" value="Same as Adult" readonly></div><div class="field"><label>Infant Visa (SAR)</label><input id="vinfant" value="500" readonly></div></div><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:13px"><button class="btn outline" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveVisa(${index===null?'null':index})">Save Changes</button></div>`;$('modal').classList.add('open');document.body.classList.add('modal-open')}
 function closeModal(){$('modal').classList.remove('open');document.body.classList.remove('modal-open')}
 function renderFlightManager(){if(!$(`flightManager`))return;$(`flightManager`).innerHTML=`<div class="notice">Manage flight details used by New Booking. Airlines can be selected from the built-in list, and airports use internationally recognized IATA codes.</div><div style="margin-top:10px"><button type="button" class="btn primary" onclick="showPage('bookingWizard');step=5;renderWizard()">Open Flight Entry</button></div>`}
 function serviceRow(x,i,kind){let arr=kind==='transport'?transport:extras;return `<div class="service"><div class="grid"><div class="field" style="grid-column:span 2"><label>Service</label><select onchange="q.${kind}[${i}].name=this.value;renderWizard()">${arr.filter(a=>a.active).map(a=>`<option ${x.name===a.name?'selected':''}>${esc(a.name)}</option>`).join('')}</select></div><div class="field"><label>Quantity</label><input type="number" value="${x.qty||1}" onchange="q.${kind}[${i}].qty=+this.value||0"></div></div></div>`}
 function renderSimple(kind){if(!admin())return msg('Only Super Admin can access '+kind+' management.');let arr=kind==='transport'?transport:extras;$(kind==='transport'?'transportManager':'extrasManager').innerHTML=`<div class="tablewrap"><table class="table"><tr><th>Name</th><th>Price</th><th>Unit</th><th>Status</th><th>Action</th></tr>${arr.map((x,i)=>`<tr><td><strong>${esc(x.name)}</strong></td><td>${x.price}</td><td>${esc(x.unit)}</td><td>${x.active?'Active':'Inactive'}</td><td><button class="btn outline" onclick="editSimple('${kind}',${i})">Edit</button> <button class="btn danger" onclick="deleteSimple('${kind}',${i})">Delete</button></td></tr>`).join('')}</table></div>`}
-function addSimple(kind){let n=prompt('Name');if(!n)return;let p=+prompt('Price (SAR)','0')||0,u=prompt('Unit','per person')||'per person',a=kind==='transport'?transport:extras;a.push({name:n,price:p,unit:u,active:true});saveData();renderSimple(kind)}
-function editSimple(kind,i){let a=kind==='transport'?transport:extras,x=a[i];x.name=prompt('Name',x.name)||x.name;x.price=+prompt('Price (SAR)',x.price)||0;x.unit=prompt('Unit',x.unit)||x.unit;x.active=confirm('Keep active?');saveData();renderSimple(kind)}
+function addSimple(kind){if(!admin())return msg('Only Super Admin can add '+kind+'.');let n=(prompt('Name')||'').trim();if(!n)return;if(n.length>100)return alert('Name is too long.');let p=Number(prompt('Price (SAR)','0'));if(!Number.isFinite(p)||p<0)return alert('Price must be a valid non-negative number.');let u=(prompt('Unit','per person')||'per person').trim();if(!u)return alert('Unit is required.');let a=kind==='transport'?transport:extras;if(a.some(x=>String(x?.name||'').trim().toLowerCase()===n.toLowerCase()))return alert('An item with this name already exists.');const before=captureSharedConfig();a.push({name:n,price:p,unit:u,active:true});if(!commitSharedConfig(before))return alert('Changes could not be saved. Nothing was changed.');renderSimple(kind)}
+function editSimple(kind,i){if(!admin())return msg('Only Super Admin can edit '+kind+'.');let a=kind==='transport'?transport:extras,x=a[i];if(!x)return;const before=captureSharedConfig();const n=(prompt('Name',x.name)||x.name).trim();if(!n||n.length>100)return alert('Name is required and must be 100 characters or fewer.');const p=Number(prompt('Price (SAR)',x.price));if(!Number.isFinite(p)||p<0)return alert('Price must be a valid non-negative number.');const u=(prompt('Unit',x.unit)||x.unit).trim();if(!u)return alert('Unit is required.');if(a.some((z,j)=>j!==i&&String(z?.name||'').trim().toLowerCase()===n.toLowerCase()))return alert('An item with this name already exists.');x.name=n;x.price=p;x.unit=u;x.active=confirm('Keep active?');if(!commitSharedConfig(before))return alert('Changes could not be saved. Nothing was changed.');renderSimple(kind)}
 function toggleExtra(n,on){if(on&&!q.extras.includes(n))q.extras.push(n);if(!on)q.extras=q.extras.filter(x=>x!==n)}
 function isSuperAdmin(){
   const r=String(currentUser?.role||'').trim().toLowerCase().replace(/[ _-]+/g,'');
@@ -748,11 +746,11 @@ function openRecordPreview(type,i){
 function closeRecordPreview(){if($('recordPreviewCard'))$('recordPreviewCard').style.display='none';if($('recordPreview'))$('recordPreview').innerHTML='';}
 
 function recordRow(i){return Array.isArray(window._recordPageRows)?window._recordPageRows[i]:null}
-function editSavedVoucher(i,openStep=0){const item=recordRow(i);if(!item)return;q=JSON.parse(JSON.stringify(item));if(!q.reference)return;q._editIndex=quotes.indexOf(item);window._adminEditing={type:'Voucher',user:currentUser?.username||'',index:q._editIndex};step=Number.isInteger(openStep)?Math.max(0,Math.min(7,openStep)):0;showPage('bookingWizard');renderWizard()}
+function editSavedVoucher(i,openStep=0){const item=recordRow(i);if(!item)return;q=JSON.parse(JSON.stringify(item));if(!q.reference)return;q._editIndex=quotes.indexOf(item);q._financialFingerprint=window.keaFinancialFingerprint(q);window._adminEditing={type:'Voucher',user:currentUser?.username||'',index:q._editIndex};step=Number.isInteger(openStep)?Math.max(0,Math.min(7,openStep)):0;showPage('bookingWizard');renderWizard()}
 function printSavedVoucher(i){const item=recordRow(i);if(!item)return;const idx=quotes.indexOf(item);if(idx<0)return;printRecordInvoice(idx)}
 function downloadSavedVoucher(i){const item=recordRow(i);if(!item)return;const idx=quotes.indexOf(item);if(idx<0)return;downloadRecordInvoice(idx)}
 
-function editSavedQuote(i,openStep=0){const item=recordRow(i);if(!item)return;q=JSON.parse(JSON.stringify(item));if(!q.reference)return;q._editIndex=quotes.indexOf(item);window._adminEditing={type:'Quote',user:currentUser?.username||'',index:q._editIndex};step=Number.isInteger(openStep)?Math.max(0,Math.min(7,openStep)):0;showPage('bookingWizard');renderWizard()}
+function editSavedQuote(i,openStep=0){const item=recordRow(i);if(!item)return;q=JSON.parse(JSON.stringify(item));if(!q.reference)return;q._editIndex=quotes.indexOf(item);q._financialFingerprint=window.keaFinancialFingerprint(q);window._adminEditing={type:'Quote',user:currentUser?.username||'',index:q._editIndex};step=Number.isInteger(openStep)?Math.max(0,Math.min(7,openStep)):0;showPage('bookingWizard');renderWizard()}
 function printSavedQuote(i){const item=recordRow(i);if(!item)return;const drafts=quotes.filter(x=>String(x.status||'')==='draft');const idx=drafts.indexOf(item);if(idx<0)return;printRecordSummary(idx)}
 function downloadSavedQuote(i){const item=recordRow(i);if(!item)return;const drafts=quotes.filter(x=>String(x.status||'')==='draft');const idx=drafts.indexOf(item);if(idx<0)return;downloadRecordSummary(idx)}
 function printRecordInvoice(i){const data=quotes[i];if(!data)return;q=JSON.parse(JSON.stringify(data));renderInvoice();const w=window.open('','_blank','noopener,noreferrer');if(!w){alert('Please allow pop-ups to print the booking invoice.');return;}w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Booking Invoice ${esc(q.reference||'')}</title><style>body{font-family:Arial,sans-serif;padding:24px;color:#111}.invoice{background:#fff;border:1px solid #d8c27d;padding:18px}.invoicehead{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px;border-bottom:2px solid #061a3a;padding-bottom:12px}.table{width:100%;border-collapse:collapse;font-size:10px}.table th,.table td{padding:9px 7px;border-bottom:1px solid #dfe4ec;text-align:left}.muted{color:#667085;font-size:10px}.row{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #dfe4ec}.grand{font-size:16px;font-weight:900}</style>
@@ -789,8 +787,10 @@ function renderSales(){
   const sel=$('salesPeriod'); if(!sel)return; const period=sel.value||'monthly'; $('salesCustomDates').style.display=period==='custom'?'grid':'none';
   const {from,to}=salesRange(period); const records=salesRecords().filter(x=>{let d=saleDate(x);if(!d)return false;let dt=new Date(d+'T12:00:00');return dt>=from&&dt<=to;}).sort((a,b)=>saleDate(b).localeCompare(saleDate(a)));
   const total=records.reduce((n,x)=>n+window.quoteStoredTotal(x),0),pax=records.reduce((n,x)=>n+Number(x.adults||0)+Number(x.childBed||0)+Number(x.childNoBed||0)+Number(x.infants||0),0);
-  $('salesTotalSar').textContent=sar(total);$('salesTotalPkr').textContent=pkr(total*fx);$('salesCount').textContent=records.length;$('salesPax').textContent=pax;
-  $('salesList').innerHTML=records.length?`<div class="tablewrap"><table class="table"><thead><tr><th>Date</th><th>Description / Head of Family</th><th>Pax</th><th>Adult</th><th>Child</th><th>Infant</th><th>Umrah Days</th><th>Total Package</th><th>Owner</th><th></th></tr></thead><tbody>${records.map((x,i)=>{let totalP=Number(x.adults||0)+Number(x.childBed||0)+Number(x.childNoBed||0)+Number(x.infants||0);return `<tr><td>${esc(saleDate(x))}</td><td><strong>${esc(x.customer||'—')}</strong></td><td>${totalP}</td><td>${Number(x.adults||0)}</td><td>${Number(x.childBed||0)+Number(x.childNoBed||0)}</td><td>${Number(x.infants||0)}</td><td>${saleUmrahDays(x)}</td><td><strong>${sar(window.quoteStoredTotal(x))}<br><span class="muted">${pkr(Number(window.quoteStoredTotal(x)||0)*fx)}</span></strong></td><td>${isSuperAdmin()?esc(x._ownerName||x._owner):''}</td><td><button class="btn outline" onclick="openSaleVoucher(${i})">Open Voucher</button></td></tr>`}).join('')}</tbody></table></div>`:'<div class="muted">No voucher sales found for this period.</div>';
+  const pkrForQuote=x=>{const r=Number(x?.exchange_rate);const rate=Number.isFinite(r)&&r>0?r:fx;return Number(window.quoteStoredTotal(x)||0)*rate};
+  const pkrTotal=records.reduce((n,x)=>n+pkrForQuote(x),0);
+  $('salesTotalSar').textContent=sar(total);$('salesTotalPkr').textContent=pkr(pkrTotal);$('salesCount').textContent=records.length;$('salesPax').textContent=pax;
+  $('salesList').innerHTML=records.length?`<div class="tablewrap"><table class="table"><thead><tr><th>Date</th><th>Description / Head of Family</th><th>Pax</th><th>Adult</th><th>Child</th><th>Infant</th><th>Umrah Days</th><th>Total Package</th><th>Owner</th><th></th></tr></thead><tbody>${records.map((x,i)=>{let totalP=Number(x.adults||0)+Number(x.childBed||0)+Number(x.childNoBed||0)+Number(x.infants||0);return `<tr><td>${esc(saleDate(x))}</td><td><strong>${esc(x.customer||'—')}</strong></td><td>${totalP}</td><td>${Number(x.adults||0)}</td><td>${Number(x.childBed||0)+Number(x.childNoBed||0)}</td><td>${Number(x.infants||0)}</td><td>${saleUmrahDays(x)}</td><td><strong>${sar(window.quoteStoredTotal(x))}<br><span class="muted">${pkr(pkrForQuote(x))}</span></strong></td><td>${isSuperAdmin()?esc(x._ownerName||x._owner):''}</td><td><button class="btn outline" onclick="openSaleVoucher(${i})">Open Voucher</button></td></tr>`}).join('')}</tbody></table></div>`:'<div class="muted">No voucher sales found for this period.</div>';
   window._salesRecords=records;
 }
 function openSaleVoucher(i){const x=window._salesRecords?.[i];if(!x)return;q=JSON.parse(JSON.stringify(x));delete q._owner;delete q._ownerName;delete q._ownerIndex;renderVoucher();showPage('voucher');}
@@ -815,11 +815,11 @@ function dashboard(){
   const allTimeSales=confirmed.reduce((n,x)=>n+window.quoteStoredTotal(x),0);
   const allTimePax=confirmed.reduce((n,x)=>n+Number(x.adults||0)+Number(x.childBed||0)+Number(x.childNoBed||0)+Number(x.infants||0),0);
   const monthSales=confirmed.filter(x=>{const d=quoteDate(x);return Number.isFinite(d.getTime())&&d>=monthStart&&d<=monthEnd;}).reduce((n,x)=>n+window.quoteStoredTotal(x),0);
-  const denom=Math.max(1,monthSales+allTimeSales), monthPct=monthSales/denom*100;
+  const denom=Math.max(1,allTimeSales), monthPct=Math.min(100,monthSales/denom*100);
   $('mQuotes').textContent=current.length;$('mSalesSar').textContent=sar(totalSales);$('mOngoing').textContent=ongoing;$('mPax').textContent=pax;$('mHotels').textContent=hotels.length;$('mVisa').textContent=visaTypes.length;$('mFx').textContent=fx;
   const donut=$('dashboardDonut');if(donut)donut.style.background=`conic-gradient(var(--color-gold) 0 ${monthPct}%, var(--border) ${monthPct}% 100%)`;
   const dt=$('dashboardDonutTotal');if(dt)dt.textContent=sar(monthSales);
-  const legend=$('dashboardLegend');if(legend)legend.innerHTML=`<div><b>This month</b> — ${sar(monthSales)} (${monthPct.toFixed(1)}%)</div><div><b>All time</b> — ${sar(allTimeSales)} (${(100-monthPct).toFixed(1)}%)</div><div class="muted">All-time bookings: ${confirmed.length} • Pax: ${allTimePax}</div>`;
+  const legend=$('dashboardLegend');if(legend)legend.innerHTML=`<div><b>This month</b> — ${sar(monthSales)} (${monthPct.toFixed(1)}%)</div><div><b>All time</b> — ${sar(allTimeSales)} (${Math.max(0,100-monthPct).toFixed(1)}%)</div><div class="muted">All-time bookings: ${confirmed.length} • Pax: ${allTimePax}</div>`;
   const due=all.filter(x=>['unpaid','partial'].includes(String(x.payment_status||''))).length;const md=$('mDue');if(md)md.textContent=due;
 }
 function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded only when Settings is opened. */$('fxInput').value=fx;if(!q){q={bookingDate:new Date().toISOString().slice(0,10),customer:'',contact:'',whatsapp:'',customerProfile:{name:'',phone:'',passportNumber:'',passportExpiry:'',address:''},reference:uniqueRef('KEA'),package:'Umrah 1448-H',visaShirka:'',reservationNo:'',transportCompany:'',transportType:'Company Transport',transportDescription:'',departureCity:'ISB',adults:1,childBed:0,childNoBed:0,infants:0,passengers:[],departure:'',arrival:'',returnDate:'',visa:'Umrah Visa',visaDuration:30,stays:[{city:'Makkah',hotel:'',room:'Sharing',rooms:0,allocationMode:'notAssigned',roomAllocations:[],in:'',out:''},{city:'Madinah',hotel:'',room:'Sharing',rooms:0,allocationMode:'notAssigned',roomAllocations:[],in:'',out:''},{city:'Makkah',hotel:'',room:'Sharing',rooms:0,allocationMode:'notAssigned',roomAllocations:[],in:'',out:''},{city:'Madinah',hotel:'',room:'Sharing',rooms:0,allocationMode:'notAssigned',roomAllocations:[],in:'',out:''}],flights:[{type:'Outbound',from:'ISB',to:'JED',date:'',timeOut:'',timeIn:'',flight:'',airline:'Pakistan International Airlines',via:'Direct'},{type:'Return',from:'JED',to:'ISB',date:'',timeOut:'',timeIn:'',flight:'',airline:'Pakistan International Airlines',via:'Direct'}],tickets:{adult:0,childBed:0,childNoBed:0,infant:0},transport:[],extras:[]};step=-1;}renderWizard()}
@@ -850,6 +850,16 @@ function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded
     if(error){console.error('Profile load failed',error);return null;}
     return data;
   }
+  async function fetchAllRows(queryFactory,pageSize=1000){
+    const rows=[];
+    for(let offset=0;;offset+=pageSize){
+      const {data,error}=await queryFactory().range(offset,offset+pageSize-1);
+      if(error)throw error;
+      if(Array.isArray(data))rows.push(...data);
+      if(!Array.isArray(data)||data.length<pageSize)break;
+    }
+    return rows;
+  }
   async function loadServer(){
     const {data:{user},error:ue}=await sb.auth.getUser();
     if(ue||!user) return null;
@@ -858,18 +868,48 @@ function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded
     currentUser=Object.assign({},currentUser||{},p,{username:p.username||user.email?.split('@')[0],email:p.email||user.email||''});
     const superA=['superadmin','super_admin'].includes(String(currentUser.role||'').toLowerCase());
     if(superA){
-      const pr=await sb.from('profiles').select('*').order('created_at',{ascending:true}).range(0,24);
-      if(!pr.error&&pr.data){
-        users=pr.data.map(x=>({username:x.username||String(x.email||'').split('@')[0],email:x.email||'',firstName:x.first_name||'',lastName:x.last_name||'',name:[x.first_name,x.last_name].filter(Boolean).join(' ')||x.username||'',contact:x.contact||'',agency:x.agency||'',address:x.address||'',role:x.role||'user',active:x.active!==false,permissions:(x.permissions&&typeof x.permissions==='object')?x.permissions:null,id:x.id}));
+      try{
+        const profileRows=await fetchAllRows(()=>sb.from('profiles').select('*').order('created_at',{ascending:true}));
+        users=profileRows.map(x=>({username:x.username||String(x.email||'').split('@')[0],email:x.email||'',firstName:x.first_name||'',lastName:x.last_name||'',name:[x.first_name,x.last_name].filter(Boolean).join(' ')||x.username||'',contact:x.contact||'',agency:x.agency||'',address:x.address||'',role:x.role||'user',active:x.active!==false,permissions:(x.permissions&&typeof x.permissions==='object')?x.permissions:null,id:x.id}));
         originalSet(AUTH_KEY,JSON.stringify(users));
-      }
+      }catch(e){console.warn('[V2.0.1 App] Profile sync failed',e)}
     }
-    const vq=superA?await sb.from('vouchers').select('*').order('created_at',{ascending:false}).range(0,49):await sb.from('vouchers').select('*').eq('owner_id',user.id).order('created_at',{ascending:false}).range(0,49);
+    let voucherRows=[];
+    try{
+      voucherRows=await fetchAllRows(()=>superA?sb.from('vouchers').select('*').order('created_at',{ascending:false}):sb.from('vouchers').select('*').eq('owner_id',user.id).order('created_at',{ascending:false}));
+    }catch(e){console.warn('[V2.0.1 App] Voucher sync failed',e)}
+    const vq={data:voucherRows};
     if(vq.data){
       const by={};
-      vq.data.forEach(r=>{const ownerId=String(r.owner_id||'').trim();if(!ownerId)return;(by[ownerId]??=[]).push({...r.payload,_onlineId:r.id,ownerId});});
-      if(superA) Object.entries(by).forEach(([ownerId,a])=>originalSet('keaQuotesV201_'+ownerId,JSON.stringify(a)));
-      else originalSet('keaQuotesV201_'+user.id,JSON.stringify(by[user.id]||[]));
+      vq.data.forEach(r=>{const ownerId=String(r.owner_id||'').trim();if(!ownerId)return;(by[ownerId]??=[]).push({...r.payload,_onlineId:r.id,ownerId,_syncBaseUpdatedAt:r.updated_at||r.created_at||null});});
+      const mergeOwnerQuotes=(ownerId,remoteRows)=>{
+        const key='keaQuotesV201_'+ownerId;
+        let local=[];try{local=JSON.parse(localStorage.getItem(key)||'[]')}catch{}
+        if(!Array.isArray(local))local=[];
+        const merged=[];
+        const timeOf=x=>{const t=Date.parse(String(x?.updatedAt||x?.updated_at||x?.savedAt||x?.createdAt||x?.created_at||''));return Number.isFinite(t)?t:0};
+        const identityMatch=(a,b)=>{
+          const aid=String(a?._onlineId||'').trim(),bid=String(b?._onlineId||'').trim();
+          const ar=String(a?.reference||'').trim().toUpperCase(),br=String(b?.reference||'').trim().toUpperCase();
+          return (aid&&bid&&aid===bid)||(ar&&br&&ar===br);
+        };
+        const put=(r)=>{
+          if(!r||typeof r!=='object')return;
+          const idx=merged.findIndex(x=>identityMatch(x,r));
+          if(idx<0){merged.push(r);return;}
+          if(timeOf(r)>=timeOf(merged[idx]))merged[idx]=r;
+        };
+        remoteRows.forEach(put);
+        local.forEach(put);
+        const out=merged.map(normalizeQuote);
+        originalSet(key,JSON.stringify(out));
+        return out;
+      };
+      const ownerIds=superA?Array.from(new Set([...Object.keys(by),...Object.keys(by).map(String)])): [user.id];
+      if(superA){
+        const localOwnerIds=Object.keys(localStorage).filter(k=>k.startsWith('keaQuotesV201_')).map(k=>k.slice('keaQuotesV201_'.length)).filter(Boolean);
+        new Set([...ownerIds,...localOwnerIds]).forEach(ownerId=>mergeOwnerQuotes(ownerId,by[ownerId]||[]));
+      }else mergeOwnerQuotes(user.id,by[user.id]||[]);
     }
     return currentUser;
   }
@@ -880,38 +920,129 @@ function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded
     if(!ownerId) return false;
     const {data:{user}}=await sb.auth.getUser(); if(!user) return false;
     const isSelf=String(user.id)===ownerId;
-    if(!isSelf && currentUser?.role!=='superadmin') return false;
+    const role=String(currentUser?.role||'').toLowerCase();
+    if(!isSelf && !['superadmin','super_admin','admin'].includes(role)) return false;
     const prof=await sb.from('profiles').select('id,username').eq('id',ownerId).maybeSingle();
     if(prof.error||!prof.data) return false;
     let arr=[]; try{arr=JSON.parse(localStorage.getItem(key)||'[]')}catch{}
     if(!Array.isArray(arr))arr=[];
     const table='vouchers';
-    const existing=await sb.from(table).select('id,payload').eq('owner_id',ownerId);
+    const existing=await sb.from(table).select('id,payload,reference,updated_at,created_at').eq('owner_id',ownerId);
     if(existing.error) return false;
-    const keep=new Set();
+    const remoteRows=Array.isArray(existing.data)?existing.data:[];
+    const byId=new Map(remoteRows.map(r=>[String(r.id),r]));
+    const byRef=new Map();
+    // If historical/concurrent data contains duplicate references, always resolve the
+    // reference to the newest server row instead of whichever duplicate happened to be
+    // returned first. We do not delete the duplicate automatically; the sync layer must
+    // never destroy data merely to repair an identity collision.
+    remoteRows.forEach(r=>{
+      const ref=String(r.reference||'').trim().toUpperCase();
+      if(!ref)return;
+      const prior=byRef.get(ref);
+      if(!prior||remoteTime(r)>=remoteTime(prior))byRef.set(ref,r);
+    });
+    // Collapse duplicate local objects by server id/reference before writing. This handles
+    // both legacy records (reference only) and newer records (online id + reference), while
+    // preserving the newest copy instead of silently overwriting it with an older duplicate.
+    const localIdentity=(a,b)=>{
+      const aid=String(a?._onlineId||'').trim(),bid=String(b?._onlineId||'').trim();
+      const ar=String(a?.reference||'').trim().toUpperCase(),br=String(b?.reference||'').trim().toUpperCase();
+      return (aid&&bid&&aid===bid)||(ar&&br&&ar===br);
+    };
+    const timeOfLocal=x=>{const t=Date.parse(String(x?.updatedAt||x?.updated_at||x?.savedAt||x?.createdAt||x?.created_at||''));return Number.isFinite(t)?t:0};
+    const deduped=[];
+    arr.forEach(item=>{
+      if(!item||typeof item!=='object')return;
+      const idx=deduped.findIndex(x=>localIdentity(x,item));
+      if(idx<0){deduped.push(item);return;}
+      const prior=deduped[idx],t=timeOfLocal(item),pt=timeOfLocal(prior);
+      const itemHasServer=!!String(item._onlineId||'').trim()&&!!String(item._syncBaseUpdatedAt||'').trim();
+      const priorHasServer=!!String(prior._onlineId||'').trim()&&!!String(prior._syncBaseUpdatedAt||'').trim();
+      if(t>pt||(t===pt&&itemHasServer&&!priorHasServer))deduped[idx]=item;
+    });
+    arr=deduped;
+    const remoteTime=r=>{const t=Date.parse(String(r?.updated_at||r?.created_at||''));return Number.isFinite(t)?t:0};
+    const localEditTime=x=>{const t=Date.parse(String(x?.updatedAt||x?.updated_at||x?.savedAt||x?.createdAt||x?.created_at||''));return Number.isFinite(t)?t:0};
+    const applyRemote=(item,row)=>{
+      const serverPayload=row?.payload&&typeof row.payload==='object'?JSON.parse(JSON.stringify(row.payload)):{};
+      Object.assign(item,serverPayload,{_onlineId:row.id,ownerId:ownerId,ownerUsername:row.owner_username||serverPayload.ownerUsername||item.ownerUsername||null,_syncBaseUpdatedAt:row.updated_at||row.created_at||null,updatedAt:serverPayload.updatedAt||row.updated_at||row.created_at||item.updatedAt,createdAt:serverPayload.createdAt||item.createdAt||row.created_at||row.updated_at||null,reference:row.reference||serverPayload.reference||item.reference});
+      return item;
+    };
+    let allOk=true;
     for(const item of arr){
-      const payload=JSON.parse(JSON.stringify(item)); delete payload._onlineId;
-      const id=item._onlineId;
-      if(id){
-        keep.add(id);
-        const up=await sb.from(table).update({payload,total:Number(item.total||0),reference:item.reference||null,booking_date:item.bookingDate||null,updated_at:new Date().toISOString()}).eq('id',id).eq('owner_id',ownerId);
-        if(up.error)return false;
-      }else{
-        const ins=await sb.from(table).insert({owner_id:ownerId,owner_username:prof.data.username||null,payload,total:Number(item.total||0),reference:item.reference||null,booking_date:item.bookingDate||null}).select('id').single();
-        if(ins.error)return false;
-        if(ins.data?.id){item._onlineId=ins.data.id;item.ownerId=ownerId;keep.add(ins.data.id);}
-      }
-    }
-    if(existing.data){
-      for(const row of existing.data){
-        if(!keep.has(row.id)){
-          const del=await sb.from(table).delete().eq('id',row.id).eq('owner_id',ownerId);
-          if(del.error)return false;
+      if(!item||typeof item!=='object')continue;
+      const payload=JSON.parse(JSON.stringify(item)); delete payload._onlineId; delete payload._syncBaseUpdatedAt;
+      const ref=String(item.reference||'').trim();
+      const id=String(item._onlineId||'').trim();
+      let existingRow=id?byId.get(id):(ref?byRef.get(ref.toUpperCase()):null);
+      if(existingRow){
+        const base=String(item._syncBaseUpdatedAt||'').trim();
+        const serverUpdated=remoteTime(existingRow), localUpdated=localEditTime(item);
+        // If this cache predates the server version and has no explicit compare-and-swap
+        // token (legacy records), never blindly overwrite the newer remote record.
+        if(!base && serverUpdated>localUpdated){applyRemote(item,existingRow);continue;}
+        // Compare-and-swap: only update the exact server version this device loaded.
+        // If another device changed the row between our read and write, the update affects 0 rows.
+        let updateQuery=sb.from(table).update({payload,total:Number(item.total_sar??item.total??0),reference:ref||null,booking_date:item.bookingDate||null,updated_at:new Date().toISOString()}).eq('id',String(existingRow.id)).eq('owner_id',ownerId);
+        if(base)updateQuery=updateQuery.eq('updated_at',base);
+        const up=await updateQuery.select('id,updated_at').maybeSingle();
+        if(up.error){allOk=false;continue;}
+        if(up.data?.id){
+          item._onlineId=up.data.id;item.ownerId=ownerId;item._syncBaseUpdatedAt=up.data.updated_at||new Date().toISOString();
+          byId.set(String(up.data.id),Object.assign({},existingRow,{id:up.data.id,updated_at:up.data.updated_at||new Date().toISOString(),payload:payload,reference:ref||null}));
+          if(ref)byRef.set(ref.toUpperCase(),byId.get(String(up.data.id)));
+          continue;
         }
+        // Conflict: re-read the current server row. The server version wins because our
+        // compare-and-swap proves that this device was editing an older server snapshot.
+        const fresh=await sb.from(table).select('id,payload,reference,owner_username,updated_at,created_at').eq('id',String(existingRow.id)).eq('owner_id',ownerId).maybeSingle();
+        if(fresh.error||!fresh.data){allOk=false;continue;}
+        applyRemote(item,fresh.data);
+        byId.set(String(fresh.data.id),fresh.data);
+        const freshRef=String(fresh.data.reference||'').trim().toUpperCase();if(freshRef)byRef.set(freshRef,fresh.data);
+        continue;
       }
+      // No known server identity. Re-check by reference immediately before insert so a
+      // concurrent device creating the same booking is merged rather than duplicated.
+      existingRow=ref?byRef.get(ref.toUpperCase()):null;
+      if(existingRow){applyRemote(item,existingRow);continue;}
+
+      // Deletion tombstone guard: a stale device may still hold a locally cached copy after
+      // another device deleted that record and moved it to the Recycle Bin. Never resurrect
+      // such a record merely because it is absent from `vouchers`. Check the tombstone by
+      // original server id first, then by booking reference for legacy records.
+      let tombstone=null;
+      try{
+        let tombQuery=sb.from('recycle_bin').select('id,original_id,reference,payload,deleted_at').eq('owner_id',ownerId);
+        if(id)tombQuery=tombQuery.eq('original_id',id);
+        else if(ref)tombQuery=tombQuery.eq('reference',ref);
+        else tombQuery=null;
+        if(tombQuery){const tomb=await tombQuery.order('deleted_at',{ascending:false}).limit(1).maybeSingle();if(!tomb.error&&tomb.data)tombstone=tomb.data;}
+      }catch(e){}
+      if(tombstone){
+        // The server-side tombstone is authoritative. Drop the stale local copy so a later
+        // refresh cannot queue it for insertion again.
+        continue;
+      }
+
+      const ins=await sb.from(table).insert({owner_id:ownerId,owner_username:prof.data.username||null,payload,total:Number(item.total_sar??item.total??0),reference:ref||null,booking_date:item.bookingDate||null}).select('id,updated_at,created_at').maybeSingle();
+      if(ins.error){
+        // A concurrent insert may have won the race. Re-fetch by reference and adopt it.
+        if(ref){
+          const race=await sb.from(table).select('id,payload,reference,owner_username,updated_at,created_at').eq('owner_id',ownerId).eq('reference',ref).maybeSingle();
+          if(!race.error&&race.data){applyRemote(item,race.data);byId.set(String(race.data.id),race.data);byRef.set(ref.toUpperCase(),race.data);continue;}
+        }
+        allOk=false;continue;
+      }
+      if(ins.data?.id){item._onlineId=ins.data.id;item.ownerId=ownerId;item._syncBaseUpdatedAt=ins.data.updated_at||ins.data.created_at||new Date().toISOString();byId.set(String(ins.data.id),Object.assign({},ins.data,{payload:payload,reference:ref||null}));if(ref)byRef.set(ref.toUpperCase(),byId.get(String(ins.data.id)));}
+      else allOk=false;
     }
-    localStorage.setItem(key,JSON.stringify(arr));
-    return true;
+    /* Never delete a remote record merely because it is absent from this device's local cache.
+       Explicit deletes are handled by the Recycle Bin workflow. This prevents one device from
+       deleting another device's newer records during synchronization. */
+    try{localStorage.setItem(key,JSON.stringify(arr));}catch(e){console.error('[Quote sync] Local cache update failed after server sync',e);return false;}
+    return allOk;
   }
   window.syncSavedRecordKey=syncKey;
 
@@ -939,18 +1070,24 @@ function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded
       if(session){
         let p=null;
         if(navigator.onLine){
+          /* Online sessions must be authorized against the current server profile.
+             Never fall back to cached role/permission/active state while online: that
+             could keep a disabled or demoted account inside the app. Offline fallback
+             is intentionally limited to genuinely offline operation below. */
           p=await loadServer();
           if(!p){
-            /* Never discard a valid cached session merely because the network is down. */
-            const su=session.user||{};
-            const cached=Array.isArray(users)?users.find(u=>String(u.email||'').toLowerCase()===String(su.email||'').toLowerCase()):null;
-            p=cached?Object.assign({},cached,{id:su.id}):{username:String(su.email||'').split('@')[0],email:su.email||'',name:su.user_metadata?.name||String(su.email||'').split('@')[0],role:'user',active:true,id:su.id};
-            console.warn('[V2.0.1] Server profile unavailable; using cached/offline session.');
+            await sb.auth.signOut();
+            return onlineError('Your session could not be verified with the server. Please sign in again.');
           }
         }else{
           const su=session.user||{};
-          const cached=Array.isArray(users)?users.find(u=>String(u.email||'').toLowerCase()===String(su.email||'').toLowerCase()):null;
-          p=cached?Object.assign({},cached,{id:su.id}):{username:String(su.email||'').split('@')[0],email:su.email||'',name:su.user_metadata?.name||String(su.email||'').split('@')[0],role:'user',active:true,id:su.id};
+          const cached=Array.isArray(users)?users.find(u=>String(u.id||'')===String(su.id||'') && String(u.email||'').toLowerCase()===String(su.email||'').toLowerCase()):null;
+          if(!cached){
+            $('authScreen').style.display='flex';$('appRoot').style.display='none';
+            sessionStorage.removeItem(SESSION_KEY);
+            return onlineError('You are offline and this account has not been cached on this device. Reconnect to sign in.');
+          }
+          p=Object.assign({},cached,{id:su.id});
         }
         if(p.active===false){await sb.auth.signOut();return onlineError('This account is inactive. Please contact the Super Admin.');}
         currentUser=p;sessionStorage.setItem(SESSION_KEY,p.username||'');loadUserQuotes();$('authScreen').style.display='none';$('appRoot').style.display='block';applyUserUI();init();try{if(online()&&typeof window.keaV201LoadOnlineConfigAndData==='function')await window.keaV201LoadOnlineConfigAndData();}catch(e){console.warn('[Karvan] Online data load deferred:',e)}
@@ -1008,6 +1145,24 @@ function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded
     }catch(e){onlineError(e?.message||'Sign in failed. Please try again.');}
     finally{if(button){button.disabled=false;button.textContent='Sign In';}}
   };
+  /* Keep the visible app locked to the Supabase auth session. SIGNED_OUT can occur
+     after an explicit logout, remote session invalidation, or refresh failure. Do not
+     perform network work inside the auth callback itself; schedule the UI transition
+     after Supabase finishes dispatching the event. */
+  if(!sb.__karvanAuthListenerBound){
+    sb.__karvanAuthListenerBound=true;
+    sb.auth.onAuthStateChange((event)=>{
+      if(event!=='SIGNED_OUT')return;
+      setTimeout(()=>{
+        sessionStorage.removeItem(SESSION_KEY);
+        currentUser=null;quotes=[];q=null;
+        const app=document.getElementById('appRoot'),auth=document.getElementById('authScreen');
+        if(app)app.style.display='none';
+        if(auth)auth.style.display='flex';
+        const pass=document.getElementById('loginPass');if(pass)pass.value='';
+      },0);
+    });
+  }
   setTimeout(()=>window.initAuthOnline(),0);
 })();
 </script>
@@ -1025,7 +1180,7 @@ function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded
   };
   const LOCAL_KEYS={
     fx:'keaFxV201',hotels:'keaHotelsV201',visaTypes:'keaVisaV201',
-    airlines:'keaAirlinesV201',transport:'keaTransportV201',extras:'keaExtrasV201'
+    airlines:'keaAirlinesV201',transport:'keaTransportV201',extras:'keaExtrasV201',appearanceDay:'keaThemeV1_day',appearanceNight:'keaThemeV1_night'
   };
   let hydrating=false;
 
@@ -1072,7 +1227,13 @@ function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded
     try{
       for(const [localName,remoteKey] of Object.entries(KEYMAP)){
         const remote=rows[remoteKey];
-        if(remote===undefined||remote===null)continue;
+        if(remote===undefined||remote===null){
+           if((remoteKey==='appearance_day'||remoteKey==='appearance_night')&&admin()){
+             const mode=remoteKey==='appearance_night'?'night':'day';const localRaw=localStorage.getItem(mode==='night'?'keaThemeV1_night':'keaThemeV1_day');
+             if(localRaw){let localAppearance=null;try{localAppearance=JSON.parse(localRaw)}catch(e){} if(localAppearance&&typeof localAppearance==='object')await upsertConfig(remoteKey,localAppearance);}
+           }
+           continue;
+         }
         let empty=(Array.isArray(remote)&&remote.length===0);
         if(remoteKey==='fx')empty=!Number(remote);
         const local=window[localName];
@@ -1089,13 +1250,15 @@ function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded
             window.hotels=hotels;
             localStorage.setItem('keaHotelsV201',JSON.stringify(hotels));
             if(!current && admin()) await publishCanonicalHotels();
-          } else if(localName==='hotelCatalogVersion') {
+          } else if(localName==='appearanceDay'||localName==='appearanceNight') {
+             let appearanceRemote=remote;if(typeof appearanceRemote==='string'){try{appearanceRemote=JSON.parse(appearanceRemote)}catch(e){appearanceRemote=null}}
+             if(appearanceRemote&&typeof appearanceRemote==='object'&&appearanceRemote.background&&appearanceRemote.surface&&appearanceRemote.primary&&appearanceRemote.accent&&appearanceRemote.danger){
+               const mode=localName==='appearanceNight'?'night':'day';localStorage.setItem(mode==='night'?'keaThemeV1_night':'keaThemeV1_day',JSON.stringify(appearanceRemote));window.applySavedAppearance?.(mode);
+             }
+           } else if(localName==='hotelCatalogVersion') {
             window.hotelCatalogVersion=String(remote||'');
           } else window[localName]=Array.isArray(remote)?remote:local;
           if(localName==='visaTypes' && Array.isArray(window.visaTypes)){
-            let changed=false;
-            window.visaTypes.forEach(v=>{if(window.appEnsureUmrahDurations(v))changed=true});
-            if(changed && admin()) await upsertConfig('visaTypes',window.visaTypes);
           }
         }
       }
@@ -1122,8 +1285,13 @@ function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded
 
   /* Config changes: one authoritative save path. localStorage is the offline cache;
      Supabase is the online source of truth and failed online writes are queued. */
+  function captureSharedConfig(){return {fx:Number(window.fx)||75,hotels:JSON.parse(JSON.stringify(window.hotels||hotels||[])),visaTypes:JSON.parse(JSON.stringify(window.visaTypes||visaTypes||[])),airlines:JSON.parse(JSON.stringify(window.airlines||airlines||[])),transport:JSON.parse(JSON.stringify(window.transport||transport||[])),extras:JSON.parse(JSON.stringify(window.extras||extras||[]))}}
+  function restoreSharedConfig(s){window.fx=s.fx;fx=s.fx;window.hotels=hotels=s.hotels;window.visaTypes=visaTypes=s.visaTypes;window.airlines=airlines=s.airlines;window.transport=transport=s.transport;window.extras=extras=s.extras}
+  function commitSharedConfig(before){const ok=window.saveData();if(!ok){restoreSharedConfig(before);return false}return true}
   window.saveData=function(){
     if(online()&&!admin())return false;
+    const keys=['keaFxV201','keaHotelsV201','keaVisaV201','keaAirlinesV201','keaTransportV201','keaExtrasV201'];
+    const previous=Object.fromEntries(keys.map(k=>[k,localStorage.getItem(k)]));
     try{
       localStorage.setItem('keaFxV201',String(Number(window.fx)||75));
       localStorage.setItem('keaHotelsV201',JSON.stringify(window.hotels||hotels||[]));
@@ -1131,11 +1299,13 @@ function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded
       localStorage.setItem('keaAirlinesV201',JSON.stringify(window.airlines||airlines||[]));
       localStorage.setItem('keaTransportV201',JSON.stringify(window.transport||transport||[]));
       localStorage.setItem('keaExtrasV201',JSON.stringify(window.extras||extras||[]));
-      const keys=['keaFxV201','keaHotelsV201','keaVisaV201','keaAirlinesV201','keaTransportV201','keaExtrasV201'];
       if(typeof window.keaV201QueueWrite==='function')keys.forEach(k=>window.keaV201QueueWrite('config',k));
       if(typeof window.keaV201FlushSyncQueue==='function')window.keaV201FlushSyncQueue().catch(e=>console.warn('[Karvan config sync]',e));
       return true;
-    }catch(e){console.error('[Karvan config save]',e);return false;}
+    }catch(e){
+      keys.forEach(k=>{try{if(previous[k]===null)localStorage.removeItem(k);else localStorage.setItem(k,previous[k])}catch(_){}});
+      console.error('[Karvan config save]',e);return false;
+    }
   };
 
   /* Exchange rate: single source of truth, default 75. */
@@ -1157,11 +1327,8 @@ function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded
   window.appVisaIsOnly=function(v){return String(v?.name||'').trim().toLowerCase()==='only visa'};
   window.appVisaIsUmrah=function(v){return /^umrah(?:\s+visa)?$/i.test(String(v?.name||'').trim())};
   window.appEnsureUmrahDurations=function(v){
-    if(!window.appVisaIsUmrah(v))return false;
-    const wanted=[15,21,30,90];
-    const current=Array.isArray(v.durations)?v.durations:[];
-    v.durations=wanted.map(days=>({days,pkr:0}));
-    return current.length!==4 || wanted.some((d,i)=>Number(current[i]?.days)!==d || Number(current[i]?.pkr||0)!==0);
+    /* Legacy compatibility only: do not overwrite Super Admin-edited Umrah duration/category data. */
+    return false;
   }
   window.appFindGroup=function(v,n){
     const rules=(v?.adultRules||[]).filter(r=>r.active!==false&&Number(r.min)>0&&Number(r.max)>=Number(r.min));
@@ -1206,20 +1373,36 @@ function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded
     const n=Number(x?.total_sar??x?.total??0);
     return Number.isFinite(n)?n:0;
   };
+  // Historical records use their saved component snapshot when available. This prevents
+  // later Settings/catalog price changes from silently changing invoices and summaries.
+  // Older records without a snapshot retain the legacy calculation fallback.
+  window.quoteDisplayTotals=function(x){
+    const s=x?.costSnapshot;
+    if(s&&typeof s==='object'&&Number.isFinite(Number(s.grand))){
+      const n=k=>{const v=Number(s[k]);return Number.isFinite(v)?v:0};
+      return {av:n('av'),cv:n('cv'),iv:n('iv'),adultHotel:n('adultHotel'),childHotel:n('childHotel'),at:n('at'),ct:n('ct'),it:n('it'),trans:n('trans'),ex:n('ex'),adult:n('adult'),child:n('child'),infant:n('infant'),hotel:n('hotel'),grand:n('grand'),stays:Array.isArray(s.stays)?s.stays.map(x=>({city:String(x?.city||''),hotel:String(x?.hotel||''),provider:String(x?.provider||''),location:String(x?.location||''),distance:String(x?.distance||''),in:String(x?.in||''),out:String(x?.out||''),cost:Number.isFinite(Number(x?.cost))?Number(x.cost):0})) : []};
+    }
+    return typeof window.totals==='function'?window.totals(x):{av:0,cv:0,iv:0,adultHotel:0,childHotel:0,at:0,ct:0,it:0,trans:0,ex:0,adult:0,child:0,infant:0,hotel:0,grand:0};
+  };
 
   window.saveVisa=function(index){
+    if(!admin())return msg('Only Super Admin can modify visa settings.');
+    const before=captureSharedConfig();
     const durations=[...document.querySelectorAll('#vmDurations .grid2')].map(r=>({days:Number(r.querySelector('.vmdays')?.value)||0,pkr:Number(r.querySelector('.vmpkr')?.value)||0})).filter(d=>d.days>0);
     const adultRules=[...document.querySelectorAll('#vmGroups .grid')].map(r=>({label:(r.querySelector('.vmglabel')?.value||'').trim(),min:Number(r.querySelector('.vmgmin')?.value)||0,max:Number(r.querySelector('.vmgmax')?.value)||0,price:Number(r.querySelector('.vmgprice')?.value)||0,active:true})).filter(r=>r.label&&r.min>0&&r.max>=r.min);
-    if(!document.getElementById('vmName')?.value.trim())return alert('Visa type is required.');
+    const visaName=document.getElementById('vmName')?.value.trim()||'';if(!visaName)return alert('Visa type is required.');if(visaName.length>80)return alert('Visa type name is too long.');const visaDuplicate=visaTypes.findIndex((x,i)=>i!==index&&String(x?.name||'').trim().toLowerCase()===visaName.toLowerCase());if(visaDuplicate!==-1)return alert('A visa type with this name already exists.');
     const sorted=[...adultRules].sort((a,b)=>a.min-b.min);
     for(let i=1;i<sorted.length;i++){if(sorted[i].min<=sorted[i-1].max)return alert('Passenger group ranges overlap. '+sorted[i-1].label+' and '+sorted[i].label+' cannot overlap.')}
     if(!durations.length)return alert('Add at least one duration/category.');
+    if(durations.some(d=>!Number.isInteger(Number(d.days))||Number(d.days)<1))return alert('Every duration/category must be a whole number of days greater than 0.');
+    if(new Set(durations.map(d=>Number(d.days))).size!==durations.length)return alert('Duration/category days cannot be duplicated.');
+    if(durations.some(d=>Number(d.pkr)<0))return alert('Duration/category pricing cannot be negative.');
     if(!adultRules.length)return alert('Add at least one passenger group rule.');
-    const name=document.getElementById('vmName').value.trim();
+    const name=visaName;
     const v={name,adult:[0,0,0,0,0],adultRules,durations,child:'same_as_adult',infant:500,active:document.getElementById('vmActive')?.value==='1'};
     adultRules.forEach(r=>{if(r.min>=5&&r.max>=r.min)v.adult[0]=r.price;else if(r.min===4&&r.max===4)v.adult[1]=r.price;else if(r.min===3&&r.max===3)v.adult[2]=r.price;else if(r.min===2&&r.max===2)v.adult[3]=r.price;else if(r.min===1&&r.max===1)v.adult[4]=r.price});
     if(index===null)visaTypes.push(v);else visaTypes[index]=v;
-    saveData();closeModal();renderVisa();
+    if(!commitSharedConfig(before))return alert('Changes could not be saved. Nothing was changed.');closeModal();renderVisa();
   };
 
   /* Hotel/airline/transport/extra CRUD. Only Super Admin may mutate shared configuration. */
@@ -1227,7 +1410,7 @@ function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded
     if(!admin())return msg('Only Super Admin can delete hotels.');
     if(!hotels[i])return;
     if(!confirm('Delete this hotel?')||!confirm('Confirm again: permanently remove this hotel?'))return;
-    hotels.splice(i,1);saveData();renderHotels();
+    const before=captureSharedConfig();hotels.splice(i,1);if(!commitSharedConfig(before))return alert('Changes could not be saved. Nothing was changed.');renderHotels();
   };
   window.addAirline=function(){
     if(!admin())return msg('Only Super Admin can add airlines.');
@@ -1244,18 +1427,19 @@ function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded
     if(!admin())return msg('Only Super Admin can modify airlines.');
     const name=$('amEditName')?.value.trim()||$('amAddName')?.value.trim()||'', short=$('amEditShort')?.value.trim()||$('amAddShort')?.value.trim()||'', code=($('amEditCode')?.value.trim()||$('amAddCode')?.value.trim()||'').toUpperCase();
     if(!name||!short||!code)return msg('Airline name, short name and IATA code are required.');
+    if(name.length>80||short.length>40)return msg('Airline name or short name is too long.');
     if(!/^[A-Z0-9]{2,3}$/.test(code))return msg('IATA code must contain 2–3 letters/numbers.');
-    const duplicate=airlines.findIndex((a,i)=>i!==index&&String(a[2]||'').toUpperCase()===code);
-    if(duplicate!==-1)return msg('That IATA code is already assigned to another airline.');
-    const row=[name,short,code];
+    const duplicate=airlines.findIndex((a,i)=>i!==index&&(String(a[2]||'').toUpperCase()===code||String(a[0]||'').trim().toLowerCase()===name.toLowerCase()));
+    if(duplicate!==-1)return msg('That airline name or IATA code is already assigned to another airline.');
+    const row=[name,short,code],before=captureSharedConfig();
     if(index===null)airlines.push(row);else if(airlines[index])airlines[index]=row;else return msg('Airline no longer exists.');
-    saveData();closeModal();renderAirlines();
+    if(!commitSharedConfig(before))return msg('Changes could not be saved. Nothing was changed.');closeModal();renderAirlines();
   };
   window.deleteAirline=async function(i){
     if(!admin())return msg('Only Super Admin can delete airlines.');
     if(!airlines[i])return;
     if(!confirm('Delete this airline?')||!confirm('Confirm again: permanently remove this airline?'))return;
-    airlines.splice(i,1);saveData();renderAirlines();
+    const before=captureSharedConfig();airlines.splice(i,1);if(!commitSharedConfig(before))return alert('Changes could not be saved. Nothing was changed.');renderAirlines();
   };
   window.openAirlineManagement=function(){
     if(!isSuperAdmin())return msg('Only Super Admin can access Airline Management.');
@@ -1282,7 +1466,7 @@ function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded
     if(!admin())return msg('Only Super Admin can delete '+kind+'.');
     const arr=kind==='transport'?transport:extras;if(!arr[i])return;
     if(!confirm('Delete this '+kind+' item?')||!confirm('Confirm again: permanently remove it?'))return;
-    arr.splice(i,1);saveData();renderSimple(kind);
+    const before=captureSharedConfig();arr.splice(i,1);if(!commitSharedConfig(before))return alert('Changes could not be saved. Nothing was changed.');renderSimple(kind);
   };
 
   /* Step 2 security model: role + explicit per-page permissions + active kill switch. */
@@ -1336,17 +1520,19 @@ function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded
     try{
       if(!superMode){
         const idx=userMgmtCurrentIndex();if(idx<0)return msg('Current user account was not found.');
-        const old=currentUser.username;
-        currentUser=Object.assign({},currentUser,{name});users[idx]=Object.assign({},users[idx],{name,firstName:name.split(/\s+/)[0]||name,lastName:name.split(/\s+/).slice(1).join(' ')});
-        userMgmtLocalSave();sessionStorage.setItem(SESSION_KEY,currentUser.username);
+        const nextName=name,parts=nextName.split(/\s+/),nextFirst=parts[0]||nextName,nextLast=parts.slice(1).join(' ');
         if(window.KARVAN_ONLINE?.enabled){
           const {data:{user}}=await sb().auth.getUser();
-          if(user){const parts=name.split(/\s+/);const pr=await sb().from('profiles').update({first_name:parts[0]||name,last_name:parts.slice(1).join(' '),updated_at:new Date().toISOString()}).eq('id',user.id);if(pr.error)throw pr.error;
+          if(user){
+            const pr=await sb().from('profiles').update({first_name:nextFirst,last_name:nextLast,updated_at:new Date().toISOString()}).eq('id',user.id);
+            if(pr.error)throw pr.error;
             if(password){const ar=await sb().auth.updateUser({password});if(ar.error)throw ar.error;}
           }
         }
+        currentUser=Object.assign({},currentUser,{name:nextName});
+        users[idx]=Object.assign({},users[idx],{name:nextName,firstName:nextFirst,lastName:nextLast});
         if(password)users[idx].passHash=await hashText(password);
-        userMgmtLocalSave();
+        userMgmtLocalSave();sessionStorage.setItem(SESSION_KEY,currentUser.username);
         applyUserUI();closeUserMgmtModal();renderUserManagement();return msg('Your account was updated successfully.');
       }
       if(!isSuperAdmin())return msg('Only Super Admin can manage users.');
@@ -1384,8 +1570,11 @@ function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded
   window.deleteManagedUser=async function(i){
     if(!isSuperAdmin())return msg('Only Super Admin can delete users.');const u=users[i];if(!u)return;if(String(u.username||'').toLowerCase()==='umar')return msg('The primary Super Admin cannot be deleted.');if(!confirm('Delete user '+u.username+'?'))return;if(!confirm('Confirm again: permanently remove this user from the application?'))return;
     try{
-      if(window.KARVAN_ONLINE?.enabled && u.id){const rpc=await sb().rpc('admin_delete_user',{p_user_id:u.id});if(rpc.error){const del=await sb().from('profiles').delete().eq('id',u.id);if(del.error)throw del.error;}}
-      localStorage.removeItem('keaQuotesV201_'+u.username);users.splice(i,1);userMgmtLocalSave();await renderUserManagement();logActivity('User deleted',`Deleted user ${u.username}.`);msg('User deleted.');
+      if(window.KARVAN_ONLINE?.enabled && u.id){
+        const rpc=await sb().rpc('admin_delete_user',{p_user_id:u.id});
+        if(rpc.error)throw new Error('Online user deletion is not available because the required admin_delete_user service is not configured. No local user data was removed.');
+      }
+      localStorage.removeItem('keaQuotesV201_'+u.username);if(u.id)localStorage.removeItem('keaQuotesV201_'+u.id);users.splice(i,1);userMgmtLocalSave();await renderUserManagement();logActivity('User deleted',`Deleted user ${u.username}.`);msg('User deleted.');
     }catch(e){msg(e?.message||'Unable to delete user.');}
   };
   window.renderUserManagement=function(){
@@ -1402,7 +1591,7 @@ function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded
 
     // Never make navigation wait on Supabase. Refresh the user list in the background only.
     if(superAdmin && window.KARVAN_ONLINE?.enabled && navigator.onLine){
-      const refresh=sb().from('profiles').select('*').order('created_at',{ascending:true}).range(0,24);
+      const refresh=fetchAllRows(()=>sb().from('profiles').select('*').order('created_at',{ascending:true}));
       Promise.race([
         refresh,
         new Promise(resolve=>setTimeout(()=>resolve({data:null,error:new Error('User list refresh timeout')}),3500))
@@ -1497,27 +1686,44 @@ function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded
     const payload=JSON.parse(JSON.stringify(item));delete payload._onlineId;delete payload._ownerId;
     const ins=await sb().from('recycle_bin').insert({owner_id:ownerId,owner_username:ownerName,record_type:type==='voucher'?'voucher':'quote',original_id:originalId,payload,deleted_by:user.id}).select('id').single();
     if(ins.error)throw ins.error;
+    const recycleId=ins.data?.id;
     if(originalId){
       const table='vouchers';
-      const del=await sb().from(table).delete().eq('id',originalId);
-      if(del.error)throw del.error;
+      const delQuery=sb().from(table).delete().eq('id',originalId);
+      const del=admin()?await delQuery:await delQuery.eq('owner_id',ownerId);
+      if(del.error){
+        // Keep the two-step operation failure-safe: if the original record could not be
+        // deleted, remove the newly created recycle entry so the record is not duplicated.
+        if(recycleId){
+          const rollback=await sb().from('recycle_bin').delete().eq('id',recycleId);
+          if(rollback.error)throw new Error('The record could not be deleted safely. The Recycle Bin entry may still exist; contact the Super Admin before retrying.');
+        }
+        throw del.error;
+      }
     }
-    return ins.data.id;
+    return recycleId;
   }
   window.deleteSavedRecord=async function(type,i){
     if(!currentUser)return;
+    if(!online()){alert('Reconnect to the Internet before deleting a record. The online Recycle Bin requires a server connection.');return;}
     if(type==='voucher'&&!admin()){alert('Normal users cannot delete booking invoices or bookings.');return;}
     const arr=quotes,item=recordRow(i);if(!item)return; const actualIndex=arr.indexOf(item);if(actualIndex<0)return;
     if(!confirm('Delete this '+(type==='voucher'?'booking invoice':'calculation summary')+'?'))return;
     if(!confirm('This record will be moved to the Recycle Bin. Continue?'))return;
     try{
-      await onlineRecycle(type,item);arr.splice(actualIndex,1);
+      const recycleId=await onlineRecycle(type,item);
+      if(!recycleId)throw new Error('The record could not be moved to the Recycle Bin.');
+      arr.splice(actualIndex,1);
+      // Persist the local cache after the server-side delete succeeds. Otherwise a refresh
+      // could resurrect the deleted record from the old local snapshot.
+      if(typeof window.saveQuotes==='function')window.saveQuotes();
       logActivity('Record deleted',`Deleted ${type==='voucher'?'booking':'calculation summary'} ${String(item.reference||'record')} and moved it to the Recycle Bin.`);
       renderRecords(type==='voucher'?'invoice':'summary');dashboard();await renderRecycleBin();
     }catch(e){alert('Delete failed: '+e.message)}
   };
   window.renderRecycleBin=async function(){
     if(!admin())return;
+    if(!online()){const el=$('recycleBin');if(el)el.innerHTML='<div class=\"muted\">Reconnect to view the online Recycle Bin.</div>';return;}
     const {data,error}=await sb().from('recycle_bin').select('*').order('deleted_at',{ascending:false});
     if(error){$('recycleBin').innerHTML='<div class="notice">'+esc(error.message)+'</div>';return}
     if(!data?.length){$('recycleBin').innerHTML='<div class="muted">Online Recycle Bin is empty.</div>';return}
@@ -1530,9 +1736,34 @@ function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded
     const payload=r.payload||{};
     const restoreRow={owner_id:r.owner_id,owner_username:r.owner_username,payload,total:Number(payload.total||0),reference:payload.reference||null,booking_date:payload.bookingDate||null};
     if(r.original_id) restoreRow.id=r.original_id;
-    const ins=await sb().from(table).insert(restoreRow).select('id').single();
+    // Recovery must not create a second live booking if another device already recreated
+    // the same identity while the Recycle Bin entry was pending. Prefer the existing live
+    // server row and only remove the tombstone after confirming that identity is present.
+    let existingLive=null;
+    if(r.original_id){
+      const live=await sb().from(table).select('id').eq('id',String(r.original_id)).eq('owner_id',String(r.owner_id)).maybeSingle();
+      if(!live.error&&live.data)existingLive=live.data;
+    }
+    if(!existingLive&&restoreRow.reference){
+      const live=await sb().from(table).select('id').eq('owner_id',String(r.owner_id)).eq('reference',String(restoreRow.reference)).maybeSingle();
+      if(!live.error&&live.data)existingLive=live.data;
+    }
+    let ins={data:existingLive,error:null};
+    if(!existingLive)ins=await sb().from(table).insert(restoreRow).select('id').single();
     if(ins.error)return alert(ins.error.message);
-    await sb().from('recycle_bin').delete().eq('id',id);
+    const restoredId=ins.data?.id||restoreRow.id||null;
+    const rem=await sb().from('recycle_bin').delete().eq('id',id);
+    if(rem.error){
+      // Do not leave a successful restore plus a live recycle entry (duplicate state).
+      // Best-effort rollback keeps the Recycle Bin authoritative if its removal fails.
+      if(restoredId){
+        const rollback=await sb().from(table).delete().eq('id',restoredId);
+        if(rollback.error){
+          return alert('Recovery completed, but the Recycle Bin entry could not be removed and automatic rollback also failed. Contact the Super Admin before retrying.');
+        }
+      }
+      return alert('Recovery could not be completed safely because the Recycle Bin entry could not be removed.');
+    }
     await loadServerData();await renderRecycleBin();
   };
   window.permanentDeleteOnline=async function(id){
@@ -1628,7 +1859,8 @@ function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded
   });
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',cleanFormExit);else cleanFormExit();
- new MutationObserver(cleanFormExit).observe(document.documentElement,{childList:true,subtree:true});
+ // Run the cleanup once at load; do not observe the whole document. A global observer can remove
+ // legitimate close/exit controls that are added later by unrelated dialogs or the booking wizard.
 })();
 </script>
 
@@ -1644,7 +1876,7 @@ function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded
 (function(){
   "use strict";
   const OUTBOX="keaV201_syncQueue";
-  const CONFIG_KEYS=new Set(["keaHotelsV201","keaVisaV201","keaAirlinesV201","keaTransportV201","keaExtrasV201","keaFxV201"]);
+  const CONFIG_KEYS=new Set(["keaHotelsV201","keaVisaV201","keaAirlinesV201","keaTransportV201","keaExtrasV201","keaFxV201","keaThemeV1_day","keaThemeV1_night"]);
   const RECORD_PREFIXES=["keaQuotesV201_"];
   const read=(k,f)=>{try{const v=JSON.parse(localStorage.getItem(k)||"null");return v==null?f:v}catch(e){return f}};
   const write=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
@@ -1657,12 +1889,35 @@ function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded
   async function syncRecord(key){if(!RECORD_PREFIXES.some(p=>String(key).startsWith(p))||!onlineReady()||typeof window.syncSavedRecordKey!=="function")return false;try{return (await window.syncSavedRecordKey(key))===true;}catch(e){return false;}}
   window.keaV201QueueWrite=(kind,key)=>{if(kind==='config'||kind==='record')qPut(kind,key);};
   window.keaV201QueueRemove=(kind,key)=>{if(kind==='config'||kind==='record')qDel(kind,key);};
+  let flushPromise=null;
   window.keaV201FlushSyncQueue=async function(){
-    if(!onlineReady())return {sent:0,remaining:qRead().length};
-    const q=qRead(),remain=[],seen=new Set();let sent=0;
-    for(const item of q){const sig=item.kind+'|'+item.key;if(seen.has(sig))continue;seen.add(sig);const ok=item.kind==='config'?await syncConfig(item.key):await syncRecord(item.key);if(ok){sent++;}else remain.push(item);}
-    qWrite(remain);
-    return {sent,remaining:remain.length};
+    if(flushPromise)return flushPromise;
+    flushPromise=(async()=>{
+      if(!onlineReady())return {sent:0,remaining:qRead().length};
+      const started=qRead(),remain=[],seen=new Set();let sent=0;
+      for(const item of started){
+        const sig=item.kind+'|'+item.key;
+        if(seen.has(sig))continue;
+        seen.add(sig);
+        let ok=false;
+        try{ok=item.kind==='config'?await syncConfig(item.key):await syncRecord(item.key);}catch(e){ok=false;}
+        if(ok){sent++;}else remain.push(item);
+      }
+      /* Merge against the queue as it exists now. A save can enqueue new work while the
+         current network sync is awaiting Supabase. Never replace that newer queue state
+         with the stale snapshot captured at the beginning of this flush. */
+      const current=qRead(),pending=new Map();
+      [...current,...remain].forEach(item=>{
+        if(!item||!item.kind||!item.key)return;
+        const sig=item.kind+'|'+item.key;
+        const prior=pending.get(sig);
+        if(!prior||Number(item.queuedAt||0)>=Number(prior.queuedAt||0))pending.set(sig,item);
+      });
+      const finalQueue=Array.from(pending.values());
+      qWrite(finalQueue);
+      return {sent,remaining:finalQueue.length};
+    })().finally(()=>{flushPromise=null;});
+    return flushPromise;
   };
   window.keaV201SyncStatus=function(){return {online:navigator.onLine&&!!window.KARVAN_ONLINE?.sb,pending:qRead().length};};
   window.addEventListener('offline',()=>{document.documentElement.setAttribute('data-connectivity','offline');console.info('[V2.0.1] Offline mode enabled; local cache retained until online sync.');});
@@ -1838,15 +2093,35 @@ function init(){loadUserQuotes();dashboard();/* Management lists are lazy-loaded
   window.importBackup=function(ev){
     const f=ev.target.files?.[0];if(!f)return;const input=ev.target;
     const r=new FileReader();r.onload=()=>{try{
-      const d=JSON.parse(r.result);if(d?.backupType!=='Karvan-e-Asal'||!d.local||typeof d.local!=='object')throw new Error('Invalid Karvan e Asal backup file.');
+      const d=JSON.parse(r.result);
+      if(!d||d.backupType!=='Karvan-e-Asal'||!/^\d+\.\d+\.\d+$/.test(String(d.version||''))||!d.local||typeof d.local!=='object'||Array.isArray(d.local))throw new Error('Invalid Karvan e Asal backup file.');
+      const localEntries=Object.entries(d.local);
+      if(localEntries.length>2000)throw new Error('Backup contains too many entries and was rejected.');
+      for(const [k,v] of localEntries){
+        if(typeof k!=='string'||k.length>180||typeof v!=='string'||v.length>5000000)throw new Error('Backup contains invalid or oversized data.');
+        if(!/^[A-Za-z0-9_.:-]+$/.test(k))throw new Error('Backup contains an invalid storage key.');
+        if(k.startsWith('keaQuotesV201_')){let parsed;try{parsed=JSON.parse(v)}catch{throw new Error('Backup contains invalid booking data.')}if(!Array.isArray(parsed)||parsed.length>5000||parsed.some(x=>!x||typeof x!=='object'||Array.isArray(x)))throw new Error('Backup contains invalid booking data.');}
+      }
       const owner=USER();
       if(!SUPER() && (d.scope!=='user'||(d.ownerId&&String(d.ownerId)!==String(currentUser?.id))||(!d.ownerId&&String(d.owner||'').toLowerCase()!==owner)))throw new Error('This backup belongs to another user or is a company backup. Normal users can restore only their own backup.');
+      const companyAllowed=new Set(['keaFxV201','keaHotelsV201','keaVisaV201','keaAirlinesV201','keaTransportV201','keaExtrasV201','keaV201Architecture','keaV201_syncQueue']);
+      if(SUPER()){
+        for(const k of localEntries.map(([key])=>key)){
+          if(k==='keaV201_preRestoreBackup')continue;
+          if(k.startsWith('keaQuotesV201_'))continue;
+          if(!companyAllowed.has(k))throw new Error('Backup contains an unsupported company storage key.');
+        }
+        if(d.scope!=='company'&&d.scope!=='user')throw new Error('Invalid backup scope.');
+      }
       if(!confirm('Restore this backup? A safety copy of your current local records will be created first.')){input.value='';return;}
       const safety={createdAt:new Date().toISOString(),owner,local:{}};
       [ownKey('keaQuotesV201')].forEach(k=>{const v=localStorage.getItem(k);if(v!==null)safety.local[k]=v});
       localStorage.setItem('keaV201_preRestoreBackup',JSON.stringify(safety));
       if(SUPER()){
-        Object.entries(d.local).forEach(([k,v])=>{if(k!=='keaV201_preRestoreBackup')localStorage.setItem(k,String(v))});
+        Object.entries(d.local).forEach(([k,v])=>{
+          if(k==='keaV201_preRestoreBackup')return;
+          if(k.startsWith('keaQuotesV201_')||companyAllowed.has(k))localStorage.setItem(k,String(v));
+        });
       }else{
         const allowed=[ownKey('keaQuotesV201')];
         allowed.forEach(k=>{if(Object.prototype.hasOwnProperty.call(d.local,k))localStorage.setItem(k,String(d.local[k]))});
@@ -1942,6 +2217,11 @@ html,body{min-height:100%;}
     return q;
   }
   function qKey(){return 'keaQuotesV201_'+(ownerId()||String(window.currentUser?.username||'guest').toLowerCase());}
+  function financialFingerprint(x){
+    const qx=x||{},pick=(v)=>JSON.parse(JSON.stringify(v??null));
+    return JSON.stringify({adults:+(qx.adults||0),childBed:+(qx.childBed||0),childNoBed:+(qx.childNoBed||0),infants:+(qx.infants||0),visa:String(qx.visa||''),visaDuration:+(qx.visaDuration||0),exchange_rate:+(qx.exchange_rate||0),stays:(qx.stays||[]).map(s=>({city:s?.city||'',hotel:s?.hotel||'',room:s?.room||'',rooms:+(s?.rooms||0),allocationMode:s?.allocationMode||'',roomAllocations:pick(s?.roomAllocations||[])})),tickets:pick(qx.tickets||{}),transport:pick(qx.transport||[]),extras:pick(qx.extras||[])});
+  }
+  window.keaFinancialFingerprint=financialFingerprint;
   function uniqueRef(prefix='KEA'){
     // Step 8: collision-proof reference generation. Never use sequential/time-only
     // references; check all currently known Quote references before accepting one.
@@ -1973,9 +2253,12 @@ html,body{min-height:100%;}
     x.ownerId=x.ownerId||x.owner_id||ownerId()||null;
     x.ownerUsername=x.ownerUsername||x.owner_username||window.currentUser?.username||null;
     x.reference=String(x.reference||'').trim()||uniqueRef(x.status==='draft'?'CAL':'KEA');
-    x.total=money(x.total??x.total_sar??0);
     x.total_sar=money(x.total_sar??x.total);
-    x.total_pkr=money(x.total_pkr??(x.total_sar*x.exchange_rate));
+    x.total=money(x.total_sar);
+    // PKR is a derived representation of the frozen SAR total. Always normalize it
+    // from the stored SAR total + frozen exchange rate so stale/corrupt PKR values
+    // cannot silently disagree with the booking's canonical financial total.
+    x.total_pkr=money(x.total_sar*x.exchange_rate);
     if(Array.isArray(x.stays)){x.stays.forEach(st=>{if(!Array.isArray(st.roomAllocations))return;let nextAdults=0,nextChildren=0;const eligible=Number(x.adults||0)+Number(x.childBed||0);st.roomAllocations.forEach(r=>{if(!Array.isArray(r.occupantIds))r.occupantIds=[];if(!r.occupantIds.length){for(let n=0;n<Number(r.adults||0)&&nextAdults<Number(x.adults||0);n++)r.occupantIds.push(nextAdults++);for(let n=0;n<Number(r.childBed||0)&&nextChildren<Number(x.childBed||0);n++)r.occupantIds.push(Number(x.adults||0)+nextChildren++);}});});}
     normalizePayment(x);
     x.updatedAt=x.updatedAt||x.updated_at||x.savedAt||new Date().toISOString();
@@ -2107,15 +2390,29 @@ html,body{min-height:100%;}
     const hotelValid=typeof window.keaV201ValidateHotelBooking==='function'?window.keaV201ValidateHotelBooking():{valid:true};
     if(!hotelValid.valid){alert(hotelValid.message||hotelValid.reason||'Please correct the hotel booking details before saving.');return;}
     const calc=window.keaV3Calculate(window.q);
-    if(!['draft','confirmed','ongoing','completed','cancelled'].includes(String(window.q.status||'')))window.q.status='draft'; window.q.total=calc.grand; window.q.total_sar=calc.grand; window.q.exchange_rate=calc.exchange_rate; window.q.total_pkr=calc.total_pkr;
-    window.q.amount_paid=money2(window.q.amount_paid||0);if(typeof window.normalizePayment==='function')window.normalizePayment(window.q);
+    if(!['draft','confirmed','ongoing','completed','cancelled'].includes(String(window.q.status||'')))window.q.status='draft';
+    const arr=Array.isArray(window.quotes)?window.quotes:[];
+    const editOnlineId=String(window.q._onlineId||'').trim(),editReference=String(window.q.reference||'').trim().toUpperCase();
+    let idx=-1;if(editOnlineId)idx=arr.findIndex(x=>String(x?._onlineId||'').trim()===editOnlineId);
+    if(idx<0&&editReference)idx=arr.findIndex(x=>String(x?.reference||'').trim().toUpperCase()===editReference);
+    if(idx<0&&Number.isInteger(window.q._editIndex)&&arr[window.q._editIndex])idx=window.q._editIndex;
+    const existing=idx>=0?arr[idx]:null;
+    const preserve=!!existing&&!!window.q._financialFingerprint&&window.q._financialFingerprint===window.keaFinancialFingerprint(window.q);
+    if(preserve){
+      window.q.total=Number(existing.total??existing.total_sar??0)||0;window.q.total_sar=Number(existing.total_sar??existing.total??0)||0;
+      window.q.exchange_rate=Number(existing.exchange_rate||75)||75;window.q.total_pkr=Number(existing.total_pkr??window.q.total_sar*window.q.exchange_rate)||0;
+      if(existing.costSnapshot)window.q.costSnapshot=JSON.parse(JSON.stringify(existing.costSnapshot));
+    }else{
+      window.q.total=calc.grand;window.q.total_sar=calc.grand;window.q.exchange_rate=calc.exchange_rate;window.q.total_pkr=calc.total_pkr;
+      window.q.costSnapshot={av:money2(calc.av),cv:money2(calc.cv),iv:money2(calc.iv),adultHotel:money2(calc.adultHotel),childHotel:money2(calc.childHotel),at:money2(calc.at),ct:money2(calc.ct),it:money2(calc.it),trans:money2(calc.trans),ex:money2(calc.ex),adult:money2(calc.adult),child:money2(calc.child),infant:money2(calc.infant),hotel:money2(calc.hotel),grand:money2(calc.grand),stays:(window.q.stays||[]).map(s=>{const h=window.hotelObj?.(s);return {city:String(s?.city||''),hotel:String(s?.hotel||''),provider:String(s?.provider||''),location:String(h?.[2]||''),distance:String(h?.[3]||''),in:String(s?.in||''),out:String(s?.out||''),cost:money2(window.hotelCost?.(s)||0)}})};
+    }
+    window.q.amount_paid=money2(window.q.amount_paid||0);window.normalizePayment?.(window.q);
     window.q.updatedAt=new Date().toISOString(); window.q.createdAt=window.q.createdAt||window.q.updatedAt;
     window.q.ownerId=typeof ownerId==='function'?ownerId():window.currentUser?.id||null;
     window.q.ownerUsername=window.currentUser?.username||null;
-    const arr=Array.isArray(window.quotes)?window.quotes:[]; const idx=Number.isInteger(window.q._editIndex)?window.q._editIndex:-1;
     const oldStatus=idx>=0&&arr[idx]?String(arr[idx].status||'draft'):'__new__';
-    const copy=JSON.parse(JSON.stringify(window.q)); delete copy._editIndex;
-    if(idx>=0&&arr[idx]){copy.createdAt=arr[idx].createdAt||copy.createdAt;arr[idx]=copy;}else arr.unshift(copy);
+    const copy=JSON.parse(JSON.stringify(window.q)); delete copy._editIndex; delete copy._financialFingerprint;
+    if(idx>=0&&arr[idx]){copy.createdAt=arr[idx].createdAt||copy.createdAt;copy._onlineId=arr[idx]._onlineId||copy._onlineId;copy.ownerId=arr[idx].ownerId||copy.ownerId;arr[idx]=copy;}else arr.unshift(copy);
     window.quotes=arr.map(x=>typeof window.normalizeQuote==='function'?window.normalizeQuote(x):x);
     const activityRef=String(copy.reference||'record'),newStatus=String(copy.status||'draft');
     if(typeof window.saveQuotes==='function')window.saveQuotes();
@@ -2169,8 +2466,8 @@ html,body{min-height:100%;}
     $('appearanceEditor').innerHTML=Object.keys(ROLE_LABELS).map(k=>`<div class="appearance-picker"><div><b>${ROLE_LABELS[k]}</b><div class="appearance-swatch" style="margin-top:5px"><i style="background:${d[k]}"></i><span>${d[k]} • Auto text: ${d.text?.[k]||bestTextColor(d[k])}</span></div></div><input type="color" value="${d[k]}" data-appearance-role="${k}" aria-label="${ROLE_LABELS[k]}" oninput="window.keaAppearanceColorChanged('${k}',this.value)"></div>`).join('')+`<div class="appearance-preview"><div class="preview-bar" style="background:${d.primary};color:${d.text.primary||bestTextColor(d.primary)}">Sample Top Bar / Bottom Nav</div><div class="preview-card" style="background:${d.surface};color:${d.text.surface||bestTextColor(d.surface)}">Sample Card<div class="preview-actions"><span class="btn" style="background:${d.primary};color:${d.text.primary||bestTextColor(d.primary)}">Primary</span><span class="btn" style="background:${d.accent};color:${d.text.accent||bestTextColor(d.accent)}">Gold</span></div></div></div><div class="appearance-actions"><button class="btn outline" type="button" onclick="window.keaResetAppearance('${appearanceMode}')">Reset to Default</button><button class="btn primary" type="button" onclick="window.keaSaveAppearance('${appearanceMode}')">Save Appearance</button></div>`;
   }
   window.keaAppearanceColorChanged=function(role,value){if(!appearanceDraft[appearanceMode])appearanceDraft[appearanceMode]=readMode(appearanceMode);const d=appearanceDraft[appearanceMode];d[role]=value;d.text=d.text||{};d.text[role]=bestTextColor(value);render();};
-  window.keaSaveAppearance=function(mode){const d=appearanceDraft[mode]||readMode(mode);const saved=withText(mode,d);localStorage.setItem(APPEARANCE_KEYS[mode],JSON.stringify(saved));appearanceDraft[mode]=clone(saved);applyAppearance(mode);render();};
-  window.keaResetAppearance=function(mode){localStorage.removeItem(APPEARANCE_KEYS[mode]);appearanceDraft[mode]=clone(DEFAULTS[mode]);appearanceDraft[mode].text=withText(mode,appearanceDraft[mode]).text;applyAppearance(mode);render();};
+  window.keaSaveAppearance=async function(mode){if(!isSuperAdmin())return alert('Only Super Admin can change Appearance.');const d=appearanceDraft[mode]||readMode(mode);const saved=withText(mode,d);localStorage.setItem(APPEARANCE_KEYS[mode],JSON.stringify(saved));appearanceDraft[mode]=clone(saved);applyAppearance(mode);render();if(typeof window.upsertConfig==='function'){const ok=await window.upsertConfig(mode==='night'?'appearance_night':'appearance_day',saved);if(!ok&&window.keaV201QueueWrite)window.keaV201QueueWrite('config',APPEARANCE_KEYS[mode]);}};
+  window.keaResetAppearance=async function(mode){if(!isSuperAdmin())return alert('Only Super Admin can reset Appearance.');appearanceDraft[mode]=clone(DEFAULTS[mode]);appearanceDraft[mode].text=withText(mode,appearanceDraft[mode]).text;localStorage.setItem(APPEARANCE_KEYS[mode],JSON.stringify(appearanceDraft[mode]));applyAppearance(mode);render();if(typeof window.upsertConfig==='function'){const ok=await window.upsertConfig(mode==='night'?'appearance_night':'appearance_day',appearanceDraft[mode]);if(!ok&&window.keaV201QueueWrite)window.keaV201QueueWrite('config',APPEARANCE_KEYS[mode]);}};
   window.selectAppearanceMode=function(mode){appearanceMode=mode==='night'?'night':'day';if(!appearanceDraft[appearanceMode])appearanceDraft[appearanceMode]=readMode(appearanceMode);render();};
   window.renderAppearanceSettings=function(){appearanceMode=document.documentElement.getAttribute('data-theme')==='night'?'night':'day';if(!appearanceDraft[appearanceMode])appearanceDraft[appearanceMode]=readMode(appearanceMode);render();};
   window.applySavedAppearance=function(mode){appearanceMode=mode==='night'?'night':'day';appearanceDraft[appearanceMode]=readMode(appearanceMode);applyAppearance(appearanceMode);};
@@ -2181,7 +2478,7 @@ html,body{min-height:100%;}
 <script id="kea-theme-runtime">
 (function(){
   const THEME_KEY='keaThemeMode';
-  function applyThemeMode(mode){mode=mode==='night'?'night':'day';document.documentElement.setAttribute('data-theme',mode);localStorage.setItem(THEME_KEY,mode);const b=document.getElementById('themeToggle');if(b){const night=mode==='night';b.setAttribute('aria-label',night?'Switch to day mode':'Switch to night mode');b.title=night?'Switch to day mode':'Switch to night mode';}}
+  function applyThemeMode(mode){mode=mode==='night'?'night':'day';document.documentElement.setAttribute('data-theme',mode);localStorage.setItem(THEME_KEY,mode);if(typeof window.applySavedAppearance==='function')window.applySavedAppearance(mode);const b=document.getElementById('themeToggle');if(b){const night=mode==='night';b.setAttribute('aria-label',night?'Switch to day mode':'Switch to night mode');b.title=night?'Switch to day mode':'Switch to night mode';}}
   window.toggleThemeMode=function(){applyThemeMode(document.documentElement.getAttribute('data-theme')==='night'?'day':'night');};
   window.applyThemeMode=applyThemeMode;
   applyThemeMode(document.documentElement.getAttribute('data-theme')||'day');
